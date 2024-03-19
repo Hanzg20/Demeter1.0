@@ -1,4 +1,3 @@
-
 # Demeter -- smart Food Waste Reduction Platform
 
 Demeter is a smart food waste reduction platform designed to help individuals and businesses minimize food waste and promote sustainability. Named after the goddess of the harvest in Greek mythology, Demeter aims to preserve the fertility of the earth by reducing wastage in the food supply chain.
