@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS FWRP;
-CREATE DATABASE FWRP;
-USE FWRP;
+DROP DATABASE IF EXISTS db_a88623_fwrp;
+CREATE DATABASE db_a88623_fwrp;
+USE db_a88623_fwrp;
 
 -- Set SQL mode and foreign key checks
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `user_function` (
 CREATE TABLE IF NOT EXISTS `subscription` (
   `subs_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11),
-  `Notific_method` VARCHAR(3),
+  `Notific_method` VARCHAR(8),
   `Item_location` VARCHAR(60),
   `Item_price` DECIMAL(10,2),
   `Item_type` INT(5) NOT NULL,
@@ -128,9 +128,6 @@ CREATE TABLE IF NOT EXISTS `item` (
   CONSTRAINT `fk_item_Location1` FOREIGN KEY (`Location_id`) REFERENCES `Location` (`Location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
-
-
-
 -- Drop Table item_listing if exists
 DROP TABLE IF EXISTS `item_listing`;
 CREATE TABLE IF NOT EXISTS `item_listing` (
@@ -157,26 +154,6 @@ DROP TABLE IF EXISTS `Transaction`;
 
 -- Create Table Transaction
 CREATE TABLE IF NOT EXISTS `Transaction` (
-  `Tran_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `Tran_type_id` INT(11) NOT NULL,
-  `Listing_id` INT(11) NULL DEFAULT NULL,
-  `User_id` INT(11) NULL DEFAULT NULL,
-  `Quantity` INT(11) NULL,
-  `Tran_date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP(),
-  PRIMARY KEY (`Tran_id`),
-  INDEX `listing_id` (`Listing_id`),
-  INDEX `user_id` (`User_id`),
-  INDEX `fk_Transaction_Transaction_type1_idx` (`Tran_type_id`),
-  CONSTRAINT `claimedfooditems_ibfk_1` FOREIGN KEY (`Listing_id`) REFERENCES `item_listing` (`Listing_id`),
-  CONSTRAINT `claimedfooditems_ibfk_2` FOREIGN KEY (`User_id`) REFERENCES `user` (`User_id`),
-  CONSTRAINT `fk_Transaction_Transaction_type1` FOREIGN KEY (`Tran_type_id`) REFERENCES `Transaction_type` (`Tran_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-);
-
--- Drop Table notification if exists
-DROP TABLE IF EXISTS `notification`;
-
--- Create Table notification
-CREATE TABLE IF NOT EXISTS `notification` (
   `Tran_id` INT(11) NOT NULL AUTO_INCREMENT,
   `Tran_type_id` INT(11) NOT NULL,
   `Listing_id` INT(11) NULL DEFAULT NULL,
@@ -242,6 +219,11 @@ INSERT INTO user_function (function_id, role_id) VALUES
 (7, 2),
 (8, 3);
 
+INSERT INTO Item_type (Item_type_id, Item_type_name ) VALUES 
+(1, 'ItemType1'),
+(2, 'ItemType2'),
+(3, 'ItemType3');
+
 -- Insert test data into subscription table
 INSERT INTO subscription (user_id, Notific_method, Item_location, Item_price, Item_type) VALUES
 (1, 'SMS', 'Ottawa Central Market', 10.50, 1),
@@ -268,10 +250,6 @@ INSERT INTO item_listing (Item_id, Is_donation, Discount_rate, Listing_date) VAL
 (2, 1, NULL, '2024-06-02'),
 (4, 0, 0.20, '2024-06-03');
 
-INSERT INTO Transaction_type (Tran_type_id, Tran_type_name ) VALUES 
-(1, 'Purchase'),
-(2, 'Claim'),
-(3, 'others');
 
 INSERT INTO Transaction_type (Tran_type_id, Tran_type_name ) VALUES 
 (1, 'Purchase'),
