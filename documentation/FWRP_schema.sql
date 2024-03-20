@@ -1,6 +1,13 @@
-DROP DATABASE IF EXISTS db_a88623_fwrp;
-CREATE DATABASE db_a88623_fwrp;
-USE db_a88623_fwrp;
+-- ========================================
+--  Demeter FWRP Data Info Model Script
+--  Purpose：For24w- Java final project
+--  Version history：
+--  -V0.1 -2023/03/17  create by Zhaoguo Han
+--  -V0.2 -2023/03/20  update by Zhaoguo Han
+-- ===========================================
+DROP DATABASE IF EXISTS FWRP;
+CREATE DATABASE FWRP;
+USE FWRP;
 
 -- Set SQL mode and foreign key checks
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
@@ -53,7 +60,9 @@ CREATE TABLE IF NOT EXISTS `role` (
 
 CREATE TABLE IF NOT EXISTS `sysfunction` (
   `function_id` INT(11) NOT NULL AUTO_INCREMENT,
-  `function_name` VARCHAR(100) NULL DEFAULT NULL,
+  `function_name` VARCHAR(100) NOT NULL,
+  `web_title`  VARCHAR(50) NULL DEFAULT NULL,
+  `JSP_link`  VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`function_id`)
 );
 
@@ -82,14 +91,15 @@ CREATE TABLE IF NOT EXISTS `user_function` (
 CREATE TABLE IF NOT EXISTS `subscription` (
   `subs_id` INT(11) NOT NULL AUTO_INCREMENT,
   `user_id` INT(11),
-  `Notific_method` VARCHAR(8),
-  `Item_location` VARCHAR(60),
+  `Notific_method` VARCHAR(3),
+  `Location_id` INT NOT NULL, 
   `Item_price` DECIMAL(10,2),
   `Item_type` INT(5) NOT NULL,
   PRIMARY KEY (`subs_id`),
   INDEX `user_id` (`user_id`),
   INDEX `fk_sub_Item_type1_idx` (`Item_type`),
   CONSTRAINT `fk_sub_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`User_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk__Location2` FOREIGN KEY (`Location_id`) REFERENCES `Location` (`Location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_sub_Item_type1` FOREIGN KEY (`Item_type`) REFERENCES `Item_type` (`Item_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
@@ -105,7 +115,6 @@ CREATE TABLE IF NOT EXISTS `notification` (
 );
 
 -- Drop Table item if exists
-DROP TABLE IF EXISTS `item`;
 CREATE TABLE IF NOT EXISTS `item` (
   `Item_id` INT(11) NOT NULL AUTO_INCREMENT,
   `Item_name` VARCHAR(100) NULL DEFAULT NULL,
@@ -128,8 +137,6 @@ CREATE TABLE IF NOT EXISTS `item` (
   CONSTRAINT `fk_item_Location1` FOREIGN KEY (`Location_id`) REFERENCES `Location` (`Location_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
--- Drop Table item_listing if exists
-DROP TABLE IF EXISTS `item_listing`;
 CREATE TABLE IF NOT EXISTS `item_listing` (
   `Listing_id` INT(11) NOT NULL AUTO_INCREMENT,
   `Item_id` INT(11) NULL DEFAULT NULL,
@@ -141,16 +148,11 @@ CREATE TABLE IF NOT EXISTS `item_listing` (
   CONSTRAINT `fk_item_listing_item1` FOREIGN KEY (`Item_id`) REFERENCES `item` (`Item_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
--- Drop Table Transaction_type if exists
-DROP TABLE IF EXISTS `Transaction_type`;
 CREATE TABLE IF NOT EXISTS `Transaction_type` (
   `Tran_type_id` INT(11) NOT NULL,
   `Tran_type_name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`Tran_type_id`)
 );
-
--- Drop Table Transaction if exists
-DROP TABLE IF EXISTS `Transaction`;
 
 -- Create Table Transaction
 CREATE TABLE IF NOT EXISTS `Transaction` (
@@ -169,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `Transaction` (
   CONSTRAINT `fk_Transaction_Transaction_type1` FOREIGN KEY (`Tran_type_id`) REFERENCES `Transaction_type` (`Tran_type_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
----- Test data========================================================
+-- Test data========================================================
 -- Insert test data into Location table
 INSERT INTO Location (Location_name, Address) VALUES
 ('Ottawa Central Market', '123 Main St, Ottawa'),
@@ -181,7 +183,6 @@ INSERT INTO role_type (Role_type_id, Role_type_name) VALUES
 (1, 'Items Provider'),
 (2, 'Consumer'),
 (3, 'Charitable Organization');
-
 
 -- Insert test data into role table for Food Supplier
 INSERT INTO role (Role_name, Role_type) VALUES
@@ -219,16 +220,11 @@ INSERT INTO user_function (function_id, role_id) VALUES
 (7, 2),
 (8, 3);
 
-INSERT INTO Item_type (Item_type_id, Item_type_name ) VALUES 
-(1, 'ItemType1'),
-(2, 'ItemType2'),
-(3, 'ItemType3');
-
 -- Insert test data into subscription table
-INSERT INTO subscription (user_id, Notific_method, Item_location, Item_price, Item_type) VALUES
-(1, 'SMS', 'Ottawa Central Market', 10.50, 1),
-(2, 'Email', 'Ottawa Community Kitchen', 15.75, 2),
-(3, 'Push', 'Ottawa Food Bank', 20.00, 3);
+INSERT INTO subscription (user_id, Notific_method, location_id, Item_price, Item_type) VALUES
+(1, 'SMS', 1 ,10.50, 1),
+(2, 'Email', 2, 15.75, 2),
+(3, 'Push', 3,20.00, 3);
 
 -- Insert test data into notification table
 INSERT INTO notification (user_id, message, status) VALUES
@@ -243,18 +239,17 @@ INSERT INTO item (Item_name, Unit, Location_id, User_id, Item_type, Quantity, Ex
 ('Canned Soup', 'can', 3, 3, 3, 30, '2024-06-03', 12.00, 'S'), -- S-Sold
 ('Rice', 'kg', 1, 1, 1, 50, '2024-06-01', 10.50, 'E'); -- Excess of demand
 
-
 -- Insert test data into item_listing table
 INSERT INTO item_listing (Item_id, Is_donation, Discount_rate, Listing_date) VALUES
 (1, 0, 0.10, '2024-06-01'),
 (2, 1, NULL, '2024-06-02'),
 (4, 0, 0.20, '2024-06-03');
 
-
 INSERT INTO Transaction_type (Tran_type_id, Tran_type_name ) VALUES 
 (1, 'Purchase'),
 (2, 'Claim'),
 (3, 'others');
+
 
 INSERT INTO Transaction(Tran_ID, Tran_type_id, Listing_id, User_id, Quantity, Tran_date) VALUES
 (1,1, 1, 1, 5, '2024-06-01'),
