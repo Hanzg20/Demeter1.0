@@ -1,15 +1,15 @@
 package dataaccesslayer;
 
-import model.UserDto;
+import model.UserDTO;
 import java.util.List;
 
 public class UserDaoImplTest {
     public static void main(String[] args) {
         // Create an instance of UserDaoImpl
-        DAO<UserDto> userDao = new UserDaoImpl();
+        DAO<UserDTO> userDao = new UserDaoImpl();
 
         // Test insert method
-        UserDto newUser = new UserDto();
+        UserDTO newUser = new UserDTO();
         newUser.setUsername("John");
         newUser.setRoleId(1);
         newUser.setEmail("john@example.com");
@@ -23,15 +23,15 @@ public class UserDaoImplTest {
         }
 
         // Test findAll method
-        List<UserDto> allUsers = userDao.findAll();
+        List<UserDTO> allUsers = userDao.findAll();
         System.out.println("All Users:");
-        for (UserDto user : allUsers) {
+        for (UserDTO user : allUsers) {
             System.out.println("User ID: " + user.getUserId() + ", Name: " + user.getUsername() + ", Role ID: " + user.getRoleId() + ", Email: " + user.getEmail() + ", Password: " + user.getPassword());
         }
 
         // Test findById method
         int userIdToFind = 1;
-        UserDto foundUser = userDao.findById(userIdToFind);
+        UserDTO foundUser = userDao.findById(userIdToFind);
         if (foundUser != null) {
             System.out.println("User found by ID " + userIdToFind + ": " + foundUser.getUsername());
         } else {

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import businesslayer.UserBusinessLogic;
-import model.UserDto;
+import model.UserDTO;
 
 @WebServlet("/UserServlet")
 public class UserServlet extends HttpServlet {
@@ -20,7 +20,7 @@ public class UserServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
-        List<UserDto> users = null;
+        List<UserDTO> users = null;
 
         try {
             users = userBusinessLogic.getAllUsers();
@@ -48,7 +48,7 @@ public class UserServlet extends HttpServlet {
         String password = request.getParameter("password");
          String CreateDate = request.getParameter("password");
 
-        UserDto user = new UserDto();
+        UserDTO user = new UserDTO();
         user.setUsername(name);
         user.setRoleId(roleId);
         user.setEmail(email);
