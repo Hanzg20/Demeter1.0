@@ -2,7 +2,7 @@ package businesslayer;
 
 import java.sql.SQLException;
 import java.util.List;
-import model.UserDto;
+import model.UserDTO;
 import dataaccesslayer.UserDaoImpl;
 
 public class UserBusinessLogic {
@@ -12,11 +12,11 @@ public class UserBusinessLogic {
         this.userDao = new UserDaoImpl();
     }
 
-    public void addUser(UserDto user) throws SQLException {
+    public void addUser(UserDTO user) throws SQLException {
         userDao.insert(user);
     }
 
-    public List<UserDto> getAllUsers() throws SQLException {
+    public List<UserDTO> getAllUsers() throws SQLException {
         return userDao.findAll();
     }
 

@@ -5,9 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import model.UserDto;
+import model.UserDTO;
 
-public class UserDaoImpl extends DAOImpl<UserDto> {
+public class UserDaoImpl extends DAOImpl<UserDTO> {
 
     final static String SQL_INSERT = "INSERT INTO user (Name, Role_id, Email, Password) VALUES (?, ?, ?, ?)";
     final static String SQL_DELETE_ALL = "DELETE FROM user";
@@ -17,7 +17,7 @@ public class UserDaoImpl extends DAOImpl<UserDto> {
     final static String SQL_RETRIEVE_ALL = "SELECT * FROM user";
 
     @Override
-    public int insert(UserDto user) {
+    public int insert(UserDTO user) {
 
         try {
             return dataSource.executeUpdate(SQL_INSERT, user.getUsername(), user.getRoleId(), user.getEmail(), user.getPassword());
@@ -42,7 +42,7 @@ public class UserDaoImpl extends DAOImpl<UserDto> {
     }
 
     @Override
-    public int update(UserDto user) {
+    public int update(UserDTO user) {
 
         try {
             return dataSource.executeUpdate(SQL_UPDATE, user.getUsername(), user.getRoleId(), user.getEmail(), user.getUserId());
@@ -53,10 +53,10 @@ public class UserDaoImpl extends DAOImpl<UserDto> {
     }
 
     @Override
-    public UserDto findById(Serializable id) {
+    public UserDTO findById(Serializable id) {
         try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
-                UserDto user = new UserDto();
+                UserDTO user = new UserDTO();
                 user.setUserId(resultSet.getInt("user_id"));
                 user.setEmail(resultSet.getString("name"));
                 user.setRoleId(resultSet.getInt("role_id"));
@@ -69,11 +69,11 @@ public class UserDaoImpl extends DAOImpl<UserDto> {
     }
 
     @Override
-    public List<UserDto> findAll() {
-        List<UserDto> users = new ArrayList<>();
+    public List<UserDTO> findAll() {
+        List<UserDTO> users = new ArrayList<>();
         try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                UserDto user = new UserDto();
+                UserDTO user = new UserDTO();
                 user.setUserId(resultSet.getInt("user_id"));
                 user.setEmail(resultSet.getString("name"));
                 user.setRoleId(resultSet.getInt("role_id"));

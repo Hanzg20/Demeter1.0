@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package model;
 
 import java.sql.Timestamp;
@@ -10,19 +6,19 @@ import java.sql.Timestamp;
  *
  * @author hanzg
  */
-public class UserDto {
-  private int userId;
+public class UserDTO {
+    private int userId;
     private String username;
     private int roleId;
     private String email;
     private String password;
     private Timestamp createDate;
 
-    public UserDto() {
+    public UserDTO() {
         // Default constructor
     }
 
-    public UserDto(int userId, String username, String email,String password) {
+    public UserDTO(int userId, String username, String email,String password) {
         this.userId = userId;
         this.username = username;
         this.email = email;
