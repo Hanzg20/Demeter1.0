@@ -81,7 +81,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     @Override
     public List<ItemListingDTO> RetrieveAll() {
         List<ItemListingDTO> itemListings = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO itemListing = new ItemListingDTO();
                  itemListing.setListingId(resultSet.getInt("Listing_id"));

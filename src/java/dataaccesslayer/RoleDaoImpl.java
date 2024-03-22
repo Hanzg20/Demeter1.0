@@ -78,7 +78,7 @@ public class RoleDaoImpl extends DAOImpl<RoleDTO> {
     @Override
     public List<RoleDTO> RetrieveAll() {
         List<RoleDTO> roles = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                RoleDTO role = new RoleDTO();
                role.setRoleId(resultSet.getInt("Role_id"));

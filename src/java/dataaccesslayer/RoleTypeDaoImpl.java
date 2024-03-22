@@ -77,7 +77,7 @@ public class RoleTypeDaoImpl extends DAOImpl<RoleTypeDTO> {
     @Override
     public List<RoleTypeDTO> RetrieveAll() {
         List<RoleTypeDTO> roleTypes = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                RoleTypeDTO roleType = new RoleTypeDTO();
                roleType.setTypeId(resultSet.getInt("Role_type_id"));
