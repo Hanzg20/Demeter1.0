@@ -17,7 +17,7 @@ public class UserBusinessLogic {
     }
 
     public List<UserDTO> getAllUsers() throws SQLException {
-        return userDao.findAll();
+        return userDao.RetrieveAll();
     }
 
     // Add more methods for user-related business logic as needed

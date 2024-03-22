@@ -22,16 +22,16 @@ public class UserDaoImplTest {
             System.out.println("Failed to insert user.");
         }
 
-        // Test findAll method
-        List<UserDTO> allUsers = userDao.findAll();
+        // Test RetrieveAll method
+        List<UserDTO> allUsers = userDao.RetrieveAll();
         System.out.println("All Users:");
         for (UserDTO user : allUsers) {
             System.out.println("User ID: " + user.getUserId() + ", Name: " + user.getUsername() + ", Role ID: " + user.getRoleId() + ", Email: " + user.getEmail() + ", Password: " + user.getPassword());
         }
 
-        // Test findById method
+        // Test Retrieve method
         int userIdToFind = 1;
-        UserDTO foundUser = userDao.findById(userIdToFind);
+        UserDTO foundUser = userDao.Retrieve(userIdToFind);
         if (foundUser != null) {
             System.out.println("User found by ID " + userIdToFind + ": " + foundUser.getUsername());
         } else {

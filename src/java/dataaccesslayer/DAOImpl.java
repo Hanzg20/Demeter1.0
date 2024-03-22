@@ -10,7 +10,7 @@ import java.util.List;
 public class DAOImpl<T> implements DAO<T> {
 
     protected DataSource dataSource = DataSource.getInstance();
-
+    
     @Override
     public int insert(T t) {
         return 0;
@@ -27,12 +27,12 @@ public class DAOImpl<T> implements DAO<T> {
     }
 
     @Override
-    public T findById(Serializable id) {
+    public T Retrieve(Serializable id) {
         return null;
     }
 
     @Override
-    public List<T> findAll() {
+    public List<T> RetrieveAll() {
         return null;
     }
 

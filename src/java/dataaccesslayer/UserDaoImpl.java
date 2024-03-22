@@ -12,15 +12,15 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     final static String SQL_INSERT = "INSERT INTO user (Name, Role_id, Email, Password) VALUES (?, ?, ?, ?)";
     final static String SQL_DELETE_ALL = "DELETE FROM user";
     final static String SQL_DELETE = "DELETE FROM user WHERE user_id = ?";
-    final static String SQL_UPDATE = "UPDATE user SET Name = ?, Role_id = ?, Email = ? WHERE user_id = ?";
+    final static String SQL_UPDATE = "UPDATE user SET Name = ?, Role_id = ?, Email = ? WHERE User_id = ?";
     final static String SQL_RETRIEVE = "SELECT * FROM user WHERE user_id = ?";
     final static String SQL_RETRIEVE_ALL = "SELECT * FROM user";
-
+    
     @Override
     public int insert(UserDTO user) {
 
         try {
-            return dataSource.executeUpdate(SQL_INSERT, user.getUsername(), user.getRoleId(), user.getEmail(), user.getPassword());
+            return dataSource.execute(SQL_INSERT, user.getUsername(), user.getRoleId(), user.getEmail(), user.getPassword());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -31,9 +31,9 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.executeUpdate(SQL_DELETE_ALL);
+                return dataSource.execute(SQL_DELETE_ALL);
             } else {
-                return dataSource.executeUpdate(SQL_DELETE, id);
+                return dataSource.execute(SQL_DELETE, id);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -45,7 +45,7 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     public int update(UserDTO user) {
 
         try {
-            return dataSource.executeUpdate(SQL_UPDATE, user.getUsername(), user.getRoleId(), user.getEmail(), user.getUserId());
+            return dataSource.execute(SQL_UPDATE, user.getUsername(), user.getRoleId(), user.getEmail(), user.getUserId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -53,8 +53,8 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     }
 
     @Override
-    public UserDTO findById(Serializable id) {
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
+    public UserDTO Retrieve(Serializable id) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 UserDTO user = new UserDTO();
                 user.setUserId(resultSet.getInt("user_id"));
@@ -69,7 +69,7 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     }
 
     @Override
-    public List<UserDTO> findAll() {
+    public List<UserDTO> RetrieveAll() {
         List<UserDTO> users = new ArrayList<>();
         try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {

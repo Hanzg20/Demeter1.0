@@ -28,6 +28,10 @@ public class ItemListingDTO {
         this.listingDate = listingDate;
     }
 
+    public ItemListingDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
+
     public int getListingId() {
         return listingId;
     }
