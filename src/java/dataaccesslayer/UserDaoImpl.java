@@ -71,7 +71,7 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     @Override
     public List<UserDTO> RetrieveAll() {
         List<UserDTO> users = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 UserDTO user = new UserDTO();
                 user.setUserId(resultSet.getInt("user_id"));

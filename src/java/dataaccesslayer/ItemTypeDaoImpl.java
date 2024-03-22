@@ -78,7 +78,7 @@ public class ItemTypeDaoImpl extends DAOImpl<ItemTypeDTO> {
     @Override
     public List<ItemTypeDTO> RetrieveAll() {
         List<ItemTypeDTO> itemTypes = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemTypeDTO itemType = new ItemTypeDTO();
                 itemType.setItemId(resultSet.getInt("Item__type_id"));

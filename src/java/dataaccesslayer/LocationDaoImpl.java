@@ -78,7 +78,7 @@ public class LocationDaoImpl extends DAOImpl<LocationDTO> {
     @Override
     public List<LocationDTO> RetrieveAll() {
         List<LocationDTO> locations = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 LocationDTO location = new LocationDTO();
                 location.setLocationId(resultSet.getInt("Location_id"));

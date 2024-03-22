@@ -71,7 +71,7 @@ public class DataSource {
         }
     }
 
-    public PreparedStatement query(String sql) throws SQLException {
+    public PreparedStatement prepareStatement(String sql) throws SQLException {
         try {
             Connection conn = DataSource.getInstance().createConnection();
             return conn.prepareStatement(sql);

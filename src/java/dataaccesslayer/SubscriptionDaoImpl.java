@@ -81,7 +81,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     @Override
     public List<SubscriptionDTO> RetrieveAll() {
         List<SubscriptionDTO> subscriptions = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 SubscriptionDTO subscription = new SubscriptionDTO();
                 subscription.setSubsId(resultSet.getInt("subs_id"));

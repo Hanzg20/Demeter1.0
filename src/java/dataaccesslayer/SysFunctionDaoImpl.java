@@ -77,7 +77,7 @@ public class SysFunctionDaoImpl extends DAOImpl<SysFunctionDTO> {
     @Override
     public List<SysFunctionDTO> RetrieveAll() {
         List<SysFunctionDTO> sysFunctions = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                  SysFunctionDTO sysFunction = new SysFunctionDTO();
                 sysFunction.setFuncId(resultSet.getInt("function_id"));

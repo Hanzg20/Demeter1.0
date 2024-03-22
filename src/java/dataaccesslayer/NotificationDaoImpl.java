@@ -80,7 +80,7 @@ public class NotificationDaoImpl extends DAOImpl<NotificationDTO> {
     @Override
     public List<NotificationDTO> RetrieveAll() {
         List<NotificationDTO> notifications = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.query(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 NotificationDTO notification = new NotificationDTO();
                 notification.setNotiId(resultSet.getInt("noti_id"));

@@ -14,6 +14,10 @@ public class TransactionTypeDTO {
         this.tranTypeName = tranTypeName;
     }
 
+    public TransactionTypeDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getTranTypeId() {
         return tranTypeId;
     }
