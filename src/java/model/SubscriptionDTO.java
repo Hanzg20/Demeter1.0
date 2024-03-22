@@ -22,6 +22,10 @@ public class SubscriptionDTO {
         this.itemTypeId = itemTypeId;
     }
 
+    public SubscriptionDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getSubsId() {
         return subsId;
     }

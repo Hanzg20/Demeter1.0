@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package dataaccesslayer;
 
 import java.io.Serializable;
@@ -43,12 +40,12 @@ public interface DAO<T> {
      * @param id The ID of the record to find.
      * @return The record object if found, null otherwise.
      */
-    public T findById(Serializable id);
+    public T Retrieve(Serializable id);
 
     /**
      * Retrieves all records from the database.
      *
      * @return A list of all record objects in the database.
      */
-    public List<T> findAll();
+    public List<T> RetrieveAll();
 }

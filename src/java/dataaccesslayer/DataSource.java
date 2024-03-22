@@ -48,7 +48,7 @@ public class DataSource {
 //            }
 //        }
 //    }
-    public int executeUpdate(String sql) throws SQLException {
+    public int execute(String sql) throws SQLException {
         try (Connection conn = getInstance().createConnection(); Statement statement = conn.createStatement()) {
             return statement.executeUpdate(sql);
         } catch (SQLException ex) {
@@ -57,7 +57,7 @@ public class DataSource {
         }
     }
 
-    public int executeUpdate(String sql, Object... params) throws SQLException {
+    public int execute(String sql, Object... params) throws SQLException {
         try (Connection conn = getInstance().createConnection(); // Call createConnection on an instance
                  PreparedStatement statement = conn.prepareStatement(sql)) {
             // Set parameters
@@ -81,7 +81,7 @@ public class DataSource {
         }
     }
 
-    public PreparedStatement query(String sql, Object... params) throws SQLException {
+    public PreparedStatement prepareStatement(String sql, Object... params) throws SQLException {
         try {
             Connection conn = getInstance().createConnection();
             // Call createConnection on an instance

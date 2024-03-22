@@ -16,6 +16,10 @@ public class RoleDTO {
         this.roleTypeId = roleTypeId;
     }
 
+    public RoleDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getRoleId() {
         return roleId;
     }

@@ -5,13 +5,17 @@ package model;
  *
  * @author Glily
  */
-public class SysFunction {
+public class SysFunctionDTO {
     private int funcId;
     private String funcName;
 
-    public SysFunction(int funcId, String funcName) {
+    public SysFunctionDTO(int funcId, String funcName) {
         this.funcId = funcId;
         this.funcName = funcName;
+    }
+
+    public SysFunctionDTO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getFuncId() {
