@@ -1,23 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
+
 package controller;
 
+import dataaccesslayer.DAO;
+import dataaccesslayer.ItemDaoImpl;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.ItemDTO;
 
 /**
  *
- * @author liyingguo
+ * @author Glily
  */
-@WebServlet(name = "AuthControllerServlet", urlPatterns = {"/auth/*"})
-public class AuthControllerServlet extends HttpServlet {
+@WebServlet(name = "InventoryControllerServlet", urlPatterns = {"/inventory/*"})
+public class InventoryControllerServlet extends HttpServlet {
+
+        private DAO<ItemDTO> itemDao = new ItemDaoImpl();
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,13 +39,15 @@ public class AuthControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch(action)
         {
-            case "/login":
-                goTo(request,response,"/login.jsp");
+            case "/items":
+                List<ItemDTO> items = itemDao.RetrieveAll();
+                request.setAttribute("items", items);
+                goTo(request,response,"/inventoryItems.jsp");
             break;
-            case "/register":
-                goTo(request,response,"/register.jsp");
-            break;
-        }    }
+            
+          }
+
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
