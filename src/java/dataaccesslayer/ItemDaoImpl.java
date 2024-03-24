@@ -13,7 +13,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     final static String SQL_DELETE_ALL = "DELETE FROM item";
     final static String SQL_DELETE = "DELETE FROM item WHERE item_id = ?";
     final static String SQL_UPDATE = "UPDATE item SET Item_name=?, Unit=?, Location_id=?, Create_date=?, User_id=?, Item_type=?, Quantity=?, Expir_date=?, Price=?, Status=?, Status_date=?";
-    final static String SQL_RETRIEVE = "SELECT * FROM item WHERE item_id = ?";
+    final static String SQL_RETRIEVE = "SELECT item_id, Item_name, Unit, Location_id, Create_date, User_id, Item_type, Quantity, Expir_date, Price, Status, Status_date FROM item WHERE item_id = ?";
     final static String SQL_RETRIEVE_ALL = "SELECT * FROM item";
     
     @Override
@@ -89,14 +89,14 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
                 item.setItemName(resultSet.getString("Item_name"));
                 item.setUnit(resultSet.getString("Unit"));
                 item.setLocationId(resultSet.getInt("Location_id"));
-                item.setCreateDate(resultSet.getLong("Create_date"));
+                //item.setCreateDate(resultSet.getLong("Create_date"));
                 item.setUserId(resultSet.getInt("User_id"));
                 item.setItemType(resultSet.getInt("Item_type"));
                 item.setQuantity(resultSet.getInt("Quantity"));
-                item.setExpirDate(resultSet.getInt("Expir_date"));
+                //item.setExpirDate(resultSet.getInt("Expir_date"));
                 item.setPrice(resultSet.getDouble("Price"));
                 item.setStatus(resultSet.getString("Status"));
-                item.setStatusDate(resultSet.getLong("Status_date"));
+                //item.setStatusDate(resultSet.getLong("Status_date"));
                 items.add(item);
             }
         } catch (Exception ex) {
