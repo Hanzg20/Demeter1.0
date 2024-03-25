@@ -17,7 +17,7 @@
         <thead>
             <tr>
                 <th>User ID</th>
-                <th>Name</th>
+                <th>User Name</th>
                 <th>Email</th>
                 <th>Role ID</th>
                 <th>Create Date</th>
@@ -28,10 +28,10 @@
             <c:forEach var="user" items="${users}">
                 <tr>
                     <td>${user.userId}</td>
-                    <td>${user.name}</td>
+                    <td>${user.username}</td>
                     <td>${user.email}</td>
                     <td>${user.roleId}</td>
-                    <td>${user.createDate}</td>
+                    <td>${user.userId}</td>
                     <!-- Add more columns if needed -->
                 </tr>
             </c:forEach>

@@ -42,18 +42,18 @@ public class UserServlet extends HttpServlet {
 
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
-        String name = request.getParameter("name");
+        String username = request.getParameter("username");
         int roleId = Integer.parseInt(request.getParameter("roleId"));
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-         String CreateDate = request.getParameter("password");
+        // String CreateDate = request.getParameter("password");
 
         UserDTO user = new UserDTO();
-        user.setUsername(name);
+        user.setUsername(username);
         user.setRoleId(roleId);
         user.setEmail(email);
         user.setPassword(password);
-        user.setCreateDate(CreateDate);
+      //  user.setCreateDate(CreateDate);
 
         try {
             userBusinessLogic.addUser(user);
