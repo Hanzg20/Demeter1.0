@@ -12,17 +12,16 @@ public class UserDTO {
     private int roleId;
     private String email;
     private String password;
-    private Timestamp createDate;
-
+    
     public UserDTO() {
         // Default constructor
     }
 
-    public UserDTO(int userId, String username, String email,String password) {
+   public UserDTO(int userId, String username, String email, String password) {
         this.userId = userId;
         this.username = username;
         this.email = email;
-        this.password =password;
+        this.password = password;
     }
 
 
@@ -66,15 +65,4 @@ public class UserDTO {
         this.password = password;
     }
 
-    public Timestamp getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
-
-    public void setCreateDate(String CreateDate) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
