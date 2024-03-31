@@ -1,12 +1,11 @@
 
 package controller;
 
+import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemDaoImpl;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,7 +41,7 @@ public class InventoryControllerServlet extends HttpServlet {
             case "/items":
                 List<ItemDTO> items = itemDao.RetrieveAll();
                 request.setAttribute("items", items);
-                goTo(request,response,"/inventoryItems.jsp");
+                NavigationHelper.goTo(request,response,"/inventoryItems.jsp");
             break;
             
           }
@@ -71,9 +70,4 @@ public class InventoryControllerServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void goTo(HttpServletRequest request, HttpServletResponse response,String path) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
-    }
 }
