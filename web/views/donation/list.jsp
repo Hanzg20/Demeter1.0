@@ -14,8 +14,8 @@
     <body>
           <nav>
             <ul>
-              <li><a href="/donation/claim">claim item</a></li>
-              <li><a href="/donation/claims">my claims</a></li>
+              <li><a href="claim">claim item</a></li>
+              <li><a href="claims">my claims</a></li>
             </ul>
           </nav>
         <h1>Hello World!</h1>
