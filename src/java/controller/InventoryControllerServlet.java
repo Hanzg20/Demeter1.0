@@ -38,10 +38,10 @@ public class InventoryControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch(action)
         {
-            case "/items":
+            default:
                 List<ItemDTO> items = itemDao.RetrieveAll();
                 request.setAttribute("items", items);
-                NavigationHelper.goTo(request,response,"/inventoryItems.jsp");
+                NavigationHelper.goTo(request,response,"/views/inventory/list.jsp");
             break;
             
           }
