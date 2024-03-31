@@ -17,6 +17,7 @@
             <ul>
               <li><a href="/inventory/add">add</a></li>
               <li><a href="/inventory/edit">edit</a></li>
+              <li><a href="/inventory/view">view/delete</a></li>
             </ul>
           </nav>
         <h1>Inventory works!</h1>
