@@ -29,7 +29,6 @@ public class ItemListingDTO {
     }
 
     public ItemListingDTO() {
-        throw new UnsupportedOperationException("Not supported yet."); 
     }
 
     public int getListingId() {
