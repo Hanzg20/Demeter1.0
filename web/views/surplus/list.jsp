@@ -14,8 +14,8 @@
     <body>
           <nav>
             <ul>
-              <li><a href="/surplus/donate">donate</a></li>
-              <li><a href="/surplus/sale">sale</a></li>
+              <li><a href="donate">donate</a></li>
+              <li><a href="sale">sale</a></li>
             </ul>
           </nav>
         <h1>Surplus Item works!</h1>

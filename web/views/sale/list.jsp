@@ -14,8 +14,8 @@
     <body>
           <nav>
             <ul>
-              <li><a href="/sale/order">purchase</a></li>
-              <li><a href="/sale/orders">my orders</a></li>
+              <li><a href="order">purchase</a></li>
+              <li><a href="orders">my orders</a></li>
             </ul>
           </nav>
         <h1>List works!</h1>
