@@ -1,6 +1,6 @@
 <%-- 
-    Document   : add
-    Created on : Mar 31, 2024, 11:08:33 a.m.
+    Document   : purchase
+    Created on : Mar 31, 2024, 11:45:09 a.m.
     Author     : liyingguo
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inventory-Add Item</title>
+        <title>Transaction Page</title>
     </head>
     <body>
-        <h1>Add works!</h1>
+        <h1>Purchase item!</h1>
     </body>
 </html>

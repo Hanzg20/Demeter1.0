@@ -10,10 +10,16 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Inventory</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+          <nav>
+            <ul>
+              <li><a href="/inventory/add">add</a></li>
+              <li><a href="/inventory/edit">edit</a></li>
+            </ul>
+          </nav>
+        <h1>Inventory works!</h1>
         <table>
             <tr>
                 <th>Item Id</th>

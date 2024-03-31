@@ -15,6 +15,9 @@
         <li><a href="auth/register">register</a></li>
         <li><a href="UserServlet">List Users</a></li>
         <li><a href="inventory/">inventory</a></li>
+        <li><a href="surplus/">surplus item</a></li>
+        <li><a href="sale/">items on sale</a></li>
+        <li><a href="donation/">items on donation</a></li>
       </ul>
     </nav>
 
