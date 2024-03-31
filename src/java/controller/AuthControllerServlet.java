@@ -4,8 +4,8 @@
  */
 package controller;
 
+import businesslayer.NavigationHelper;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,12 +35,13 @@ public class AuthControllerServlet extends HttpServlet {
         switch(action)
         {
             case "/login":
-                goTo(request,response,"/login.jsp");
+                NavigationHelper.goTo(request,response,"/login.jsp");
             break;
             case "/register":
-                goTo(request,response,"/register.jsp");
+                NavigationHelper.goTo(request,response,"/register.jsp");
             break;
-        }    }
+        }    
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -64,9 +65,4 @@ public class AuthControllerServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void goTo(HttpServletRequest request, HttpServletResponse response,String path) throws ServletException, IOException {
-        RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-        dispatcher.forward(request, response);
-    }
 }
