@@ -3,7 +3,7 @@ package controller;
 
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
-import dataaccesslayer.ItemDaoImpl;
+import dataaccesslayer.ItemListingDaoImpl;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -11,16 +11,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ItemDTO;
+import model.ItemListingDTO;
 
 /**
  *
  * @author Glily
  */
-@WebServlet(name = "InventoryControllerServlet", urlPatterns = {"/inventory/*"})
-public class InventoryControllerServlet extends HttpServlet {
+@WebServlet(name = "SaleControllerServlet", urlPatterns = {"/sale/*"})
+public class SaleControllerServlet extends HttpServlet {
 
-        private DAO<ItemDTO> itemDao = new ItemDaoImpl();
+        private DAO<ItemListingDTO> itemDao = new ItemListingDaoImpl();
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -38,16 +38,16 @@ public class InventoryControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch(action)
         {
-            case "/add":
-                NavigationHelper.goTo(request,response,"/views/inventory/add.jsp");
+            case "/order":
+                NavigationHelper.goTo(request,response,"/views/sale/order.jsp");
                 break;
-            case "/edit":
-                NavigationHelper.goTo(request,response,"/views/inventory/edit.jsp");
+            case "/orders":
+                NavigationHelper.goTo(request,response,"/views/sale/orders.jsp");
                 break;
             default:
-                List<ItemDTO> items = itemDao.RetrieveAll();
+                List<ItemListingDTO> items = itemDao.RetrieveAll();
                 request.setAttribute("items", items);
-                NavigationHelper.goTo(request,response,"/views/inventory/list.jsp");
+                NavigationHelper.goTo(request,response,"/views/sale/list.jsp");
             break;
             
           }

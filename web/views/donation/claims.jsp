@@ -1,6 +1,6 @@
 <%-- 
-    Document   : add
-    Created on : Mar 31, 2024, 11:08:33 a.m.
+    Document   : claims
+    Created on : Mar 31, 2024, 11:49:47 a.m.
     Author     : liyingguo
 --%>
 
@@ -9,9 +9,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inventory-Add Item</title>
+        <title>Donation - claims</title>
     </head>
     <body>
-        <h1>Add works!</h1>
+        <h1>My claims!</h1>
     </body>
 </html>
