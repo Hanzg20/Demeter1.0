@@ -35,10 +35,10 @@ public class AuthControllerServlet extends HttpServlet {
         switch(action)
         {
             case "/login":
-                NavigationHelper.goTo(request,response,"/login.jsp");
+                NavigationHelper.goTo(request,response,"/views/auth/login.jsp");
             break;
             case "/register":
-                NavigationHelper.goTo(request,response,"/register.jsp");
+                NavigationHelper.goTo(request,response,"/views/auth/register.jsp");
             break;
         }    
     }
