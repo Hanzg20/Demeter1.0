@@ -44,6 +44,9 @@ public class InventoryControllerServlet extends HttpServlet {
             case "/edit":
                 NavigationHelper.goTo(request,response,"/views/inventory/edit.jsp");
                 break;
+            case "/view":
+                NavigationHelper.goTo(request,response,"/views/inventory/view.jsp");
+                break;
             default:
                 List<ItemDTO> items = itemDao.RetrieveAll();
                 request.setAttribute("items", items);
