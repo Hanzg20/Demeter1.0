@@ -6,10 +6,16 @@
 
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
     
-    </div>
-    <hr/>
-    <div>
-        <div class="Demeter"><a href="https://demeter.com" target="_blank">www.Demeter.com</a></div>
-        Copyright&nbsp;&nbsp;&copy;&nbsp;&nbsp;2023<br/>
-    </div>
+ <!-- Footer -->
+<footer style="background: gray;" class="page-footer font-small blue">
+  <!-- Copyright -->
+  <link href="/css/mainStyle.css" rel="stylesheet">
+  <div class="footer-copyright text-center py-3">© 2022 Copyright:
+    <a href="https://demeter.com/"> www.Demeter .com</a>
+  </div>
+  <!-- Copyright -->
+</footer>
+<!-- Footer -->
+ 
 </body>
+</html>
