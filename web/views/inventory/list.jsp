@@ -11,8 +11,17 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inventory</title>
+      <jsp:include page="/resources/layout/_css.jsp"/>
+       <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
     </head>
     <body>
+        <div class="hr-line-dashed"></div>
+            <form  class="form-horizontal" method="post" action="/SongUtilServlet?state=query">
+             <input type="text" name="queryInfo"/>
+            <div class="btn btn-primary">
+            <input type="submit" value="查询" style="background: #1AB394;border: 0px;color: #FFF7FB;"/>
+              </div>
+      </form>
           <nav>
             <ul>
               <li><a href="add">add</a></li>
@@ -21,7 +30,12 @@
             </ul>
           </nav>
         <h1>Inventory works!</h1>
-        <table>
+       <div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table border="1" cellspacing="0" width="100%">
             <tr>
                 <th>Item Id</th>
                 <th>Item Name</th>
@@ -52,10 +66,19 @@
                     <td>${item.getStatus()}</td>
                     <td>${item.getStatusDate()}</td>
                 </tr>
-            </c:forEach>
-            
+                </c:forEach> 
+                </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ </body>
+<jsp:include page="/resources/layout/_script.jsp"/>
+<script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
+<script>
+  <jsp:include page="/resources/layout/_script.jsp"/>
+  <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js">
+</script>
 
-            
-        </table>   
-    </body>
 </html>

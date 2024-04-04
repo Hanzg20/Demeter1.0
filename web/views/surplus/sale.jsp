@@ -14,4 +14,9 @@
     <body>
         <h1>Sale works!</h1>
     </body>
+        <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
+    <script>
+          <jsp:include page="/resources/layout/_script.jsp"/>
+           <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js">
+</script>
 </html>

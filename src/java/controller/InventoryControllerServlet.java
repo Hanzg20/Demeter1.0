@@ -20,7 +20,7 @@ import model.ItemDTO;
 @WebServlet(name = "InventoryControllerServlet", urlPatterns = {"/inventory/*"})
 public class InventoryControllerServlet extends HttpServlet {
 
-        private DAO<ItemDTO> itemDao = new ItemDaoImpl();
+        private final DAO<ItemDTO> itemDao = new ItemDaoImpl();
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
