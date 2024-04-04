@@ -20,7 +20,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     final static String SQL_DELETE = "DELETE FROM item_listing WHERE Listing_id = ?";
     final static String SQL_UPDATE = "UPDATE item_listing SET Item_id=?, Is_donation=?, Discount_rate=?, Listing_date=? WHERE Listing_id = ?";
     final static String SQL_RETRIEVE = "SELECT * FROM item_listing WHERE Listing_id = ?";
-    final static String SQL_RETRIEVE_ALL = "SELECT * FROM item_listing";
+    final static String SQL_RETRIEVE_ALL = "SELECT Listing_id,  Item_id, Is_donation, Discount_rate, Listing_date FROM item_listing";
     
     @Override
     public int insert(ItemListingDTO item_listing) {
@@ -87,8 +87,11 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
                  itemListing.setListingId(resultSet.getInt("Listing_id"));
                 itemListing.setItemId(resultSet.getInt("Item_id"));
                 itemListing.setIsDonation(resultSet.getString("Is_donation"));
-                itemListing.setDiscountRate(resultSet.getDouble("Discount_rate"));
-                itemListing.setListingDate(resultSet.getLong("Listing_date"));
+                if(resultSet.getObject("Discount_rate") != null)
+                {
+                   itemListing.setDiscountRate(resultSet.getDouble("Discount_rate"));
+                }
+                //itemListing.setListingDate(resultSet.getLong("Listing_date"));
                 itemListings.add(itemListing);
             }
         } catch (Exception ex) {
