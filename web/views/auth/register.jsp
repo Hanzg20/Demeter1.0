@@ -7,10 +7,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+    
+       <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>User Registration</title>
+        <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
+        <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/userlogin/normalize.css" />
+        <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/userlogin/demo.css" />
+
+        <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/userlogin/component.css" />
+          <!--[if IE]>
+         <!--<script src="js/html5.js"></script>-->
+          <![endif]-->
     </head>
+
     <body>
         <h1>User Registration</h1>
     
