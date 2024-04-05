@@ -78,34 +78,77 @@
 </section>
 
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <div class="container">
-    <a class="navbar-brand" href="#">
-      <img src="${ctx}/resources/img/demeter1.png" alt="Food Waste Reduction Platform" width="206">
-    </a>
-    <div class="d-flex">
-        <a href="#login" class="btn btn-primary mx-2">Login</a>
-        <a href="#subscription" class="btn btn-primary mx-2">Subscription</a>
-    </div
-  </div>
-</nav>
+
 
 <!-- About Section -->
 <section id="about" class="py-5">
   <div class="container">
     <div class="row">
       <div class="col-lg-6">
-        <h2 class="display-4 mb-4">About Us</h2>
-        <p class="lead">At the Food Waste Reduction Platform, we believe in utilizing technology to tackle one of the most pressing issues of our time: food waste.</p>
-        <p>We connect food retailers with surplus food to consumers and charitable organizations, ensuring that no edible food goes to waste.</p>
+        <h2 class="display-4 mb-4">About Food Waste Reduction Platform</h2>
+        <p class="lead">At our Food Waste Reduction Platform, you can join us to reduce food waste together .</p>
+    <p>As a food retailer, we will try out best to avoid of wasting surplus food. We use this platform to connect farmers,consumers and charity organizations to ensure that no edible food goes to waste.</p>
+    
+  
+        
+          <ul>
+    <li>
+        <img src="${ctx}/resources/img/farmer100icon.png" alt="Farmer Icon" style="width: 20px; height: 20px;">
+        <strong>For farmer, food supplier:</strong> 
+        Please register at our platform and donate your surplus food to support our Canadian, to save our planet.
+    </li><br>
+    <li>
+        <img src="${ctx}/resources/img/consumer100.png" alt="Consumer Icon" style="width: 20px; height: 20px;">
+        <strong>For consumer:</strong> 
+        After you're registered as our member, we encourage you to do subscription. We will send you the list of surplus food from time to time. We will offer big discounts.
+    </li><br>
+    <li>
+        <img src="${ctx}/resources/img/charity100icon.png" alt="Charity Icon" style="width: 20px; height: 20px;">
+        <strong>For charity organizations:</strong> 
+        Please register your role as charity, and click subscription. You can make a claim for donation food according to the surplus food list.
+    </li><br>
+</ul>
+        
+        
+        
+        <h3 class="mt-5" style="background-color: rgba(0, 100, 0, 0);">The Hungry People and Wasted Food in Canada:</h3>
+       <h4>
+    <ul>
+        <li><strong>Finding 1:</strong> In March 2023, there were over 1.9 million visits to food banks in Canada, which set a record at the time.</li><br>
+        <li><strong>Finding 2:</strong> This year’s food bank usage represents a 78.5 per cent increase compared to March 2019.</li><br>
+        <li><strong>Finding 3:</strong> One-third of food bank clients are children.</li><br>
+        <li><strong>Finding 4:</strong> Canadian Statistics: Canadians create over 50 million tonnes of food waste every year. </li><br>
+        <li><strong>Finding 5:</strong> UN Food Waste Index: from 2021, the average Canadian household wastes 79 kilograms of food every year. </li><br>
+        <li><strong>Finding 6:</strong> National Zero Waste Council: in 2022, the amount of food wasted by the average household in Canada is 140 kilograms. Wasting this much food costs households over $1,300 per year. </li>
+    </ul>
+    
+
+
+    
+       </h4>
+
       </div>
       <div class="col-lg-6">
-        <img src="${ctx}/resources/img/feedhungry800.jpg" alt="About Us" class="img-fluid rounded">
+        <img src="${ctx}/resources/img/feedhungry800.jpg" alt="FeedHungryChildren" class="img-fluid rounded">
+        <img src="${ctx}/resources/img/donationbox600.jpg" alt="FeedHungryChildren" class="img-fluid rounded">
       </div>
     </div>
   </div>
 </section>
+      
+<!-- Footer-->
+<footer class="bg-dark text-white py-4">
+    <div class="container text-center">
+        <p>&copy; 2024 Food Waste Reduction Platform. All rights reserved by XXX store.</p>
+        <div class="social-icons mt-3"> <!-- Added mt-3 class for top margin -->
+            <a href="#" class="text-white me-3 mr-3"><i class="fab fa-facebook-f"></i></a> <!-- Added mr-3 class for right margin -->
+            <a href="#" class="text-white me-3 mr-3"><i class="fab fa-twitter"></i></a> <!-- Added mr-3 class for right margin -->
+            <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+        </div>
+    </div>
+</footer>
+
+
 
 <!-- Bootstrap Bundle with Popper -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
