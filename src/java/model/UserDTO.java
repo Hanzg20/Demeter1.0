@@ -8,7 +8,7 @@ import java.sql.Timestamp;
  */
 public class UserDTO {
     private int userId;
-    private String username;
+    private String name;
     private int roleId;
     private String email;
     private String password;
@@ -19,7 +19,7 @@ public class UserDTO {
 
    public UserDTO(int userId, String username, String email, String password) {
         this.userId = userId;
-        this.username = username;
+        this.name = username;
         this.email = email;
         this.password = password;
     }
@@ -33,12 +33,12 @@ public class UserDTO {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String username) {
+        this.name = username;
     }
 
     public int getRoleId() {

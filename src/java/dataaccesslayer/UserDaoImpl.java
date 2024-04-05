@@ -13,14 +13,14 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     final static String SQL_DELETE_ALL = "DELETE FROM user";
     final static String SQL_DELETE = "DELETE FROM user WHERE user_id = ?";
     final static String SQL_UPDATE = "UPDATE user SET Name = ?, Role_id = ?, Email = ? WHERE User_id = ?";
-    final static String SQL_RETRIEVE = "SELECT * FROM user WHERE user_id = ?";
-    final static String SQL_RETRIEVE_ALL = "SELECT * FROM user";
+    final static String SQL_RETRIEVE = "SELECT Name, Role_id, Email, Password FROM user WHERE user_id = ?";
+    final static String SQL_RETRIEVE_ALL = "SELECT Name, Role_id, Email, Password FROM user";
     
     @Override
     public int insert(UserDTO user) {
 
         try {
-            return dataSource.execute(SQL_INSERT, user.getUsername(), user.getRoleId(), user.getEmail(), user.getPassword());
+            return dataSource.execute(SQL_INSERT, user.getName(), user.getRoleId(), user.getEmail(), user.getPassword());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -45,7 +45,7 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     public int update(UserDTO user) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, user.getUsername(), user.getRoleId(), user.getEmail(), user.getUserId());
+            return dataSource.execute(SQL_UPDATE, user.getName(), user.getRoleId(), user.getEmail(), user.getUserId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;

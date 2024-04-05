@@ -49,7 +49,7 @@ public class UserServlet extends HttpServlet {
         // String CreateDate = request.getParameter("password");
 
         UserDTO user = new UserDTO();
-        user.setUsername(username);
+        user.setName(username);
         user.setRoleId(roleId);
         user.setEmail(email);
         user.setPassword(password);

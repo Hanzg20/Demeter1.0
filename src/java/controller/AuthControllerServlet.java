@@ -54,6 +54,16 @@ public class AuthControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+                String action = request.getPathInfo();
+        switch(action)
+        {
+            case "/login":
+                NavigationHelper.goTo(request,response,"/views/auth/login.jsp");
+            break;
+            case "/register":
+                NavigationHelper.goTo(request,response,"/views/auth/register.jsp");
+            break;
+        }
     }
 
     /**
