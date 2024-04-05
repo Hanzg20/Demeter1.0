@@ -20,7 +20,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     public int insert(ItemDTO item) {
 
         try {
-            return dataSource.execute(SQL_INSERT, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemType(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate());
+            return dataSource.execute(SQL_INSERT, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -45,7 +45,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     public int update(ItemDTO item) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemType(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate());
+            return dataSource.execute(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -63,14 +63,14 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
                 item.setItemName(resultSet.getString("Item_name"));
                 item.setUnit(resultSet.getString("Unit"));
                 item.setLocationId(resultSet.getInt("Location_id"));
-                item.setCreateDate(resultSet.getLong("Create_date"));
+                item.setCreateDate(resultSet.getTimestamp("Create_date"));
                 item.setUserId(resultSet.getInt("User_id"));
-                item.setItemType(resultSet.getInt("Item_type"));
+                item.setItemTypeId(resultSet.getInt("Item_type"));
                 item.setQuantity(resultSet.getInt("Quantity"));
-                item.setExpirDate(resultSet.getInt("Expir_date"));
+                item.setExpirDate(resultSet.getTimestamp("Expir_date"));
                 item.setPrice(resultSet.getDouble("Price"));
                 item.setStatus(resultSet.getString("Status"));
-                item.setStatusDate(resultSet.getLong("Status_date"));
+                item.setStatusDate(resultSet.getTimestamp("Status_date"));
                 return item;
             }
         } catch (Exception ex) {
@@ -89,14 +89,14 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
                 item.setItemName(resultSet.getString("Item_name"));
                 item.setUnit(resultSet.getString("Unit"));
                 item.setLocationId(resultSet.getInt("Location_id"));
-                //item.setCreateDate(resultSet.getLong("Create_date"));
+                item.setCreateDate(resultSet.getTimestamp("Create_date"));
                 item.setUserId(resultSet.getInt("User_id"));
-                item.setItemType(resultSet.getInt("Item_type"));
+                item.setItemTypeId(resultSet.getInt("Item_type"));
                 item.setQuantity(resultSet.getInt("Quantity"));
-                //item.setExpirDate(resultSet.getInt("Expir_date"));
+                item.setExpirDate(resultSet.getTimestamp("Expir_date"));
                 item.setPrice(resultSet.getDouble("Price"));
                 item.setStatus(resultSet.getString("Status"));
-                //item.setStatusDate(resultSet.getLong("Status_date"));
+                item.setStatusDate(resultSet.getTimestamp("Status_date"));
                 items.add(item);
             }
         } catch (Exception ex) {
