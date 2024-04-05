@@ -9,30 +9,32 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 public class ItemDTO {
     
     private int itemId;
     private String itemName;
     private String unit;
     private int locationId;
-    private long createDate;
+    private Timestamp createDate;
     private int userId;
-    private int itemType;
+    private int itemTypeId;
     private int quantity;
-    private long expirDate;
+    private Timestamp expirDate;
     private double price;
     private String status;
-    private long statusDate;
+    private Timestamp statusDate;
 
     
-    public ItemDTO(int itemId, String itemName, String unit, int locationId, long createDate, int userId, int itemType, int quantity, long expirDate, double price, String status, long statusDate) {
+    public ItemDTO(int itemId, String itemName, String unit, int locationId, Timestamp createDate, int userId, int itemType, int quantity, Timestamp expirDate, double price, String status, Timestamp statusDate) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.unit = unit;
         this.locationId = locationId;
         this.createDate  = createDate;
         this.userId = userId;
-        this.itemType = itemType;
+        this.itemTypeId = itemType;
         this.quantity = quantity;
         this.expirDate = expirDate;
         this.price = price;
@@ -76,11 +78,11 @@ public class ItemDTO {
         this.locationId = locationId;
     }
 
-    public long getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(long createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
@@ -92,12 +94,12 @@ public class ItemDTO {
         this.userId = userId;
     }
 
-    public int getItemType() {
-        return itemType;
+    public int getItemTypeId() {
+        return itemTypeId;
     }
 
-    public void setItemType(int itemType) {
-        this.itemType = itemType;
+    public void setItemTypeId(int itemType) {
+        this.itemTypeId = itemType;
     }
 
     public int getQuantity() {
@@ -108,11 +110,11 @@ public class ItemDTO {
         this.quantity = quantity;
     }
 
-    public long getExpirDate() {
+    public Timestamp getExpirDate() {
         return expirDate;
     }
 
-    public void setExpirDate(long expirDate) {
+    public void setExpirDate(Timestamp expirDate) {
         this.expirDate = expirDate;
     }
 
@@ -132,11 +134,11 @@ public class ItemDTO {
         this.status = status;
     }
 
-    public long getStatusDate() {
+    public Timestamp getStatusDate() {
         return statusDate;
     }
 
-    public void setStatusDate(long statusDate) {
+    public void setStatusDate(Timestamp statusDate) {
         this.statusDate = statusDate;
     }
     

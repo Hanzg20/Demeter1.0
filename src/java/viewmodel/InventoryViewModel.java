@@ -4,6 +4,7 @@
  */
 package viewmodel;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import model.ItemDTO;
@@ -30,14 +31,14 @@ public class InventoryViewModel {
         private String itemName;
         private String unit;
         private String location;
-        private long createDate;
+        private Timestamp createDate;
         private String userName;
-        private int itemType;
+        private String itemType;
         private int quantity;
-        private long expirDate;
+        private Timestamp expirDate;
         private double price;
         private String status;
-        private long statusDate;
+        private Timestamp statusDate;
 
         public int getItemId() {
             return itemId;
@@ -71,11 +72,11 @@ public class InventoryViewModel {
             this.location = location;
         }
 
-        public long getCreateDate() {
+        public Timestamp getCreateDate() {
             return createDate;
         }
 
-        public void setCreateDate(long createDate) {
+        public void setCreateDate(Timestamp createDate) {
             this.createDate = createDate;
         }
 
@@ -87,11 +88,11 @@ public class InventoryViewModel {
             this.userName = userName;
         }
 
-        public int getItemType() {
+        public String getItemType() {
             return itemType;
         }
 
-        public void setItemType(int itemType) {
+        public void setItemType(String itemType) {
             this.itemType = itemType;
         }
 
@@ -103,11 +104,11 @@ public class InventoryViewModel {
             this.quantity = quantity;
         }
 
-        public long getExpirDate() {
+        public Timestamp getExpirDate() {
             return expirDate;
         }
 
-        public void setExpirDate(long expirDate) {
+        public void setExpirDate(Timestamp expirDate) {
             this.expirDate = expirDate;
         }
 
@@ -127,16 +128,25 @@ public class InventoryViewModel {
             this.status = status;
         }
 
-        public long getStatusDate() {
+        public Timestamp getStatusDate() {
             return statusDate;
         }
 
-        public void setStatusDate(long statusDate) {
+        public void setStatusDate(Timestamp statusDate) {
             this.statusDate = statusDate;
         }
 
         public static Item convertFrom(ItemDTO dto) {
             InventoryViewModel.Item result = new InventoryViewModel.Item();
+            result.setItemId(dto.getItemId());
+            result.setItemName(dto.getItemName());
+            result.setUnit(dto.getUnit());
+            result.setCreateDate(dto.getCreateDate());
+            result.setQuantity(dto.getQuantity());
+            result.setExpirDate(dto.getExpirDate());
+            result.setPrice(dto.getPrice());
+            result.setStatus(dto.getStatus());
+            result.setStatusDate(dto.getStatusDate());
             return result;
         }
 
