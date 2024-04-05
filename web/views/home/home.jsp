@@ -76,10 +76,6 @@
         <a href="#subscription" class="btn btn-primary mx-2">Subscription</a>
     </div>
 </section>
-
-
-
-
 <!-- About Section -->
 <section id="about" class="py-5">
   <div class="container">
@@ -88,9 +84,7 @@
         <h2 class="display-4 mb-4">About Food Waste Reduction Platform</h2>
         <p class="lead">At our Food Waste Reduction Platform, you can join us to reduce food waste together .</p>
     <p>As a food retailer, we will try out best to avoid of wasting surplus food. We use this platform to connect farmers,consumers and charity organizations to ensure that no edible food goes to waste.</p>
-    
   
-        
           <ul>
     <li>
         <img src="${ctx}/resources/img/farmer100icon.png" alt="Farmer Icon" style="width: 20px; height: 20px;">
@@ -108,9 +102,7 @@
         Please register your role as charity, and click subscription. You can make a claim for donation food according to the surplus food list.
     </li><br>
 </ul>
-        
-        
-        
+         
         <h3 class="mt-5" style="background-color: rgba(0, 100, 0, 0);">The Hungry People and Wasted Food in Canada:</h3>
        <h4>
     <ul>
