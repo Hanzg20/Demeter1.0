@@ -22,55 +22,85 @@
             <input type="submit" value="查询" style="background: #1AB394;border: 0px;color: #FFF7FB;"/>
               </div>
       </form>
-          <nav>
-            <ul>
-              <li><a href="add">add</a></li>
-              <li><a href="edit">edit</a></li>
-              <li><a href="view">view/delete</a></li>
-            </ul>
-          </nav>
-        <h1>Inventory works!</h1>
+        <form method="get">
+            <label for="itemTypeFilter">Item Type:</label>
+            <select id="itemTypeFilter" name="itemType">
+                <option value="">All</option>
+                <c:forEach items="${itemTypes}" var="type">
+                    <option value="${type}">${type}</option>
+                </c:forEach>
+            </select>
+
+            <label for="statusFilter">Status:</label>
+            <select id="statusFilter" name="status">
+                <option value="">All</option>
+                <c:forEach items="${statuses}" var="status">
+                    <option value="${status}">${status}</option>
+                </c:forEach>
+            </select>
+
+            <label for="expireDaysFilter">Expire Date (Within):</label>
+            <select id="expireDaysFilter" name="expireDays">
+                <option value="">Any</option>
+                <option value="1">1 day</option>
+                <option value="7">7 days</option>
+                <option value="30">30 days</option>
+            </select>
+
+            <input type="submit" value="Apply Filter">
+        </form>
        <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <table border="1" cellspacing="0" width="100%">
-            <tr>
-                <th>Item Id</th>
-                <th>Item Name</th>
-                <th>Unit</th>
-                <th>Location Id</th>
-                <th>Create Date</th>
-                <th>User Id</th>
-                <th>Item Type</th>
-                <th>Quantity</th>
-                <th>Expiry Date</th>
-                <th>Item Price</th>
-                <th>Item Status</th>
-                <th>Status Date</th>
-            </tr>
-            
-            <c:forEach items="${items}" var="item">
-                <tr>
-                    <td>${item.getItemId()}</td>
-                    <td>${item.getItemName()}</td>
-                    <td>${item.getUnit()}</td>
-                    <td>${item.getLocationId()}</td>
-                    <td>${item.getCreateDate()}</td>
-                    <td>${item.getUserId()}</td>
-                    <td>${item.getItemType()}</td>
-                    <td>${item.getQuantity()}</td>
-                    <td>${item.getExpirDate()}</td>
-                    <td>${item.getPrice()}</td>
-                    <td>${item.getStatus()}</td>
-                    <td>${item.getStatusDate()}</td>
-                </tr>
-                </c:forEach> 
-                </table>
+                    <table border="1">
+                        <thead>
+                            <tr>
+                                <th>Item ID</th>
+                                <th>Item Name</th>
+                                <th>Unit</th>
+                                <th>Location ID</th>
+                                <th>Create Date</th>
+                                <th>User Id</th>
+                                <th>Item Type</th>
+                                <th>Quantity</th>
+                                <th>Expire Date</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Status Date</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${items}" var="item">
+                                <tr>
+                                    <td>${item.getItemId()}</td>
+                                    <td>${item.getItemName()}</td>
+                                    <td>${item.getUnit()}</td>
+                                    <td>${item.getLocationId()}</td>
+                                    <td>${item.getCreateDate()}</td>
+                                    <td>${item.getUserId()}</td>
+                                    <td>${item.getItemType()}</td>
+                                    <td>${item.getQuantity()}</td>
+                                    <td>${item.getExpirDate()}</td>
+                                    <td>${item.getPrice()}</td>
+                                    <td>${item.getStatus()}</td>
+                                    <td>${item.getStatusDate()}</td>
+                                    <td>
+                                        <a href="edit?id=${item.getItemId()}">Edit</a>
+                                        <a href="view?id=${item.getItemId()}">View</a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <a href="add">Add New Item</a>
     </div>
 </div>
  </body>

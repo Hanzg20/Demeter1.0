@@ -25,7 +25,7 @@
             <canvas id="demo-canvas"></canvas>
             <div class="logo_box">
               <h3> Food Waste Peduce Platform </h3>
-                <form action="#" name="f" method="post" id="form1">
+                <form  method="post" id="form1">
                     <div class="input_outer">
                         <span class="u_user"></span>
                         <input name="userName" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
@@ -49,14 +49,14 @@
 <script src="${ctx}/resources/js/userlogin/demo-1.js"></script>
 <script src="${ctx}/resources/js/jquery/jquery-3.2.1.js"></script>
 <script src="${ctx}/resources/js/layer/layer.min.js"></script>
-<script>
+<!--<script>
     $(document).ready(function () {
         $("#button1").click(function () {
             $.ajax({
                 type:"post", 
                 dataType: "json",
                 data:$('#form1').serialize(),
-                url:"${ctx}/LoginServlet?state=userLogin",
+                url:"${ctx}/auth/login",
                 success:function (msg) {
                     if (msg.code==200) {
                         layer.msg(msg.code);
@@ -72,5 +72,5 @@
             });
         });
     });
-</script>
+</script>-->
 </html>
