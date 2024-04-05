@@ -1,6 +1,7 @@
 
 package controller;
 
+import businesslayer.InventoryService;
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemDaoImpl;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ItemDTO;
+import viewmodel.InventoryViewModel;
 
 /**
  *
@@ -20,7 +22,8 @@ import model.ItemDTO;
 @WebServlet(name = "InventoryControllerServlet", urlPatterns = {"/inventory/*"})
 public class InventoryControllerServlet extends HttpServlet {
 
-        private final DAO<ItemDTO> itemDao = new ItemDaoImpl();
+        private final InventoryService dataService = new InventoryService();
+        private final InventoryViewModel viewModel= new InventoryViewModel();
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -48,8 +51,9 @@ public class InventoryControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request,response,"/views/inventory/view.jsp");
                 break;
             default:
-                List<ItemDTO> items = itemDao.RetrieveAll();
-                request.setAttribute("items", items);
+                List<InventoryViewModel.Item> items = dataService.RetrieveAllItems();
+                viewModel.setItems(items);
+                request.setAttribute("viewModel", viewModel);
                 NavigationHelper.goTo(request,response,"/views/inventory/list.jsp");
             break;
             

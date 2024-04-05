@@ -10,7 +10,7 @@ public class UserDaoImplTest {
 
         // Test insert method
         UserDTO newUser = new UserDTO();
-        newUser.setUsername("John");
+        newUser.setName("John");
         newUser.setRoleId(1);
         newUser.setEmail("john@example.com");
         newUser.setPassword("password");
@@ -26,21 +26,21 @@ public class UserDaoImplTest {
         List<UserDTO> allUsers = userDao.RetrieveAll();
         System.out.println("All Users:");
         for (UserDTO user : allUsers) {
-            System.out.println("User ID: " + user.getUserId() + ", Name: " + user.getUsername() + ", Role ID: " + user.getRoleId() + ", Email: " + user.getEmail() + ", Password: " + user.getPassword());
+            System.out.println("User ID: " + user.getUserId() + ", Name: " + user.getName() + ", Role ID: " + user.getRoleId() + ", Email: " + user.getEmail() + ", Password: " + user.getPassword());
         }
 
         // Test Retrieve method
         int userIdToFind = 1;
         UserDTO foundUser = userDao.Retrieve(userIdToFind);
         if (foundUser != null) {
-            System.out.println("User found by ID " + userIdToFind + ": " + foundUser.getUsername());
+            System.out.println("User found by ID " + userIdToFind + ": " + foundUser.getName());
         } else {
             System.out.println("User with ID " + userIdToFind + " not found.");
         }
 
         // Test update method
         if (foundUser != null) {
-            foundUser.setUsername("UpdatedName");
+            foundUser.setName("UpdatedName");
             int updateResult = userDao.update(foundUser);
             if (updateResult > 0) {
                 System.out.println("User updated successfully.");

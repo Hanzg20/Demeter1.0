@@ -73,14 +73,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${items}" var="item">
+                            <c:forEach items="${viewModel.getItems()}" var="item">
                                 <tr>
                                     <td>${item.getItemId()}</td>
                                     <td>${item.getItemName()}</td>
                                     <td>${item.getUnit()}</td>
-                                    <td>${item.getLocationId()}</td>
+                                    <td>${item.getLocation()}</td>
                                     <td>${item.getCreateDate()}</td>
-                                    <td>${item.getUserId()}</td>
+                                    <td>${item.getUserName()}</td>
                                     <td>${item.getItemType()}</td>
                                     <td>${item.getQuantity()}</td>
                                     <td>${item.getExpirDate()}</td>
