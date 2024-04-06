@@ -1,11 +1,16 @@
 
 package dataaccesslayer;
 
+import static dataaccesslayer.ItemDaoImpl.SQL_RETRIEVE_ALL;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import model.ItemDTO;
 import model.ItemListingDTO;
 
 /**
@@ -83,21 +88,83 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         List<ItemListingDTO> itemListings = new ArrayList<>();
         try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                ItemListingDTO itemListing = new ItemListingDTO();
-                 itemListing.setListingId(resultSet.getInt("Listing_id"));
-                itemListing.setItemId(resultSet.getInt("Item_id"));
-                itemListing.setIsDonation(resultSet.getString("Is_donation"));
+                ItemListingDTO item = new ItemListingDTO();
+                 item.setListingId(resultSet.getInt("Listing_id"));
+                item.setItemId(resultSet.getInt("Item_id"));
+                item.setIsDonation(resultSet.getString("Is_donation"));
                 if(resultSet.getObject("Discount_rate") != null)
                 {
-                   itemListing.setDiscountRate(resultSet.getDouble("Discount_rate"));
+                   item.setDiscountRate(resultSet.getDouble("Discount_rate"));
                 }
                 //itemListing.setListingDate(resultSet.getLong("Listing_date"));
-                itemListings.add(itemListing);
+                itemListings.add(item);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return itemListings;
+    }
+    
+    public List<ItemListingDTO> RetrieveList(String itemType, String status, String daysExpireDaysLessThan) {
+        List<ItemListingDTO> items = new ArrayList<>();
+        try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL, itemType, status, daysExpireDaysLessThan); ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                ItemListingDTO item = new ItemListingDTO();
+                 item.setListingId(resultSet.getInt("Listing_id"));
+                item.setItemId(resultSet.getInt("Item_id"));
+                item.setIsDonation(resultSet.getString("Is_donation"));
+                if(resultSet.getObject("Discount_rate") != null)
+                {
+                   item.setDiscountRate(resultSet.getDouble("Discount_rate"));
+                }
+                //itemListing.setListingDate(resultSet.getLong("Listing_date"));
+                items.add(item);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return items;
+    }
+
+    private PreparedStatement prepareStatement(String sql, String itemTypeFilte, String statusFilter, String expireDayFilter) throws SQLException {
+        StringBuilder queryBuilder = new StringBuilder(sql);
+        boolean validItemTypeFilter = itemTypeFilte != null && !itemTypeFilte.isEmpty();
+        if (validItemTypeFilter) {
+            queryBuilder.append(" AND Item_type = ?");
+        }
+
+        boolean validStatusFilter = statusFilter != null && !statusFilter.isEmpty();
+        if (validStatusFilter) {
+            queryBuilder.append(" AND Status = ?");
+        }
+
+        boolean validExpireDayFilter = expireDayFilter != null && !expireDayFilter.isEmpty();
+        if (validExpireDayFilter) {
+            queryBuilder.append(" AND Expir_date < ?");
+        }
+
+        PreparedStatement statement = dataSource.prepareStatement(queryBuilder.toString());
+        int parameterIndex = 1;
+        if (validItemTypeFilter) {
+            statement.setInt(parameterIndex++, Integer.parseInt(itemTypeFilte));
+        }
+        if (validStatusFilter) {
+            statement.setString(parameterIndex++, statusFilter);
+        }
+        if (validExpireDayFilter) {
+            // Get the current UTC timestamp
+            Instant now = Instant.now();
+            int days = Integer.parseInt(expireDayFilter);
+
+            // Add 7 days to the current timestamp
+            Instant sevenDaysLater = now.plusSeconds( days* 24 * 60 * 60);
+
+            // Convert the Instant to java.sql.Timestamp
+            Timestamp timestamp = Timestamp.from(sevenDaysLater);
+            statement.setTimestamp(parameterIndex++, timestamp );
+        }
+
+        return statement;
     }
 }
 
