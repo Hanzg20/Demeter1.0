@@ -15,6 +15,7 @@ import model.ItemDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
 import model.UserDTO;
+import viewmodel.InventoryAddViewModel;
 import viewmodel.InventoryViewModel;
 import static viewmodel.InventoryViewModel.Item.convertFrom;
 
@@ -61,6 +62,12 @@ public class InventoryService {
         InventoryViewModel viewModel = new InventoryViewModel();
         viewModel.setItems(retrieveList(itemType,status,daysExpireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
+        return viewModel;
+    }
+
+    public InventoryAddViewModel buidInventoryAddViewModel() {
+        InventoryAddViewModel viewModel= new InventoryAddViewModel();
+        viewModel.setLocations(locationDao.RetrieveAll());
         return viewModel;
     }
     

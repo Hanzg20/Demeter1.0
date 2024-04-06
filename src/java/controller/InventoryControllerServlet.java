@@ -41,6 +41,7 @@ public class InventoryControllerServlet extends HttpServlet {
         switch(action)
         {
             case "/add":
+                request.setAttribute("viewModel", dataService.buidInventoryAddViewModel());
                 NavigationHelper.goTo(request,response,"/views/inventory/add.jsp");
                 break;
             case "/edit":

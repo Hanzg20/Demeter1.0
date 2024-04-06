@@ -41,8 +41,5 @@ public class LocationDTO {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-    
-    
-    
+    } 
 }
