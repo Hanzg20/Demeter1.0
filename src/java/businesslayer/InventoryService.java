@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import model.EnumStatusType;
 import model.ItemDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
@@ -151,5 +152,19 @@ public class InventoryService {
         Date statusDateTime = dateFormat.parse(statusDate.replace("T", " "));
         Timestamp statusDateTimestamp = new Timestamp(statusDateTime.getTime());
         return new ItemDTO((id == null) ? 0 : Integer.parseInt(id), itemName, unit, locationId, createTimestamp, userId, itemTypeId, quantity, expirTimestamp, price, status, statusDateTimestamp);
+    }
+
+    public boolean delete(String id) {
+        return itemDao.delete(id)!=0;
+    }
+
+    public boolean flag(String id) {
+        ItemDTO item = itemDao.Retrieve(id);
+//        if (item != null) {
+//            item.setStatus( EnumStatusType.);
+//            itemDao.
+//        }
+        
+        return false;
     }
 }
