@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri= "http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -22,8 +23,12 @@
             <label for="unit">Unit:</label><br>
             <input type="text" id="unit" name="unit"><br><br>
 
-            <label for="locationId">Location ID:</label><br>
-            <input type="text" id="locationId" name="locationId"><br><br>
+            <label for="locationId">Location:</label><br>
+            <select id="locationId" name="locationId">
+                <c:forEach var="location" items="${viewModel.locations}">
+                    <option value="${location.locationId}">${location.address}</option>
+                </c:forEach>
+            </select><br><br>
 
             <label for="createDate">Create Date:</label><br>
             <input type="date" id="createDate" name="createDate"><br><br>
