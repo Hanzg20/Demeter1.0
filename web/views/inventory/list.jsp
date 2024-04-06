@@ -26,25 +26,26 @@
             <label for="itemTypeFilter">Item Type:</label>
             <select id="itemTypeFilter" name="itemType">
                 <option value="">All</option>
-                <c:forEach items="${itemTypes}" var="type">
-                    <option value="${type}">${type}</option>
+                <c:forEach items="${viewModel.typeOptions}" var="type">
+                    <option value="${type.itemTypeId}" ${param.itemType eq type.itemTypeId ? 'selected' : ''}>${type.itemTypeName}</option>
                 </c:forEach>
             </select>
 
             <label for="statusFilter">Status:</label>
             <select id="statusFilter" name="status">
                 <option value="">All</option>
-                <c:forEach items="${statuses}" var="status">
-                    <option value="${status}">${status}</option>
-                </c:forEach>
+                <c:forEach var="itemType" items="${viewModel.statusOptions}">
+                   <option value="${itemType.symbol}" ${param.status eq itemType.symbol ? 'selected' : ''}>${itemType.text}</option>
+               </c:forEach>
             </select>
 
             <label for="expireDaysFilter">Expire Date (Within):</label>
             <select id="expireDaysFilter" name="expireDays">
-                <option value="">Any</option>
-                <option value="1">1 day</option>
-                <option value="7">7 days</option>
-                <option value="30">30 days</option>
+                <option value="" ${empty param.expireDays ? 'selected' : ''}>Any</option>
+                <option value="1" ${param.expireDays eq '1' ? 'selected' : ''}>1 day</option>
+                <option value="7" ${param.expireDays eq '7' ? 'selected' : ''}>7 days</option>
+                <option value="30" ${param.expireDays eq '30' ? 'selected' : ''}>30 days</option>
+                <option value="60" ${param.expireDays eq '60' ? 'selected' : ''}>60 days</option>
             </select>
 
             <input type="submit" value="Apply Filter">
@@ -73,23 +74,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach items="${viewModel.getItems()}" var="item">
+                            <c:forEach items="${viewModel.items}" var="item">
                                 <tr>
-                                    <td>${item.getItemId()}</td>
-                                    <td>${item.getItemName()}</td>
-                                    <td>${item.getUnit()}</td>
-                                    <td>${item.getLocation()}</td>
-                                    <td>${item.getCreateDate()}</td>
-                                    <td>${item.getUserName()}</td>
-                                    <td>${item.getItemType()}</td>
-                                    <td>${item.getQuantity()}</td>
-                                    <td>${item.getExpirDate()}</td>
-                                    <td>${item.getPrice()}</td>
-                                    <td>${item.getStatus()}</td>
-                                    <td>${item.getStatusDate()}</td>
+                                    <td>${item.itemId}</td>
+                                    <td>${item.itemName}</td>
+                                    <td>${item.unit}</td>
+                                    <td>${item.location}</td>
+                                    <td>${item.createDate}</td>
+                                    <td>${item.userName}</td>
+                                    <td>${item.itemType}</td>
+                                    <td>${item.quantity}</td>
+                                    <td>${item.expirDate}</td>
+                                    <td>${item.price}</td>
+                                    <td>${item.status}</td>
+                                    <td>${item.statusDate}</td>
                                     <td>
-                                        <a href="edit?id=${item.getItemId()}">Edit</a>
-                                        <a href="view?id=${item.getItemId()}">View</a>
+                                        <a href="edit?id=${item.itemId}">Edit</a>
+                                        <a href="view?id=${item.itemId}">View</a>
                                     </td>
                                 </tr>
                             </c:forEach>

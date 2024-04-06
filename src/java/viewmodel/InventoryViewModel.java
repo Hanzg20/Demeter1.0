@@ -7,7 +7,9 @@ package viewmodel;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import model.EnumStatusType;
 import model.ItemDTO;
+import model.ItemTypeDTO;
 
 /**
  *
@@ -16,9 +18,23 @@ import model.ItemDTO;
 public class InventoryViewModel {
 
     private List<InventoryViewModel.Item> items = new ArrayList<>();
+    private List<ItemTypeDTO> typeOptions = new ArrayList<>();
 
     public List<Item> getItems() {
         return items;
+    }
+    
+    public EnumStatusType[] getStatusOptions()
+    {
+        return EnumStatusType.values();
+    }
+
+    public List<ItemTypeDTO> getTypeOptions() {
+        return typeOptions;
+    }
+
+    public void setTypeOptions(List<ItemTypeDTO> typeOptions) {
+        this.typeOptions = typeOptions;
     }
 
     public void setItems(List<Item> items) {

@@ -23,13 +23,13 @@ import static viewmodel.InventoryViewModel.Item.convertFrom;
  * @author liyingguo
  */
 public class InventoryService {
-    private final DAO<ItemDTO> itemDao = new ItemDaoImpl();
+    private final ItemDaoImpl itemDao = new ItemDaoImpl();
     private final DAO<LocationDTO> locationDao = new LocationDaoImpl();
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
-    public List<InventoryViewModel.Item> RetrieveAllItems() {
+    public List<InventoryViewModel.Item> retrieveList(String itemType, String status, String daysExpireDays) {
         List<InventoryViewModel.Item> result =new ArrayList<>();
-        List<ItemDTO> items = itemDao.RetrieveAll();
+        List<ItemDTO> items = itemDao.RetrieveList(itemType, status, daysExpireDays);
         items.forEach(item->{
             InventoryViewModel.Item viewItem = convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
@@ -48,7 +48,7 @@ public class InventoryService {
             
             if(type != null)
             {
-                viewItem.setItemType(type.getTypeName());
+                viewItem.setItemType(type.getItemTypeName());
             }
             
             
@@ -57,7 +57,12 @@ public class InventoryService {
         return result;
     }
 
-
+    public InventoryViewModel buidInventoryViewModel(String itemType, String status, String daysExpireDays) {
+        InventoryViewModel viewModel = new InventoryViewModel();
+        viewModel.setItems(retrieveList(itemType,status,daysExpireDays));
+        viewModel.setTypeOptions(typeDao.RetrieveAll());
+        return viewModel;
+    }
     
     
 }
