@@ -5,12 +5,16 @@
 package controller;
 
 import businesslayer.NavigationHelper;
+import businesslayer.UserBusinessLogic;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.UserDTO;
 
 /**
  *
@@ -32,15 +36,31 @@ public class AuthControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getPathInfo();
-        switch(action)
-        {
+        switch (action) {
             case "/login":
-                NavigationHelper.goTo(request,response,"/views/auth/login.jsp");
-            break;
+                NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                break;
             case "/register":
-                NavigationHelper.goTo(request,response,"/views/auth/register.jsp");
-            break;
-        }    
+                NavigationHelper.goTo(request, response, "/views/auth/register.jsp");
+                break;
+            case "/profile":
+                NavigationHelper.goTo(request, response, "/views/auth/profile.jsp");
+                break;
+            case "/users":
+                UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
+                List<UserDTO> users = null;
+
+                try {
+                    users = userBusinessLogic.getAllUsers();
+                    request.setAttribute("users", users);
+                    NavigationHelper.goTo(request, response, "/views/auth/users.jsp");
+                    break;
+                } catch (SQLException ex) {
+                    NavigationHelper.HandleError(response, ex);
+                }
+
+                break;
+        }
     }
 
     /**
@@ -54,15 +74,14 @@ public class AuthControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                String action = request.getPathInfo();
-        switch(action)
-        {
+        String action = request.getPathInfo();
+        switch (action) {
             case "/login":
-                NavigationHelper.goTo(request,response,"/views/auth/login.jsp");
-            break;
+                NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                break;
             case "/register":
-                NavigationHelper.goTo(request,response,"/views/auth/register.jsp");
-            break;
+                NavigationHelper.goTo(request, response, "/views/auth/register.jsp");
+                break;
         }
     }
 

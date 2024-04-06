@@ -20,7 +20,6 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role ID</th>
-                <th>Create Date</th>
                 <!-- Add more columns if needed -->
             </tr>
         </thead>
@@ -31,7 +30,6 @@
                     <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td>${user.roleId}</td>
-                    <td>${user.createDate}</td>
                     <!-- Add more columns if needed -->
                 </tr>
             </c:forEach>
