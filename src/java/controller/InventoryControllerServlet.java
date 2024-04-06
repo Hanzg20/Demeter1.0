@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ItemDTO;
 import viewmodel.InventoryViewModel;
+import viewmodel.ItemDetail;
 
 /**
  *
@@ -60,7 +61,7 @@ public class InventoryControllerServlet extends HttpServlet {
                 if (idForView == null) {
                     NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not id."));
                 } else {
-                    InventoryViewModel.Item item = dataService.buidInventoryViewModelItem(Integer.parseInt(idForView));
+                    ItemDetail item = dataService.buidInventoryViewModelItem(Integer.parseInt(idForView));
                     if (item == null) {
                         NavigationHelper.HandleError(response, new Exception("Bad Reqeust. Item not found"));
                     } else {
@@ -96,33 +97,52 @@ public class InventoryControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getPathInfo();
         try {
+            String id = request.getParameter("id");
+            if ((action.equals("/edit")||action.equals("/view")) && id == null) {
+                NavigationHelper.HandleError(response, new Exception("Open Failed. Missing id"));
+            } else {
+                switch (action) {
+                    case "/add":
+                    case "/edit":
+                        if (dataService.saveItemWithRequest(request) == 0) {
+                            NavigationHelper.HandleError(response, new Exception("Failed. Please try again"));
+                        } else {
+                            response.sendRedirect("/inventory/");
+                        }
 
-            switch (action) {
-                case "/add":
-                case "/edit":
-                    String id = request.getParameter("id");
-                    if (action.equals("/edit") && id == null) {
-                        NavigationHelper.HandleError(response, new Exception("Update Failed. Missing id"));
-                    } else if (dataService.saveItemWithRequest(request) == 0) {
-                        NavigationHelper.HandleError(response, new Exception("Failed. Please try again"));
-                    } else {
-                        response.sendRedirect("/inventory/");
-                    }
+                        break;
+                    case "/view":
+                        String submitAction = request.getParameter("action");
+                        boolean successSubmit = false;
+                        switch (submitAction) {
+                            case "delete":
+                                successSubmit = dataService.delete(id);
+                                break;
+                            case "flag":
+                                successSubmit = dataService.flag(id);
+                                break;
+                            default:
+                                NavigationHelper.HandleError(response, new Exception("Failed. Action not found"));
+                                return;
+                        }
+                        if (successSubmit) {
+                            response.sendRedirect("/inventory/");
+                        } else {
+                            NavigationHelper.HandleError(response, new Exception("Failed. Please retry"));
+                        }
+                        break;
 
-                    break;
-                case "/view":
-                    NavigationHelper.goTo(request, response, "/views/inventory/view.jsp");
-                    break;
-                default:
-                    break;
+                    default:
+                        break;
 
+                }
             }
 
             // Perform add operation
             // Example: call a service method to add the item
             // addItem(itemName, unit, locationId, createDate, userId, itemTypeId, quantity, expirDate, price, status, statusDate);
-            // Redirect the user to a success page or back to the previous page
-            // Example: response.sendRedirect("success.jsp");
+            // Redirect the user to a successSubmit page or back to the previous page
+            // Example: response.sendRedirect("successSubmit.jsp");
         } catch (Exception e) {
             NavigationHelper.HandleError(response, e);
         }

@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
+import model.EnumStatusType;
 import model.ItemDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
@@ -23,7 +24,8 @@ import model.UserDTO;
 import viewmodel.InventoryAddViewModel;
 import viewmodel.InventoryEditViewModel;
 import viewmodel.InventoryViewModel;
-import static viewmodel.InventoryViewModel.Item.convertFrom;
+import viewmodel.ItemDetail;
+import static viewmodel.ItemDetail.convertFrom;
 
 /**
  *
@@ -38,11 +40,11 @@ public class InventoryService {
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
 
-    public List<InventoryViewModel.Item> retrieveList(String itemType, String status, String daysExpireDays) {
-        List<InventoryViewModel.Item> result = new ArrayList<>();
+    private List<ItemDetail> retrieveList(String itemType, String status, String daysExpireDays) {
+        List<ItemDetail> result = new ArrayList<>();
         List<ItemDTO> items = itemDao.RetrieveList(itemType, status, daysExpireDays);
         items.forEach(item -> {
-            InventoryViewModel.Item viewItem = convertFrom(item);
+            ItemDetail viewItem = convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
             if (location != null) {
                 viewItem.setLocation(location.getAddress());
@@ -64,10 +66,10 @@ public class InventoryService {
         return result;
     }
 
-    public InventoryViewModel.Item buidInventoryViewModelItem(int id) {
+    public ItemDetail buidInventoryViewModelItem(int id) {
         ItemDTO item = itemDao.Retrieve(id);
         if (item != null) {
-            InventoryViewModel.Item viewItem = convertFrom(item);
+            ItemDetail viewItem = convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
             if (location != null) {
                 viewItem.setLocation(location.getAddress());
@@ -151,5 +153,19 @@ public class InventoryService {
         Date statusDateTime = dateFormat.parse(statusDate.replace("T", " "));
         Timestamp statusDateTimestamp = new Timestamp(statusDateTime.getTime());
         return new ItemDTO((id == null) ? 0 : Integer.parseInt(id), itemName, unit, locationId, createTimestamp, userId, itemTypeId, quantity, expirTimestamp, price, status, statusDateTimestamp);
+    }
+
+    public boolean delete(String id) {
+        return itemDao.delete(id)!=0;
+    }
+
+    public boolean flag(String id) {
+        ItemDTO item = itemDao.Retrieve(id);
+//        if (item != null) {
+//            item.setStatus( EnumStatusType.);
+//            itemDao.
+//        }
+        
+        return false;
     }
 }
