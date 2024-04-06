@@ -1,6 +1,7 @@
 
 package controller;
 
+import businesslayer.ItemsService;
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemListingDaoImpl;
@@ -20,7 +21,8 @@ import model.ItemListingDTO;
 @WebServlet(name = "SurplusItemControllerServlet", urlPatterns = {"/surplus/*"})
 public class SurplusItemControllerServlet extends HttpServlet {
 
-        private DAO<ItemListingDTO> itemDao = new ItemListingDaoImpl();
+         private final ItemsService dataService = new ItemsService();
+
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,8 +47,9 @@ public class SurplusItemControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request,response,"/views/surplus/sale.jsp");
                 break;
             default:
-                List<ItemListingDTO> items = itemDao.RetrieveAll();
-                request.setAttribute("items", items);
+                String itemType = request.getParameter("itemType");
+                String expireDays = request.getParameter("expireDays");
+                request.setAttribute("viewModel", dataService.buidListingViewModel(itemType, expireDays));
                 NavigationHelper.goTo(request,response,"/views/surplus/list.jsp");
             break;
             

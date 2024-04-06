@@ -1,6 +1,6 @@
 package controller;
 
-import businesslayer.InventoryService;
+import businesslayer.ItemsService;
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemDaoImpl;
@@ -26,7 +26,7 @@ import viewmodel.ItemDetail;
 @WebServlet(name = "InventoryControllerServlet", urlPatterns = {"/inventory/*"})
 public class InventoryControllerServlet extends HttpServlet {
 
-    private final InventoryService dataService = new InventoryService();
+    private final ItemsService dataService = new ItemsService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -83,6 +83,7 @@ public class InventoryControllerServlet extends HttpServlet {
         }
 
     }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.

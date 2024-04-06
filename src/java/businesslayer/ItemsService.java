@@ -27,12 +27,14 @@ import viewmodel.InventoryEditViewModel;
 import viewmodel.InventoryViewModel;
 import viewmodel.ItemDetail;
 import static viewmodel.ItemDetail.convertFrom;
+import viewmodel.ListingItemDetail;
+import viewmodel.SurplusListingViewModel;
 
 /**
  *
  * @author liyingguo
  */
-public class InventoryService {
+public class ItemsService {
 
     final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -46,6 +48,32 @@ public class InventoryService {
         List<ItemDTO> items = itemDao.RetrieveList(itemType, status, daysExpireDays);
         items.forEach(item -> {
             ItemDetail viewItem = convertFrom(item);
+            LocationDTO location = locationDao.Retrieve(item.getLocationId());
+            if (location != null) {
+                viewItem.setLocation(location.getAddress());
+            }
+
+            UserDTO user = userDao.Retrieve(item.getUserId());
+            if (user != null) {
+                viewItem.setUserName(user.getName());
+            }
+
+            ItemTypeDTO type = typeDao.Retrieve(item.getItemTypeId());
+
+            if (type != null) {
+                viewItem.setItemType(type.getItemTypeName());
+            }
+
+            result.add(viewItem);
+        });
+        return result;
+    }
+    
+    private List<ListingItemDetail> retrieveListingList(String itemType, String daysExpireDays) {
+        List<ListingItemDetail> result = new ArrayList<>();
+        List<ItemDTO> items = itemDao.RetrieveList(itemType,"N", daysExpireDays);
+        items.forEach(item -> {
+            ListingItemDetail viewItem =ListingItemDetail.convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
             if (location != null) {
                 viewItem.setLocation(location.getAddress());
@@ -92,7 +120,16 @@ public class InventoryService {
         return null;
     }
 
-    public InventoryViewModel buidInventoryViewModel(String itemType, String status, String daysExpireDays) {
+        public   SurplusListingViewModel  buidListingViewModel(String itemType, String expireDays) {
+             SurplusListingViewModel viewModel = new SurplusListingViewModel();
+             viewModel.setItems(retrieveListingList(itemType,expireDays));
+             viewModel.setTypeOptions(typeDao.RetrieveAll());
+        return viewModel;
+  
+    }
+  
+  
+        public InventoryViewModel buidInventoryViewModel(String itemType, String status, String daysExpireDays) {
         InventoryViewModel viewModel = new InventoryViewModel();
         viewModel.setItems(retrieveList(itemType, status, daysExpireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
