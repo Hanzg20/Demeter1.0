@@ -4,21 +4,77 @@
     Author     : liyingguo
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <jsp:include page="/resources/layout/_css.jsp"/>
-          <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
-        <title>Inventory - view/delete</title>
-    </head>
-    <body>
-        <h1>View works!</h1>
-    </body>
-        <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
-    <script>
-          <jsp:include page="/resources/layout/_script.jsp"/>
-           <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js">
-</script>
+<head>
+<meta charset="UTF-8">
+<title>View Item</title>
+</head>
+<body>
+    <h2>View Item</h2>
+    
+    <table border="1">
+        <tr>
+            <th>Field</th>
+            <th>Value</th>
+        </tr>
+        <tr>
+            <td>Item ID</td>
+            <td>${item.itemId}</td>
+        </tr>
+        <tr>
+            <td>Item Name</td>
+            <td>${item.itemName}</td>
+        </tr>
+        <tr>
+            <td>Unit</td>
+            <td>${item.unit}</td>
+        </tr>
+        <tr>
+            <td>Location ID</td>
+            <td>${item.locationId}</td>
+        </tr>
+        <tr>
+            <td>Create Date</td>
+            <td>${item.createDate}</td>
+        </tr>
+        <tr>
+            <td>User ID</td>
+            <td>${item.userId}</td>
+        </tr>
+        <tr>
+            <td>Item Type ID</td>
+            <td>${item.itemTypeId}</td>
+        </tr>
+        <tr>
+            <td>Quantity</td>
+            <td>${item.quantity}</td>
+        </tr>
+        <tr>
+            <td>Expiry Date</td>
+            <td>${item.expirDate}</td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td>${item.price}</td>
+        </tr>
+        <tr>
+            <td>Status</td>
+            <td>${item.status}</td>
+        </tr>
+        <tr>
+            <td>Status Date</td>
+            <td>${item.statusDate}</td>
+        </tr>
+    </table>
+    <!-- Delete and Flag Buttons within the same form -->
+    <form method="post">
+        <input type="hidden" name="itemId" value="${item.itemId}">
+        <input type="submit" name="action" value="Delete">
+        <input type="submit" name="action" value="Flag">
+    </form>
+</body>
 </html>
