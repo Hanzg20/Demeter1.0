@@ -118,8 +118,9 @@ public class InventoryControllerServlet extends HttpServlet {
                             case "delete":
                                 successSubmit = dataService.delete(id);
                                 break;
-                            case "flag":
-                                successSubmit = dataService.flag(id);
+                            case "Near expiration":
+                            case "Excess of demand":
+                                successSubmit = dataService.flag(id,submitAction);
                                 break;
                             default:
                                 NavigationHelper.HandleError(response, new Exception("Failed. Action not found"));

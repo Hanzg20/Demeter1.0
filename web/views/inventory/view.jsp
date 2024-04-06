@@ -73,8 +73,8 @@
     <!-- Delete and Flag Buttons within the same form -->
     <form method="post">
         <input type="hidden" name="itemId" value="${item.itemId}">
-        <input type="submit" name="action" value="delete">
-        <input type="submit" name="action" value="flag">
+        <input type="submit" name="action" value="Near expiration">
+        <input type="submit" name="action" value="Excess of demand">
     </form>
 </body>
 </html>
