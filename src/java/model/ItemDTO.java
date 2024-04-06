@@ -12,7 +12,7 @@ package model;
 import java.sql.Timestamp;
 
 public class ItemDTO {
-    
+
     private int itemId;
     private String itemName;
     private String unit;
@@ -26,13 +26,17 @@ public class ItemDTO {
     private String status;
     private Timestamp statusDate;
 
-    
+//    public ItemDTO(String itemName, String unit, int locationId, Timestamp createDate, int userId, int itemType, int quantity, Timestamp expirDate, double price, String status, Timestamp statusDate) {
+//        this(0, itemName, unit, locationId, createDate, userId, itemType, quantity, expirDate, price, status, statusDate);
+//
+//    }
+
     public ItemDTO(int itemId, String itemName, String unit, int locationId, Timestamp createDate, int userId, int itemType, int quantity, Timestamp expirDate, double price, String status, Timestamp statusDate) {
         this.itemId = itemId;
         this.itemName = itemName;
         this.unit = unit;
         this.locationId = locationId;
-        this.createDate  = createDate;
+        this.createDate = createDate;
         this.userId = userId;
         this.itemTypeId = itemType;
         this.quantity = quantity;
@@ -40,7 +44,7 @@ public class ItemDTO {
         this.price = price;
         this.status = status;
         this.statusDate = statusDate;
-        
+
     }
 
     public ItemDTO() {
@@ -140,9 +144,5 @@ public class ItemDTO {
 
     public void setStatusDate(Timestamp statusDate) {
         this.statusDate = statusDate;
-    }  
+    }
 }
-
-
-
-    

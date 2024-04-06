@@ -16,7 +16,7 @@
     </head>
     <body>
         <h2>Add Item</h2>
-        <form action="AddItemServlet" method="post">
+        <form method="post">
             <label for="itemName">Item Name:</label><br>
             <input type="text" id="itemName" name="itemName"><br><br>
 
@@ -31,28 +31,40 @@
             </select><br><br>
 
             <label for="createDate">Create Date:</label><br>
-            <input type="date" id="createDate" name="createDate"><br><br>
+            <input type="datetime-local" id="createDate" name="createDate"><br><br>
 
-            <label for="userId">User ID:</label><br>
-            <input type="text" id="userId" name="userId"><br><br>
-
-            <label for="itemTypeId">Item Type ID:</label><br>
-            <input type="text" id="itemTypeId" name="itemTypeId"><br><br>
+            <label for="userId">User:</label><br>
+            <select id="userId" name="userId">
+                <c:forEach var="user" items="${viewModel.users}">
+                    <option value="${user.userId}">${user.name}</option>
+                </c:forEach>
+            </select><br><br>
+            
+            <label for="itemTypeId">Item Type:</label><br>
+            <select id="itemTypeId" name="itemTypeId">
+                <c:forEach var="type" items="${viewModel.types}">
+                    <option value="${type.itemTypeId}">${type.itemTypeName}</option>
+                </c:forEach>
+            </select><br><br>
 
             <label for="quantity">Quantity:</label><br>
             <input type="number" id="quantity" name="quantity"><br><br>
 
             <label for="expirDate">Expiry Date:</label><br>
-            <input type="date" id="expirDate" name="expirDate"><br><br>
+            <input type="datetime-local" id="expirDate" name="expirDate"><br><br>
 
             <label for="price">Price:</label><br>
-            <input type="number" id="price" name="price"><br><br>
+            <input type="number" id="price" name="price" step="any"><br><br>
 
             <label for="status">Status:</label><br>
-            <input type="text" id="status" name="status"><br><br>
-
+            <select id="status" name="status">
+                <c:forEach var="option" items="${viewModel.statusOptions}">
+                   <option value="${option.symbol}" ${option.symbol eq "A" ? 'selected' : ''}>${option.text}</option>
+               </c:forEach>
+            </select><br><br>
+            
             <label for="statusDate">Status Date:</label><br>
-            <input type="date" id="statusDate" name="statusDate"><br><br>
+            <input type="datetime-local" id="statusDate" name="statusDate"><br><br>
 
             <input type="submit" value="Add Item">
         </form>
