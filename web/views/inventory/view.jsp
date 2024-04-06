@@ -34,20 +34,20 @@
             <td>${item.unit}</td>
         </tr>
         <tr>
-            <td>Location ID</td>
-            <td>${item.locationId}</td>
+            <td>Location</td>
+            <td>${item.location}</td>
         </tr>
         <tr>
             <td>Create Date</td>
             <td>${item.createDate}</td>
         </tr>
         <tr>
-            <td>User ID</td>
-            <td>${item.userId}</td>
+            <td>User</td>
+            <td>${item.userName}</td>
         </tr>
         <tr>
-            <td>Item Type ID</td>
-            <td>${item.itemTypeId}</td>
+            <td>Item Type</td>
+            <td>${item.itemType}</td>
         </tr>
         <tr>
             <td>Quantity</td>

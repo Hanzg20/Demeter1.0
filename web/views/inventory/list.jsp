@@ -34,8 +34,8 @@
             <label for="statusFilter">Status:</label>
             <select id="statusFilter" name="status">
                 <option value="">All</option>
-                <c:forEach var="itemType" items="${viewModel.statusOptions}">
-                   <option value="${itemType.symbol}" ${param.status eq itemType.symbol ? 'selected' : ''}>${itemType.text}</option>
+                <c:forEach var="option" items="${viewModel.statusOptions}">
+                   <option value="${option.symbol}" ${param.status eq option.symbol ? 'selected' : ''}>${option.text}</option>
                </c:forEach>
             </select>
 

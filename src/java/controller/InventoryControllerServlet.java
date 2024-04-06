@@ -1,4 +1,3 @@
-
 package controller;
 
 import businesslayer.InventoryService;
@@ -6,6 +5,10 @@ import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemDaoImpl;
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +25,7 @@ import viewmodel.InventoryViewModel;
 @WebServlet(name = "InventoryControllerServlet", urlPatterns = {"/inventory/*"})
 public class InventoryControllerServlet extends HttpServlet {
 
-        private final InventoryService dataService = new InventoryService();
-    
+    private final InventoryService dataService = new InventoryService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -38,27 +40,46 @@ public class InventoryControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getPathInfo();
-        switch(action)
-        {
+        switch (action) {
             case "/add":
                 request.setAttribute("viewModel", dataService.buidInventoryAddViewModel());
-                NavigationHelper.goTo(request,response,"/views/inventory/add.jsp");
+                NavigationHelper.goTo(request, response, "/views/inventory/add.jsp");
                 break;
             case "/edit":
-                NavigationHelper.goTo(request,response,"/views/inventory/edit.jsp");
+                String idForEdit = request.getParameter("id");
+                if (idForEdit == null) {
+                    NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not id."));
+                } else {
+                    request.setAttribute("viewModel", dataService.buidInventoryEditViewModel(Integer.parseInt(idForEdit)));
+                    NavigationHelper.goTo(request, response, "/views/inventory/edit.jsp");
+                }
+
                 break;
             case "/view":
-                NavigationHelper.goTo(request,response,"/views/inventory/view.jsp");
+                String idForView = request.getParameter("id");
+                if (idForView == null) {
+                    NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not id."));
+                } else {
+                    InventoryViewModel.Item item = dataService.buidInventoryViewModelItem(Integer.parseInt(idForView));
+                    if (item == null) {
+                        NavigationHelper.HandleError(response, new Exception("Bad Reqeust. Item not found"));
+                    } else {
+                        request.setAttribute("item", item);
+                        NavigationHelper.goTo(request, response, "/views/inventory/view.jsp");
+                    }
+
+                }
+
                 break;
             default:
                 String itemType = request.getParameter("itemType");
                 String status = request.getParameter("status");
                 String expireDays = request.getParameter("expireDays");
-                request.setAttribute("viewModel", dataService.buidInventoryViewModel(itemType,status,expireDays));
-                NavigationHelper.goTo(request,response,"/views/inventory/list.jsp");
-            break;
-            
-          }
+                request.setAttribute("viewModel", dataService.buidInventoryViewModel(itemType, status, expireDays));
+                NavigationHelper.goTo(request, response, "/views/inventory/list.jsp");
+                break;
+
+        }
 
     }
 
@@ -73,6 +94,39 @@ public class InventoryControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getPathInfo();
+        try {
+
+            switch (action) {
+                case "/add":
+                case "/edit":
+                    String id = request.getParameter("id");
+                    if (action.equals("/edit") && id == null) {
+                        NavigationHelper.HandleError(response, new Exception("Update Failed. Missing id"));
+                    } else if (dataService.saveItemWithRequest(request) == 0) {
+                        NavigationHelper.HandleError(response, new Exception("Failed. Please try again"));
+                    } else {
+                        response.sendRedirect("/inventory/");
+                    }
+
+                    break;
+                case "/view":
+                    NavigationHelper.goTo(request, response, "/views/inventory/view.jsp");
+                    break;
+                default:
+                    break;
+
+            }
+
+            // Perform add operation
+            // Example: call a service method to add the item
+            // addItem(itemName, unit, locationId, createDate, userId, itemTypeId, quantity, expirDate, price, status, statusDate);
+            // Redirect the user to a success page or back to the previous page
+            // Example: response.sendRedirect("success.jsp");
+        } catch (Exception e) {
+            NavigationHelper.HandleError(response, e);
+        }
+
     }
 
     /**
