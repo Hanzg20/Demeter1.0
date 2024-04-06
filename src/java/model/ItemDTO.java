@@ -140,12 +140,7 @@ public class ItemDTO {
 
     public void setStatusDate(Timestamp statusDate) {
         this.statusDate = statusDate;
-    }
-    
-   
-
-
-    
+    }  
 }
 
 

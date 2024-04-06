@@ -23,7 +23,6 @@ import viewmodel.InventoryViewModel;
 public class InventoryControllerServlet extends HttpServlet {
 
         private final InventoryService dataService = new InventoryService();
-        private final InventoryViewModel viewModel= new InventoryViewModel();
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,9 +50,10 @@ public class InventoryControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request,response,"/views/inventory/view.jsp");
                 break;
             default:
-                List<InventoryViewModel.Item> items = dataService.RetrieveAllItems();
-                viewModel.setItems(items);
-                request.setAttribute("viewModel", viewModel);
+                String itemType = request.getParameter("itemType");
+                String status = request.getParameter("status");
+                String expireDays = request.getParameter("expireDays");
+                request.setAttribute("viewModel", dataService.buidInventoryViewModel(itemType,status,expireDays));
                 NavigationHelper.goTo(request,response,"/views/inventory/list.jsp");
             break;
             

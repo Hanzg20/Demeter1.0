@@ -6,31 +6,31 @@ package model;
  * @author Glily
  */
 public class ItemTypeDTO {
-    private int itemId;
-    private String typeName;
+    private int itemTypeId;
+    private String itemTypeName;
 
     public ItemTypeDTO(int itemId, String typeName) {
-        this.itemId = itemId;
-        this.typeName = typeName;
+        this.itemTypeId = itemId;
+        this.itemTypeName = typeName;
     }
 
     public ItemTypeDTO() {
     }
 
-    public int getItemId() {
-        return itemId;
+    public int getItemTypeId() {
+        return itemTypeId;
     }
 
-    public void setItemId(int itemId) {
-        this.itemId = itemId;
+    public void setItemTypeId(int itemId) {
+        this.itemTypeId = itemId;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getItemTypeName() {
+        return itemTypeName;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setItemTypeName(String typeName) {
+        this.itemTypeName = typeName;
     }
     
 }
