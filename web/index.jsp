@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by Netbean
-  User: sunny
+  User: hanzg
   Date: 2024/4/01
   Time: 20:54
   To change this use File | Settings | File Templates.
@@ -41,25 +41,27 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="${ctx}/UserServlet" data-index="0">User Information</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/auth/login">Login</a></li>
+                              <li><a class="J_menuItem" href="${ctx}/auth/profile" >Profile</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/auth/register">User Register</a></li> 
+                            <li><a class="J_menuItem" href="${ctx}/auth/userslist">User Lists</a></li> 
                         </ul>
                     </li>
 
                     <li>
                         <a href="#">
                             <i class="fa fa-home"></i>
-                            <span class="nav-label">Food Items</span>
+                            <span class="nav-label">Items   </span>
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
                             <!-- Add target="_blank" to open links in new tab -->
-                            <li><a class="J_menuItem" href="${ctx}/auth/login">login</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/auth/register">register</a></li> 
-                            <li><a class="J_menuItem" href="${ctx}/UserServlet">List Users</a></li> 
-                            <li><a class="J_menuItem" href="${ctx}/inventory/">inventory</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/surplus/">surplus item</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/sale/">items on sale</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/donation/">items on donation</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/inventory/">Inventory</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/surplus/">Listing </a></li>
+                            <li><a class="J_menuItem" href="${ctx}/sale/">On Sale</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/donation/">On Donation</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/UserServlet">Subscription</a></li> 
+ 
                             <!-- Add target="_blank" to open links in new tab -->
                             <c:forEach var="songtypeBean" items="${songtypeBeanList}">
                                 <li>
@@ -123,11 +125,9 @@
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${ctx}home/" frameborder="0" data-id="${ctx}inventory/" seamless>
                 </iframe>
          </div>
-     
-        <div class="footer">
-            <div class="pull-right">&copy; 2020-2024 <a href="https://Demeter.github.io/" target="_blank">wrh</a>
-            </div>
-        </div>
+    <div class="footer" style="text-align: center; color: gray;">
+            <div  >    © 2020-2024 <a href="" target="_blank">"www Demeter.com"</a></div>
+    </div>
     </div>
 <!--End of the right part-->
      <!--Start right sidebar-->

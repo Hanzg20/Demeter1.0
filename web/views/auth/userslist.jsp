@@ -1,5 +1,5 @@
 <%-- 
-    Document   : user
+    Document   : userlist
     Created on : Mar 17, 2024, 6:18:10 PM
     Author     : hanzg
 --%>
@@ -17,7 +17,7 @@
         <thead>
             <tr>
                 <th>User ID</th>
-                <th>User Name</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Role ID</th>
                 <th>Create Date</th>
@@ -28,10 +28,10 @@
             <c:forEach var="user" items="${users}">
                 <tr>
                     <td>${user.userId}</td>
-                    <td>${user.username}</td>
+                    <td>${user.name}</td>
                     <td>${user.email}</td>
                     <td>${user.roleId}</td>
-                    <td>${user.userId}</td>
+                    <td>${user.createDate}</td>
                     <!-- Add more columns if needed -->
                 </tr>
             </c:forEach>
