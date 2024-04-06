@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.ItemDTO;
 import viewmodel.InventoryViewModel;
+import viewmodel.ItemDetail;
 
 /**
  *
@@ -60,7 +61,7 @@ public class InventoryControllerServlet extends HttpServlet {
                 if (idForView == null) {
                     NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not id."));
                 } else {
-                    InventoryViewModel.Item item = dataService.buidInventoryViewModelItem(Integer.parseInt(idForView));
+                    ItemDetail item = dataService.buidInventoryViewModelItem(Integer.parseInt(idForView));
                     if (item == null) {
                         NavigationHelper.HandleError(response, new Exception("Bad Reqeust. Item not found"));
                     } else {
