@@ -90,7 +90,8 @@
                                     <td>${item.statusDate}</td>
                                     <td>
                                         <a href="edit?id=${item.itemId}">Edit</a>
-                                        <a href="view?id=${item.itemId}">View</a>
+                                        <a href="view?id=${item.itemId}">Surplus</a>
+                                        <a href="delete?id=${item.itemId}">Delete</a>
                                     </td>
                                 </tr>
                             </c:forEach>

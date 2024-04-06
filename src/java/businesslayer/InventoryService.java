@@ -12,6 +12,7 @@ import dataaccesslayer.UserDaoImpl;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -159,12 +160,13 @@ public class InventoryService {
         return itemDao.delete(id)!=0;
     }
 
-    public boolean flag(String id) {
+    public boolean flag(String id,String submitAction) throws IllegalArgumentException {
         ItemDTO item = itemDao.Retrieve(id);
-//        if (item != null) {
-//            item.setStatus( EnumStatusType.);
-//            itemDao.
-//        }
+        if (item != null) {
+            item.setStatus( EnumStatusType.fromText(submitAction).getSymbol());
+            item.setStatusDate(Timestamp.from(Instant.now()));
+            return itemDao.update(item)!=0;
+        }
         
         return false;
     }

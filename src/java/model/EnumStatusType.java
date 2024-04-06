@@ -43,4 +43,13 @@ public enum EnumStatusType {
         }
         throw new IllegalArgumentException("No EnumItemType with symbol " + symbol + " found");
     }
+    
+    public static EnumStatusType fromText(String text) {
+        for (EnumStatusType type : EnumStatusType.values()) {
+            if (type.text.equals(text)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No EnumItemType with symbol " + text + " found");
+    }
 }
