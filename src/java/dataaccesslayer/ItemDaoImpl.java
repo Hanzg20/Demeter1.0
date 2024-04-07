@@ -1,5 +1,6 @@
 package dataaccesslayer;
 
+import static dataaccesslayer.ItemListingDaoImpl.SQL_INSERT;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.ItemDTO;
+import model.ItemListingDTO;
 
 public class ItemDaoImpl extends DAOImpl<ItemDTO> {
 
@@ -49,7 +51,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     public int update(ItemDTO item) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(),item.getItemId());
+            return dataSource.execute(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(), item.getItemId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -163,13 +165,17 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
             int days = Integer.parseInt(expireDayFilter);
 
             // Add 7 days to the current timestamp
-            Instant sevenDaysLater = now.plusSeconds( days* 24 * 60 * 60);
+            Instant sevenDaysLater = now.plusSeconds(days * 24 * 60 * 60);
 
             // Convert the Instant to java.sql.Timestamp
             Timestamp timestamp = Timestamp.from(sevenDaysLater);
-            statement.setTimestamp(parameterIndex++, timestamp );
+            statement.setTimestamp(parameterIndex++, timestamp);
         }
 
         return statement;
+    }
+
+    public PreparedStatement prepareUpdateStatement(ItemDTO item) throws SQLException {
+        return dataSource.prepareStatement(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(), item.getItemId()) ;
     }
 }

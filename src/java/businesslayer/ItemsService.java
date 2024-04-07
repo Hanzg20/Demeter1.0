@@ -5,10 +5,16 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
+import dataaccesslayer.DataSource;
+import static dataaccesslayer.DataSource.getInstance;
 import dataaccesslayer.ItemDaoImpl;
+import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
 import dataaccesslayer.LocationDaoImpl;
 import dataaccesslayer.UserDaoImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,15 +25,16 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.EnumStatusType;
 import model.ItemDTO;
+import model.ItemListingDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
 import model.UserDTO;
 import viewmodel.InventoryAddViewModel;
 import viewmodel.InventoryEditViewModel;
 import viewmodel.InventoryViewModel;
-import viewmodel.ItemDetail;
-import static viewmodel.ItemDetail.convertFrom;
-import viewmodel.ListingItemDetail;
+import viewmodel.InventoryViewModelItem;
+import static viewmodel.InventoryViewModelItem.convertFrom;
+import viewmodel.ListingViewModelItem;
 import viewmodel.SurplusListingViewModel;
 
 /**
@@ -42,12 +49,15 @@ public class ItemsService {
     private final DAO<LocationDTO> locationDao = new LocationDaoImpl();
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
-   
-    private List<ItemDetail> retrieveList(String itemType, String status, String daysExpireDays) {
-        List<ItemDetail> result = new ArrayList<>();
+
+    private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
+    protected DataSource dataSource = DataSource.getInstance();
+
+    private List<InventoryViewModelItem> retrieveItemList(String itemType, String status, String daysExpireDays) {
+        List<InventoryViewModelItem> result = new ArrayList<>();
         List<ItemDTO> items = itemDao.RetrieveList(itemType, status, daysExpireDays);
         items.forEach(item -> {
-            ItemDetail viewItem = convertFrom(item);
+            InventoryViewModelItem viewItem = convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
             if (location != null) {
                 viewItem.setLocation(location.getAddress());
@@ -68,12 +78,12 @@ public class ItemsService {
         });
         return result;
     }
-    
-    private List<ListingItemDetail> retrieveListingList(String itemType, String daysExpireDays) {
-        List<ListingItemDetail> result = new ArrayList<>();
-        List<ItemDTO> items = itemDao.RetrieveList(itemType,"N", daysExpireDays);
+
+    private List<ListingViewModelItem> retrieveListingList(String itemType, String daysExpireDays) {
+        List<ListingViewModelItem> result = new ArrayList<>();
+        List<ItemDTO> items = itemDao.RetrieveList(itemType, "N", daysExpireDays);
         items.forEach(item -> {
-            ListingItemDetail viewItem =ListingItemDetail.convertFrom(item);
+            ListingViewModelItem viewItem = ListingViewModelItem.convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
             if (location != null) {
                 viewItem.setLocation(location.getAddress());
@@ -94,11 +104,12 @@ public class ItemsService {
         });
         return result;
     }
-   
-    public ItemDetail buidInventoryViewModelItem(int id) {
+
+
+    public InventoryViewModelItem buidInventoryViewModelItem(int id) {
         ItemDTO item = itemDao.Retrieve(id);
         if (item != null) {
-            ItemDetail viewItem = convertFrom(item);
+            InventoryViewModelItem viewItem = convertFrom(item);
             LocationDTO location = locationDao.Retrieve(item.getLocationId());
             if (location != null) {
                 viewItem.setLocation(location.getAddress());
@@ -120,18 +131,42 @@ public class ItemsService {
         return null;
     }
 
-        public   SurplusListingViewModel  buidListingViewModel(String itemType, String expireDays) {
-             SurplusListingViewModel viewModel = new SurplusListingViewModel();
-             viewModel.setItems(retrieveListingList(itemType,expireDays));
-             viewModel.setTypeOptions(typeDao.RetrieveAll());
-        return viewModel;
-  
+    public ListingViewModelItem buidListingViewModelItem(int id) {
+        ItemDTO item = itemDao.Retrieve(id);
+        if (item != null) {
+            ListingViewModelItem viewItem = ListingViewModelItem.convertFrom(item);
+            LocationDTO location = locationDao.Retrieve(item.getLocationId());
+            if (location != null) {
+                viewItem.setLocation(location.getAddress());
+            }
+
+            UserDTO user = userDao.Retrieve(item.getUserId());
+            if (user != null) {
+                viewItem.setUserName(user.getName());
+            }
+
+            ItemTypeDTO type = typeDao.Retrieve(item.getItemTypeId());
+
+            if (type != null) {
+                viewItem.setItemType(type.getItemTypeName());
+            }
+
+            return viewItem;
+        }
+        return null;
     }
-  
-  
-        public InventoryViewModel buidInventoryViewModel(String itemType, String status, String daysExpireDays) {
+
+    public SurplusListingViewModel buidListingViewModel(String itemType, String expireDays) {
+        SurplusListingViewModel viewModel = new SurplusListingViewModel();
+        viewModel.setItems(retrieveListingList(itemType, expireDays));
+        viewModel.setTypeOptions(typeDao.RetrieveAll());
+        return viewModel;
+
+    }
+
+    public InventoryViewModel buidInventoryViewModel(String itemType, String status, String daysExpireDays) {
         InventoryViewModel viewModel = new InventoryViewModel();
-        viewModel.setItems(retrieveList(itemType, status, daysExpireDays));
+        viewModel.setItems(retrieveItemList(itemType, status, daysExpireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
         return viewModel;
     }
@@ -194,17 +229,40 @@ public class ItemsService {
     }
 
     public boolean delete(String id) {
-        return itemDao.delete(id)!=0;
+        return itemDao.delete(id) != 0;
     }
 
-    public boolean flag(String id,String submitAction) throws IllegalArgumentException {
+    public boolean flag(String id, String submitAction) throws IllegalArgumentException {
         ItemDTO item = itemDao.Retrieve(id);
         if (item != null) {
-            item.setStatus( EnumStatusType.fromText(submitAction).getSymbol());
+            item.setStatus(EnumStatusType.fromText(submitAction).getSymbol());
             item.setStatusDate(Timestamp.from(Instant.now()));
-            return itemDao.update(item)!=0;
+            return itemDao.update(item) != 0;
         }
-        
+
+        return false;
+    }
+
+    public boolean donate(int id) {
+        ItemDTO item = itemDao.Retrieve(id);
+        if (item != null) {
+            item.setStatus(EnumStatusType.LISTED.getSymbol());
+            item.setStatusDate(Timestamp.from(Instant.now()));
+            ItemListingDTO itemListingDTO=new ItemListingDTO(0,id, true, 0, Timestamp.from(Instant.now()));
+            try (Connection connection = dataSource.createConnection(); // Call createConnection on an instance
+                  PreparedStatement statement1=  itemDao.prepareUpdateStatement(item);
+                  PreparedStatement statement2=  itemListingDao.prepareInsertStatement(itemListingDTO)) {
+                    // Executing both statements
+                    statement1.executeUpdate();
+                    statement2.executeUpdate();
+                    // Committing the transaction                    
+                    return true;
+
+            } catch (SQLException ex) {
+               ex.printStackTrace();
+            }
+        }
+
         return false;
     }
 }

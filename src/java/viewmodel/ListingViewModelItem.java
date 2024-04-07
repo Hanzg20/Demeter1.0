@@ -5,13 +5,14 @@
 package viewmodel;
 
 import java.sql.Timestamp;
+import model.EnumStatusType;
 import model.ItemDTO;
 
 /**
  *
- * @author liyingguo
+ * @author hanzg
  */
-public class ItemDetail {
+public class ListingViewModelItem {
     
     private int itemId;
     private String itemName;
@@ -122,8 +123,8 @@ public class ItemDetail {
         this.statusDate = statusDate;
     }
 
-    public static ItemDetail convertFrom(ItemDTO dto) {
-        ItemDetail result = new ItemDetail();
+    public static ListingViewModelItem convertFrom(ItemDTO dto) {
+        ListingViewModelItem result = new ListingViewModelItem();
         result.setItemId(dto.getItemId());
         result.setItemName(dto.getItemName());
         result.setUnit(dto.getUnit());
@@ -131,7 +132,7 @@ public class ItemDetail {
         result.setQuantity(dto.getQuantity());
         result.setExpirDate(dto.getExpirDate());
         result.setPrice(dto.getPrice());
-        result.setStatus(dto.getStatus());
+        result.setStatus(EnumStatusType.fromSymbol(dto.getStatus()).getText());
         result.setStatusDate(dto.getStatusDate());
         return result;
     }

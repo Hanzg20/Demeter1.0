@@ -13,6 +13,7 @@ public enum EnumStatusType {
     AVAILABLE("A", "Available"),
     NARE_EXPIREATION("N", "Near expiration"),//Surplus item
     EXCESS_OF_DEMAND("E", "Excess of demand"),//Surplus item
+    LISTED("L", "Listed"),//listed either donate or onSale
     SOLD("S", "Sold");
 
     // Fields to store symbol and text

@@ -9,6 +9,8 @@
  */
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Glily
@@ -16,11 +18,11 @@ package model;
 public class ItemListingDTO {
     private int listingId;
     private int itemId;
-    private String isDonation;
+    private boolean isDonation;
     private double discountRate;
-    private long listingDate;
+    private Timestamp listingDate;
     
-    public ItemListingDTO(int listingId, int itemId, String isDonation, double discountRate, long listingDate) {
+    public ItemListingDTO(int listingId, int itemId, boolean isDonation, double discountRate, Timestamp listingDate) {
         this.listingId = listingId;
         this.itemId = itemId;
         this.isDonation = isDonation;
@@ -47,11 +49,11 @@ public class ItemListingDTO {
         this.itemId = itemId;
     }
 
-    public String getIsDonation() {
+    public boolean getIsDonation() {
         return isDonation;
     }
 
-    public void setIsDonation(String isDonation) {
+    public void setIsDonation(boolean isDonation) {
         this.isDonation = isDonation;
     }
 
@@ -63,11 +65,11 @@ public class ItemListingDTO {
         this.discountRate = discountRate;
     }
 
-    public long getListingDate() {
+    public Timestamp getListingDate() {
         return listingDate;
     }
 
-    public void setListingDate(long listingDate) {
+    public void setListingDate(Timestamp listingDate) {
         this.listingDate = listingDate;
     }
     

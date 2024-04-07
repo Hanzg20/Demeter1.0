@@ -15,10 +15,10 @@ import model.ItemTypeDTO;
  */
 public class SurplusListingViewModel {
     
- private List<ListingItemDetail> items = new ArrayList<>();
+ private List<ListingViewModelItem> items = new ArrayList<>();
     private List<ItemTypeDTO> typeOptions = new ArrayList<>();
 
-    public List<ListingItemDetail> getItems() {
+    public List<ListingViewModelItem> getItems() {
         return items;
     }
     
@@ -35,7 +35,7 @@ public class SurplusListingViewModel {
         this.typeOptions = typeOptions;
     }
 
-    public void setItems(List<ListingItemDetail> items) {
+    public void setItems(List<ListingViewModelItem> items) {
         this.items = items;
     }
     
