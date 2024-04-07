@@ -5,6 +5,7 @@
 package viewmodel;
 
 import java.sql.Timestamp;
+import model.EnumStatusType;
 import model.ItemDTO;
 
 /**
@@ -131,7 +132,7 @@ public class ItemDetail {
         result.setQuantity(dto.getQuantity());
         result.setExpirDate(dto.getExpirDate());
         result.setPrice(dto.getPrice());
-        result.setStatus(dto.getStatus());
+        result.setStatus(EnumStatusType.fromSymbol(dto.getStatus()).getText());
         result.setStatusDate(dto.getStatusDate());
         return result;
     }
