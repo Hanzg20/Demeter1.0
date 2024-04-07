@@ -1,7 +1,7 @@
-
 package dataaccesslayer;
 
 import static dataaccesslayer.ItemDaoImpl.SQL_RETRIEVE_ALL;
+import static dataaccesslayer.ItemDaoImpl.SQL_UPDATE;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,16 +17,15 @@ import model.ItemListingDTO;
  *
  * @author Glily
  */
-
 public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
 
-    final static String SQL_INSERT = "INSERT INTO item_listing (Item_id, Is_donation, Discount_rate, Listing_date) VALUES (?, ?, ?, ?, ?)";
+    final static String SQL_INSERT = "INSERT INTO item_listing (Item_id, Is_donation, Discount_rate, Listing_date) VALUES (?, ?, ?, ?)";
     final static String SQL_DELETE_ALL = "DELETE FROM item_listing";
     final static String SQL_DELETE = "DELETE FROM item_listing WHERE Listing_id = ?";
     final static String SQL_UPDATE = "UPDATE item_listing SET Item_id=?, Is_donation=?, Discount_rate=?, Listing_date=? WHERE Listing_id = ?";
-    final static String SQL_RETRIEVE = "SELECT * FROM item_listing WHERE Listing_id = ?";
+    final static String SQL_RETRIEVE = "SELECT Listing_id, Item_id, Is_donation, Discount_rate, Listing_date FROM item_listing WHERE Listing_id = ?";
     final static String SQL_RETRIEVE_ALL = "SELECT Listing_id,  Item_id, Is_donation, Discount_rate, Listing_date FROM item_listing";
-    
+
     @Override
     public int insert(ItemListingDTO item_listing) {
 
@@ -65,16 +64,14 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
 
     @Override
     public ItemListingDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); 
-                ResultSet resultSet = statement.executeQuery()
-                ) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 ItemListingDTO itemListing = new ItemListingDTO();
                 itemListing.setListingId(resultSet.getInt("Listing_id"));
                 itemListing.setItemId(resultSet.getInt("Item_id"));
-                itemListing.setIsDonation(resultSet.getString("Is_donation"));
+                itemListing.setIsDonation(resultSet.getBoolean("Is_donation"));
                 itemListing.setDiscountRate(resultSet.getDouble("Discount_rate"));
-                itemListing.setListingDate(resultSet.getLong("Listing_date"));
+                itemListing.setListingDate(resultSet.getTimestamp("Listing_date"));
                 return itemListing;
             }
         } catch (Exception ex) {
@@ -89,12 +86,11 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO item = new ItemListingDTO();
-                 item.setListingId(resultSet.getInt("Listing_id"));
+                item.setListingId(resultSet.getInt("Listing_id"));
                 item.setItemId(resultSet.getInt("Item_id"));
-                item.setIsDonation(resultSet.getString("Is_donation"));
-                if(resultSet.getObject("Discount_rate") != null)
-                {
-                   item.setDiscountRate(resultSet.getDouble("Discount_rate"));
+                item.setIsDonation(resultSet.getBoolean("Is_donation"));
+                if (resultSet.getObject("Discount_rate") != null) {
+                    item.setDiscountRate(resultSet.getDouble("Discount_rate"));
                 }
                 //itemListing.setListingDate(resultSet.getLong("Listing_date"));
                 itemListings.add(item);
@@ -104,18 +100,17 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         }
         return itemListings;
     }
-    
+
     public List<ItemListingDTO> RetrieveList(String itemType, String status, String daysExpireDaysLessThan) {
         List<ItemListingDTO> items = new ArrayList<>();
         try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL, itemType, status, daysExpireDaysLessThan); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO item = new ItemListingDTO();
-                 item.setListingId(resultSet.getInt("Listing_id"));
+                item.setListingId(resultSet.getInt("Listing_id"));
                 item.setItemId(resultSet.getInt("Item_id"));
-                item.setIsDonation(resultSet.getString("Is_donation"));
-                if(resultSet.getObject("Discount_rate") != null)
-                {
-                   item.setDiscountRate(resultSet.getDouble("Discount_rate"));
+                item.setIsDonation(resultSet.getBoolean("Is_donation"));
+                if (resultSet.getObject("Discount_rate") != null) {
+                    item.setDiscountRate(resultSet.getDouble("Discount_rate"));
                 }
                 //itemListing.setListingDate(resultSet.getLong("Listing_date"));
                 items.add(item);
@@ -157,15 +152,17 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
             int days = Integer.parseInt(expireDayFilter);
 
             // Add 7 days to the current timestamp
-            Instant sevenDaysLater = now.plusSeconds( days* 24 * 60 * 60);
+            Instant sevenDaysLater = now.plusSeconds(days * 24 * 60 * 60);
 
             // Convert the Instant to java.sql.Timestamp
             Timestamp timestamp = Timestamp.from(sevenDaysLater);
-            statement.setTimestamp(parameterIndex++, timestamp );
+            statement.setTimestamp(parameterIndex++, timestamp);
         }
 
         return statement;
     }
+
+    public PreparedStatement prepareInsertStatement(ItemListingDTO item_listing) throws SQLException {
+        return dataSource.prepareStatement(SQL_INSERT, item_listing.getItemId(), item_listing.getIsDonation(), item_listing.getDiscountRate(), item_listing.getListingDate());
+    }
 }
-
-

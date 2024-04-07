@@ -24,7 +24,7 @@ public class DataSource {
         return instance;
     }
 
-    private Connection createConnection() throws SQLException {
+    public Connection createConnection() throws SQLException {
         try {
             if (connection != null && !connection.isClosed()) {
                 System.out.println("Cannot create new connection, one exists already");

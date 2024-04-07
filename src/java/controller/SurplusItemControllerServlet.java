@@ -48,11 +48,9 @@ public class SurplusItemControllerServlet extends HttpServlet {
                         NavigationHelper.HandleError(response, new Exception("Bad Reqeust. Item not found"));
                     } else {
                         request.setAttribute("item", item);
-                        if("/donate".equals(action))
-                        {
+                        if ("/donate".equals(action)) {
                             NavigationHelper.goTo(request, response, "/views/surplus/donate.jsp");
-                        }else
-                        {
+                        } else {
                             NavigationHelper.goTo(request, response, "/views/surplus/sale.jsp");
                         }
                     }
@@ -80,6 +78,46 @@ public class SurplusItemControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getPathInfo();
+        try {
+            String id = request.getParameter("id");
+            if ((action.equals("/donate") || action.equals("/sale")) && id == null) {
+                NavigationHelper.HandleError(response, new Exception("Open Failed. Missing id"));
+            } else {
+                switch (action) {
+                    case "/donate":
+                    case "/sale":
+                        boolean successSubmit = false;
+                        if(action.equals("/donate"))
+                        {
+                            successSubmit = dataService.donate(Integer.parseInt(id));
+                        }else
+                        {
+                            
+//                            successSubmit = dataService.donate(id);
+                        }
+                        
+                        if (successSubmit) {
+                            response.sendRedirect("/surplus/");
+                        } else {
+                            NavigationHelper.HandleError(response, new Exception("Failed. Please retry"));
+                        }
+                        break;
+
+                    default:
+                        break;
+
+                }
+            }
+
+            // Perform add operation
+            // Example: call a service method to add the item
+            // addItem(itemName, unit, locationId, createDate, userId, itemTypeId, quantity, expirDate, price, status, statusDate);
+            // Redirect the user to a successSubmit page or back to the previous page
+            // Example: response.sendRedirect("successSubmit.jsp");
+        } catch (Exception e) {
+            NavigationHelper.HandleError(response, e);
+        }
     }
 
     /**
