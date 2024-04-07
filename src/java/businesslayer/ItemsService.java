@@ -5,10 +5,16 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
+import dataaccesslayer.DataSource;
+import static dataaccesslayer.DataSource.getInstance;
 import dataaccesslayer.ItemDaoImpl;
+import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
 import dataaccesslayer.LocationDaoImpl;
 import dataaccesslayer.UserDaoImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +25,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import model.EnumStatusType;
 import model.ItemDTO;
+import model.ItemListingDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
 import model.UserDTO;
@@ -42,6 +49,8 @@ public class ItemsService {
     private final DAO<LocationDTO> locationDao = new LocationDaoImpl();
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
+    private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
+    protected DataSource dataSource = DataSource.getInstance();
 
     private List<InventoryViewModelItem> retrieveItemList(String itemType, String status, String daysExpireDays) {
         List<InventoryViewModelItem> result = new ArrayList<>();
@@ -227,6 +236,29 @@ public class ItemsService {
             item.setStatus(EnumStatusType.fromText(submitAction).getSymbol());
             item.setStatusDate(Timestamp.from(Instant.now()));
             return itemDao.update(item) != 0;
+        }
+
+        return false;
+    }
+
+    public boolean donate(int id) {
+        ItemDTO item = itemDao.Retrieve(id);
+        if (item != null) {
+            item.setStatus(EnumStatusType.LISTED.getSymbol());
+            item.setStatusDate(Timestamp.from(Instant.now()));
+            ItemListingDTO itemListingDTO=new ItemListingDTO(0,id, true, 0, Timestamp.from(Instant.now()));
+            try (Connection connection = dataSource.createConnection(); // Call createConnection on an instance
+                  PreparedStatement statement1=  itemDao.prepareUpdateStatement(item);
+                  PreparedStatement statement2=  itemListingDao.prepareInsertStatement(itemListingDTO)) {
+                    // Executing both statements
+                    statement1.executeUpdate();
+                    statement2.executeUpdate();
+                    // Committing the transaction                    
+                    return true;
+
+            } catch (SQLException ex) {
+               ex.printStackTrace();
+            }
         }
 
         return false;
