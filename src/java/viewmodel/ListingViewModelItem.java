@@ -12,7 +12,7 @@ import model.ItemDTO;
  *
  * @author hanzg
  */
-public class ListingItemDetail {
+public class ListingViewModelItem {
     
     private int itemId;
     private String itemName;
@@ -123,8 +123,8 @@ public class ListingItemDetail {
         this.statusDate = statusDate;
     }
 
-    public static ListingItemDetail convertFrom(ItemDTO dto) {
-        ListingItemDetail result = new ListingItemDetail();
+    public static ListingViewModelItem convertFrom(ItemDTO dto) {
+        ListingViewModelItem result = new ListingViewModelItem();
         result.setItemId(dto.getItemId());
         result.setItemName(dto.getItemName());
         result.setUnit(dto.getUnit());

@@ -17,10 +17,10 @@ import model.ItemTypeDTO;
  */
 public class InventoryViewModel {
 
-    private List<ItemDetail> items = new ArrayList<>();
+    private List<InventoryViewModelItem> items = new ArrayList<>();
     private List<ItemTypeDTO> typeOptions = new ArrayList<>();
 
-    public List<ItemDetail> getItems() {
+    public List<InventoryViewModelItem> getItems() {
         return items;
     }
     
@@ -37,7 +37,7 @@ public class InventoryViewModel {
         this.typeOptions = typeOptions;
     }
 
-    public void setItems(List<ItemDetail> items) {
+    public void setItems(List<InventoryViewModelItem> items) {
         this.items = items;
     }
     

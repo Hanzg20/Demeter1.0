@@ -12,7 +12,7 @@ import model.ItemDTO;
  *
  * @author liyingguo
  */
-public class ItemDetail {
+public class InventoryViewModelItem {
     
     private int itemId;
     private String itemName;
@@ -123,8 +123,8 @@ public class ItemDetail {
         this.statusDate = statusDate;
     }
 
-    public static ItemDetail convertFrom(ItemDTO dto) {
-        ItemDetail result = new ItemDetail();
+    public static InventoryViewModelItem convertFrom(ItemDTO dto) {
+        InventoryViewModelItem result = new InventoryViewModelItem();
         result.setItemId(dto.getItemId());
         result.setItemName(dto.getItemName());
         result.setUnit(dto.getUnit());
