@@ -43,7 +43,7 @@ public class ItemsService {
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
 
-    private List<ItemDetail> retrieveList(String itemType, String status, String daysExpireDays) {
+    private List<ItemDetail> retrieveItemList(String itemType, String status, String daysExpireDays) {
         List<ItemDetail> result = new ArrayList<>();
         List<ItemDTO> items = itemDao.RetrieveList(itemType, status, daysExpireDays);
         items.forEach(item -> {
@@ -131,7 +131,7 @@ public class ItemsService {
   
         public InventoryViewModel buidInventoryViewModel(String itemType, String status, String daysExpireDays) {
         InventoryViewModel viewModel = new InventoryViewModel();
-        viewModel.setItems(retrieveList(itemType, status, daysExpireDays));
+        viewModel.setItems(retrieveItemList(itemType, status, daysExpireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
         return viewModel;
     }
