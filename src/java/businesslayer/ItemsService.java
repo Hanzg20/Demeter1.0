@@ -49,6 +49,7 @@ public class ItemsService {
     private final DAO<LocationDTO> locationDao = new LocationDaoImpl();
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
+
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
     protected DataSource dataSource = DataSource.getInstance();
 
@@ -103,6 +104,7 @@ public class ItemsService {
         });
         return result;
     }
+
 
     public InventoryViewModelItem buidInventoryViewModelItem(int id) {
         ItemDTO item = itemDao.Retrieve(id);
@@ -181,7 +183,7 @@ public class ItemsService {
         viewModel.setItem(itemDao.Retrieve(id));
         return viewModel;
     }
-
+  
     private void setOptions(InventoryAddViewModel viewModel) {
         viewModel.setLocations(locationDao.RetrieveAll());
         viewModel.setTypes(typeDao.RetrieveAll());

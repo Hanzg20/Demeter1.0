@@ -1,4 +1,3 @@
-
 package dataaccesslayer;
 
 import java.io.Serializable;
@@ -7,11 +6,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.SubscriptionDTO;
-
-/**
- *
- * @author Glily
- */
 
 public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
 
@@ -24,7 +18,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     
     @Override
     public int insert(SubscriptionDTO subscription) {
-          try {
+        try {
             return dataSource.execute(SQL_INSERT, subscription.getUserId(), subscription.getNotiMethod(), subscription.getItemLocation(), subscription.getItemPrice(), subscription.getItemTypeId());
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -48,7 +42,6 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
 
     @Override
     public int update(SubscriptionDTO subscription) {
-
         try {
             return dataSource.execute(SQL_UPDATE, subscription.getUserId(), subscription.getNotiMethod(), subscription.getItemLocation(), subscription.getItemPrice(), subscription.getItemTypeId());
         } catch (Exception ex) {
@@ -60,8 +53,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     @Override
     public SubscriptionDTO Retrieve(Serializable id) {
         try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); 
-                ResultSet resultSet = statement.executeQuery()
-                ) {
+             ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 SubscriptionDTO subscription = new SubscriptionDTO();
                 subscription.setSubsId(resultSet.getInt("subs_id"));
@@ -81,7 +73,8 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     @Override
     public List<SubscriptionDTO> RetrieveAll() {
         List<SubscriptionDTO> subscriptions = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); 
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 SubscriptionDTO subscription = new SubscriptionDTO();
                 subscription.setSubsId(resultSet.getInt("subs_id"));
@@ -98,5 +91,4 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
         return subscriptions;
     }
 }
-
 
