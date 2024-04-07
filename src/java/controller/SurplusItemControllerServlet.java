@@ -20,10 +20,7 @@ import model.ItemListingDTO;
  */
 @WebServlet(name = "SurplusItemControllerServlet", urlPatterns = {"/surplus/*"})
 public class SurplusItemControllerServlet extends HttpServlet {
-
          private final ItemsService dataService = new ItemsService();
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

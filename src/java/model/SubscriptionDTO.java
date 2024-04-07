@@ -1,8 +1,10 @@
-
 package model;
 
 /**
- *
+ * Data transfer object for subscription information.
+ * Represents a subscription with subscription ID, user ID, notification method,
+ * item location, item price, and item type ID.
+ * 
  * @author Glily
  */
 public class SubscriptionDTO {
@@ -13,6 +15,16 @@ public class SubscriptionDTO {
     private double itemPrice;
     private int itemTypeId;
 
+    /**
+     * Constructs a SubscriptionDTO with the specified parameters.
+     * 
+     * @param subsId The subscription ID
+     * @param userId The user ID
+     * @param notiMethod The notification method
+     * @param itemLocation The item location
+     * @param itemPrice The item price
+     * @param itemTypeId The item type ID
+     */
     public SubscriptionDTO(int subsId, int userId, String notiMethod, String itemLocation, double itemPrice, int itemTypeId) {
         this.subsId = subsId;
         this.userId = userId;
@@ -22,8 +34,13 @@ public class SubscriptionDTO {
         this.itemTypeId = itemTypeId;
     }
 
+    /**
+     * Constructs an empty SubscriptionDTO.
+     */
     public SubscriptionDTO() {
     }
+
+    // Getters and setters
 
     public int getSubsId() {
         return subsId;
@@ -72,6 +89,4 @@ public class SubscriptionDTO {
     public void setItemTypeId(int itemTypeId) {
         this.itemTypeId = itemTypeId;
     }
-   
-    
 }

@@ -42,7 +42,7 @@ public class ItemsService {
     private final DAO<LocationDTO> locationDao = new LocationDaoImpl();
     private final DAO<UserDTO> userDao = new UserDaoImpl();
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
-
+   
     private List<ItemDetail> retrieveList(String itemType, String status, String daysExpireDays) {
         List<ItemDetail> result = new ArrayList<>();
         List<ItemDTO> items = itemDao.RetrieveList(itemType, status, daysExpireDays);
@@ -94,7 +94,7 @@ public class ItemsService {
         });
         return result;
     }
-
+   
     public ItemDetail buidInventoryViewModelItem(int id) {
         ItemDTO item = itemDao.Retrieve(id);
         if (item != null) {
@@ -148,7 +148,7 @@ public class ItemsService {
         viewModel.setItem(itemDao.Retrieve(id));
         return viewModel;
     }
-
+  
     private void setOptions(InventoryAddViewModel viewModel) {
         viewModel.setLocations(locationDao.RetrieveAll());
         viewModel.setTypes(typeDao.RetrieveAll());
