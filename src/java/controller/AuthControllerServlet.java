@@ -5,7 +5,7 @@
 package controller;
 
 import businesslayer.NavigationHelper;
-import businesslayer.UserBusinessLogic;
+import businesslayer.AuthService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -47,7 +47,7 @@ public class AuthControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request, response, "/views/auth/profile.jsp");
                 break;
             case "/users":
-                UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
+                AuthService userBusinessLogic = new AuthService();
                 List<UserDTO> users = null;
 
                 try {

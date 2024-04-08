@@ -1,16 +1,17 @@
 package businesslayer;
 
+import dataaccesslayer.DAO;
+import dataaccesslayer.RoleDaoImpl;
 import java.sql.SQLException;
 import java.util.List;
 import model.UserDTO;
 import dataaccesslayer.UserDaoImpl;
+import model.RoleDTO;
 
-public class UserBusinessLogic {
-    private UserDaoImpl userDao;
+public class AuthService {
+    private UserDaoImpl userDao= new UserDaoImpl();
+    private DAO<RoleDTO> roleDao = new RoleDaoImpl();
 
-    public UserBusinessLogic() {
-        this.userDao = new UserDaoImpl();
-    }
 
     public void addUser(UserDTO user) throws SQLException {
         userDao.insert(user);
