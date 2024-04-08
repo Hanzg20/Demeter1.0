@@ -14,13 +14,13 @@
      <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/demeter.css">
 </head>
 <body>
-  <div class="profile-container">
-        <div class="profile-row">
-            <div class="profile-section">
+  <div class="main-container">
+        <div class="main-row">
+            <div class="main-section">
                 <h3>Photo</h3>
                 <img src="${ctx}/resources/img/user/profile_small-1.jpg" alt="User Photo" class="profile-photo">
             </div>
-                 <div class="profile-section">
+                 <div class="main-section">
                 <h3>Role</h3>
                 <label>Role:</label>
                 <span>${roleDTO.roleName}</span><br>
@@ -28,8 +28,8 @@
              </div>
       </div>       
                 
-        <div class="profile-row">
-            <div class="profile-section">
+        <div class="main-row">
+            <div class="main-section">
                 <h3>Basic Information</h3>
                 <label>Name:</label>
                 <span>${userDTO.name}</span><br>
@@ -38,7 +38,7 @@
                 <!-- Add more basic info fields as needed -->
             </div>
    
-            <div class="profile-section">
+            <div class="main-section">
                 <h3>Permission</h3>
                 <label>Permissions:</label>
                 <ul>
@@ -47,7 +47,6 @@
                     </c:forEach>
                 </ul>  
            </div>
-        </div>
-
+      </div>            
 </body>
 </html>

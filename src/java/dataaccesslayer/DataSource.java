@@ -10,7 +10,8 @@ public class DataSource {
 
     public static DataSource instance = null;
     private Connection connection = null;
-    private String url = "jdbc:mysql://MYSQL8003.site4now.net:3306/db_a88623_fwrp?zeroDateTimeBehavior=CONVERT_TO_NULL";
+   // private String url = "jdbc:mysql://MYSQL8003.site4now.net:3306/db_a88623_fwrp?zeroDateTimeBehavior=CONVERT_TO_NULL";
+   private  String url = "jdbc:mysql://MYSQL8003.site4now.net:3306/db_a88623_fwrp?autoReconnect=true&connectTimeout=5000&socketTimeout=3000";
     private String username = "a88623_fwrp";
     private String password = "FWRP1234";
 
