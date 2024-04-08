@@ -119,7 +119,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="${ctx}/UserUtilServlet?state=signOut" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+            <a href="${ctx}/UserUtilServlet?state=signOut" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Exit</a>
         </div>
         <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${ctx}home/" frameborder="0" data-id="${ctx}inventory/" seamless>

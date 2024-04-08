@@ -13,62 +13,51 @@
         <title>Inventory</title>
       <jsp:include page="/resources/layout/_css.jsp"/>
        <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
-   <head>
-    <meta charset="UTF-8">
-    <title>Edit Subscription</title>
-    
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="text"], select {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            margin-bottom: 10px;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-    </style>
-</head>
+  </head>
 <body>
-    <h2>Edit Subscription</h2>
-    <form method="post" action="/subs/edit">
-        <input type="hidden" name="id" value="${subscription.subsId}">
-        <label for="userId">User ID:</label>
-        <input type="text" id="userId" name="userId" value="${subscription.userId}">
-        <label for="notiMethod">Notification Method:</label>
-        <input type="text" id="notiMethod" name="notiMethod" value="${subscription.notiMethod}">
-        <label for="itemLocation">Item Location:</label>
-        <input type="text" id="itemLocation" name="itemLocation" value="${subscription.itemLocation}">
-        <label for="itemPrice">Item Price:</label>
-        <input type="text" id="itemPrice" name="itemPrice" value="${subscription.itemPrice}">
-        <label for="itemTypeId">Item Type ID:</label>
-        <input type="text" id="itemTypeId" name="itemTypeId" value="${subscription.itemTypeId}">
-        <input type="submit" value="Update">
-    </form>
+    <h2>Subscription List</h2>
+ <div class="wrapper wrapper-content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-content">
+                    <table border="2">
+                        <thead>
+                            <tr>
+                                <th>Subscriber</th>
+                                <th>Notification Method</th>
+                                <th> Location</th>
+                                <th> Price range</th>
+                                <th>Item Type </th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%-- Loop through each subscription and display its details --%>
+                      <c:forEach items="${viewModel.subscriptions}" var="subscription">
+                            <tr>
+                                <td>${subscription.userId}</td>
+                                <td>${subscription.notiMethod}</td>
+                                <td>${subscription.itemLocation}</td>
+                                <td>${subscription.itemPrice}</td>
+                                <td>${subscription.itemTypeId}</td>
+                                <td>
+                                    <a href="edit?id=${subscription.subsId}">Edit</a>
+                                    <a href="delete?id=${subscription.subsId}">Delete</a>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <a href="add">Add New Subscription</a>
+    </div>
+</div>
 </body>
-<jsp:include page="/resources/layout/_script.jsp"/>
-<script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
-<script>
-  <jsp:include page="/resources/layout/_script.jsp"/>
-  <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js">
-</script>
+</html>
 
 </html>
