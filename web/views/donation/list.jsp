@@ -12,20 +12,15 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:include page="/resources/layout/_css.jsp"/>
-        <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
-    </head>
-
-    <body>
-
-
-        <nav>
+      <jsp:include page="/resources/layout/_css.jsp"/>
+       <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
+    </head>    
+        <body>
+          <nav>
             <ul>
                 <li><a href="claims">my claims</a></li>
             </ul>
-        </nav>
-
-
+          </nav>
         <form method="get">
             <label for="itemTypeFilter">Item Type:</label>
             <select id="itemTypeFilter" name="itemType">

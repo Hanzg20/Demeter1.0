@@ -55,7 +55,7 @@
         <div class="col-sm-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-content">
-                    <table border="1">
+                    <table border="2">
                         <thead>
                             <tr>
                                 <th>Item ID</th>
