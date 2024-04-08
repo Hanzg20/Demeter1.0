@@ -15,15 +15,15 @@ import businesslayer.AuthService;
 import model.UserDTO;
 
 @WebServlet("/UserServlet")
-public class UserServlet extends HttpServlet {
+public class UserServletController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        AuthService userBusinessLogic = new AuthService();
+        AuthService dataServices = new AuthService();
         List<UserDTO> users = null;
 
         try {
-            users = userBusinessLogic.getAllUsers();
+            users = dataServices.getAllUsers();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

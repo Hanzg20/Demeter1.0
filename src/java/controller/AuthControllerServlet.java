@@ -22,6 +22,7 @@ import model.UserDTO;
  */
 @WebServlet(name = "AuthControllerServlet", urlPatterns = {"/auth/*"})
 public class AuthControllerServlet extends HttpServlet {
+    AuthService dataService = new AuthService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -47,11 +48,11 @@ public class AuthControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request, response, "/views/auth/profile.jsp");
                 break;
             case "/users":
-                AuthService userBusinessLogic = new AuthService();
+                dataService = new AuthService();
                 List<UserDTO> users = null;
 
                 try {
-                    users = userBusinessLogic.getAllUsers();
+                    users = dataService.getAllUsers();
                     request.setAttribute("users", users);
                     NavigationHelper.goTo(request, response, "/views/auth/users.jsp");
                     break;
@@ -60,6 +61,7 @@ public class AuthControllerServlet extends HttpServlet {
                 }
 
                 break;
+
             case "/login":
             default:
                 NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
