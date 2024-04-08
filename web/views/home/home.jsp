@@ -72,7 +72,7 @@
         <a href="#about" class="btn btn-primary btn-lg mt-3" style="position: absolute; bottom: 20px; right: 20px;">Learn More</a>
     </div>
     <div style="position: absolute; bottom: 20px; center: 20px;">
-        <a href="#login" class="btn btn-primary mx-2">Login</a>
+        <a href="/auth/" class="btn btn-primary mx-2">Login</a>
         <a href="#subscription" class="btn btn-primary mx-2">Subscription</a>
     </div>
 </section>

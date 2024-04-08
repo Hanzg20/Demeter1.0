@@ -84,9 +84,15 @@ public class AuthControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch (action) {
             case "/login":
-                //todo
-                
-                NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                if(dataService.login(request))
+                {
+                    response.sendRedirect("/inventory/");//????
+                }
+                else
+                {
+                    request.setAttribute("message", "Invalid username or password. Please try again.");
+                    NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                }
                 break;
             case "/register":
                 NavigationHelper.goTo(request, response, "/views/auth/register.jsp");

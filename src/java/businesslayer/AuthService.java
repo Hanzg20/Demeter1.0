@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.List;
 import model.UserDTO;
 import dataaccesslayer.UserDaoImpl;
+import javax.servlet.http.HttpServletRequest;
 import model.RoleDTO;
 
 public class AuthService {
@@ -22,4 +23,10 @@ public class AuthService {
     }
 
     // Add more methods for user-related business logic as needed
+
+    public boolean login(HttpServletRequest request) {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        return false;
+    }
 }
