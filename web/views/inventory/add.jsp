@@ -54,7 +54,7 @@
             <input type="datetime-local" id="expirDate" name="expirDate"><br><br>
 
             <label for="price">Price:</label><br>
-            <input type="number" id="price" name="price" step="any"><br><br>
+            <input type="number" id="price" name="price" step="0.01"><br><br>
 
             <label for="status">Status:</label><br>
             <select id="status" name="status">

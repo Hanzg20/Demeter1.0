@@ -81,7 +81,9 @@ public class SurplusItemControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         try {
             String id = request.getParameter("id");
-            if ((action.equals("/donate") || action.equals("/sale")) && id == null) {
+            String discount = request.getParameter("discountRate");
+            if ((action.equals("/donate") || action.equals("/sale")) && id == null
+                    || (action.equals("/sale") && discount == null)) {
                 NavigationHelper.HandleError(response, new Exception("Open Failed. Missing id"));
             } else {
                 switch (action) {
@@ -94,7 +96,7 @@ public class SurplusItemControllerServlet extends HttpServlet {
                         }else if(action.equals("/sale"))
                         {
                             
-//                            successSubmit = dataService.donate(id);
+                            successSubmit = dataService.sale(Integer.parseInt(id), Double.parseDouble(discount));
                         }
                         else
                         {

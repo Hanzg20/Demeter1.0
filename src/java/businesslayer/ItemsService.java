@@ -244,12 +244,21 @@ public class ItemsService {
     }
 
     public boolean donate(int id) {
+        return promoteToListing(id,true,0);
+    }
+    
+    public boolean sale(int id,double discountRate) {
+        return promoteToListing(id,false,discountRate);
+    }
+    
+    public boolean promoteToListing(int id, boolean isDonate, double discountRate)
+    {
         ItemDTO item = itemDao.Retrieve(id);
         if (item != null) {
             item.setStatus(EnumStatusType.LISTED.getSymbol());
             item.setStatusDate(Timestamp.from(Instant.now()));
-            ItemListingDTO itemListingDTO=new ItemListingDTO(0,id, true, 0, Timestamp.from(Instant.now()));
-            try (Connection connection = dataSource.createConnection(); // Call createConnection on an instance
+            ItemListingDTO itemListingDTO=new ItemListingDTO(0,id, isDonate, discountRate, Timestamp.from(Instant.now()));
+            try (Connection connection = dataSource.createConnection();
                   PreparedStatement statement1=  itemDao.prepareUpdateStatement(item);
                   PreparedStatement statement2=  itemListingDao.prepareInsertStatement(itemListingDTO)) {
                     // Executing both statements
@@ -262,7 +271,7 @@ public class ItemsService {
                ex.printStackTrace();
             }
         }
-
+        
         return false;
     }
 }
