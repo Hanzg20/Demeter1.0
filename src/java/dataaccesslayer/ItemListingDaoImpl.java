@@ -24,7 +24,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     final static String SQL_DELETE = "DELETE FROM item_listing WHERE Listing_id = ?";
     final static String SQL_UPDATE = "UPDATE item_listing SET Item_id=?, Is_donation=?, Discount_rate=?, Listing_date=? WHERE Listing_id = ?";
     final static String SQL_RETRIEVE = "SELECT Listing_id, Item_id, Is_donation, Discount_rate, Listing_date FROM item_listing WHERE Listing_id = ?";
-    final static String SQL_RETRIEVE_ALL = "SELECT Listing_id,  Item_id, Is_donation, Discount_rate, Listing_date FROM item_listing";
+    final static String SQL_RETRIEVE_ALL = "SELECT Listing_id,  Item_id, Is_donation, Discount_rate, Listing_date FROM item_listing Where 1=1";
 
     @Override
     public int insert(ItemListingDTO item_listing) {
@@ -101,9 +101,9 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         return itemListings;
     }
 
-    public List<ItemListingDTO> RetrieveList(String itemType, String status, String daysExpireDaysLessThan) {
+    public List<ItemListingDTO> RetrieveList(boolean isDonation, String itemType, String daysExpireDaysLessThan) {
         List<ItemListingDTO> items = new ArrayList<>();
-        try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL, itemType, status, daysExpireDaysLessThan); ResultSet resultSet = statement.executeQuery()) {
+        try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL,isDonation, itemType, daysExpireDaysLessThan); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO item = new ItemListingDTO();
                 item.setListingId(resultSet.getInt("Listing_id"));
@@ -112,7 +112,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
                 if (resultSet.getObject("Discount_rate") != null) {
                     item.setDiscountRate(resultSet.getDouble("Discount_rate"));
                 }
-                //itemListing.setListingDate(resultSet.getLong("Listing_date"));
+                item.setListingDate(resultSet.getTimestamp("Listing_date"));
                 items.add(item);
             }
         } catch (Exception ex) {
@@ -121,16 +121,13 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         return items;
     }
 
-    private PreparedStatement prepareStatement(String sql, String itemTypeFilte, String statusFilter, String expireDayFilter) throws SQLException {
+    //todo the following need a join table sql
+    private PreparedStatement prepareStatement(String sql,boolean isDonation, String itemTypeFilte, String expireDayFilter) throws SQLException {
         StringBuilder queryBuilder = new StringBuilder(sql);
-        boolean validItemTypeFilter = itemTypeFilte != null && !itemTypeFilte.isEmpty();
+        queryBuilder.append(" AND Is_donation = "+((isDonation)?"true":"false"));
+        boolean validItemTypeFilter = itemTypeFilte != null && !itemTypeFilte.isEmpty();        
         if (validItemTypeFilter) {
             queryBuilder.append(" AND Item_type = ?");
-        }
-
-        boolean validStatusFilter = statusFilter != null && !statusFilter.isEmpty();
-        if (validStatusFilter) {
-            queryBuilder.append(" AND Status = ?");
         }
 
         boolean validExpireDayFilter = expireDayFilter != null && !expireDayFilter.isEmpty();
@@ -143,9 +140,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         if (validItemTypeFilter) {
             statement.setInt(parameterIndex++, Integer.parseInt(itemTypeFilte));
         }
-        if (validStatusFilter) {
-            statement.setString(parameterIndex++, statusFilter);
-        }
+        
         if (validExpireDayFilter) {
             // Get the current UTC timestamp
             Instant now = Instant.now();

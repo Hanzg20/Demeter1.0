@@ -1,6 +1,7 @@
 
 package controller;
 
+import businesslayer.ItemListingService;
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemListingDaoImpl;
@@ -18,11 +19,8 @@ import model.ItemListingDTO;
  * @author Glily
  */
 @WebServlet(name = "DonationControllerServlet", urlPatterns = {"/donation/*"})
-public class DonationControllerServlet extends HttpServlet {
-
-        private DAO<ItemListingDTO> itemDao = new ItemListingDaoImpl();
-    
-
+public class DonationControllerServlet extends HttpServlet {    
+    private final ItemListingService dataService = new ItemListingService();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,8 +43,9 @@ public class DonationControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request,response,"/views/donation/claims.jsp");
                 break;
             default:
-                List<ItemListingDTO> items = itemDao.RetrieveAll();
-                request.setAttribute("items", items);
+                String itemType = request.getParameter("itemType");
+                String expireDays = request.getParameter("expireDays");
+                request.setAttribute("viewModel", dataService.buidDonationViewModel(itemType, expireDays));
                 NavigationHelper.goTo(request,response,"/views/donation/list.jsp");
             break;
             

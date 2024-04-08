@@ -11,16 +11,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-      <jsp:include page="/resources/layout/_css.jsp"/>
-       <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
+        <jsp:include page="/resources/layout/_css.jsp"/>
+        <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
     </head>
-        <body>
-          <nav>
+    <body>
+        <nav>
             <ul>
-              <li><a href="orders">My Orders  </a></li>
+                <li><a href="orders">My Orders  </a></li>
             </ul>
-          </nav>
-      
+        </nav>
+
         <form method="get">
             <label for="itemTypeFilter">Item Type:</label>
             <select id="itemTypeFilter" name="itemType">
@@ -29,15 +29,7 @@
                     <option value="${type.itemTypeId}" ${param.itemType eq type.itemTypeId ? 'selected' : ''}>${type.itemTypeName}</option>
                 </c:forEach>
             </select>
-            
-             <label for="statusFilter">Location</label>
-            <select id="statusFilter" name="status">
-                <option value="">All</option>
-                <c:forEach var="option" items="${viewModel.statusOptions}">
-                   <option value="${option.symbol}" ${param.status eq option.symbol ? 'selected' : ''}>${option.text}</option>
-               </c:forEach>
-            </select>
-       
+
             <label for="expireDaysFilter">Expire Date (Within):</label>
             <select id="expireDaysFilter" name="expireDays">
                 <option value="" ${empty param.expireDays ? 'selected' : ''}>Any</option>
@@ -49,61 +41,52 @@
 
             <input type="submit" value="Apply Filter">
         </form>
-                     <H2> Available to purchase</H2>
-       <div class="wrapper wrapper-content">
-        <div class="row">
-        <div class="col-sm-12">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <table border="2">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Item Name</th>
-                                <th>Unit</th>
-                                <th>Location</th>
-                                <th>Create Date</th>
-                                <th>Provider</th>
-                                <th>Item Type</th>
-                                <th>Quantity</th>
-                                <th>Expire Date</th>
-                                <th>Price</th>
-                                <th>Discount</th>
-                               <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <c:forEach items="${viewModel.items}" var="item">
+        <H2> Available to purchase</H2>
+        <div class="wrapper wrapper-content">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="ibox float-e-margins">
+                        <div class="ibox-content">
+                            <table border="1">
                                 <tr>
-                                    <td>${item.itemId}</td>
-                                    <td>${item.itemName}</td>
-                                    <td>${item.unit}</td>
-                                    <td>${item.location}</td>
-                                    <td>${item.createDate}</td>
-                                    <td>${item.userName}</td>
-                                    <td>${item.itemType}</td>
-                                    <td>${item.quantity}</td>
-                                    <td>${item.expirDate}</td>
-                                    <td>${item.price}</td>
-                                    <td>${item.status}</td>
-                                    <td>
-                                        <a href="donate?id=${item.itemId}">order</a>
-                                    </td>
+                                    <th>Listing Date</th>
+                                    <th>Item Name</th>
+                                    <th>Unit</th>
+                                    <th>Item Type Name</th>
+                                    <th>Quantity</th>
+                                    <th>Expiry Date</th>
+                                    <th>Address</th>
+                                    <th>Discount Rate</th>
                                 </tr>
-                            </c:forEach>
-                        </tbody>
-                    </table>
+                                <c:forEach items="${viewModel.items}" var="item">
+                                    <tr>
+                                        <td><c:out value="${item.listingDate}" /></td>
+                                        <td><c:out value="${item.itemName}" /></td>
+                                        <td><c:out value="${item.unit}" /></td>
+                                        <td><c:out value="${item.itemTypeName}" /></td>
+                                        <td><c:out value="${item.quantity}" /></td>
+                                        <td><c:out value="${item.expirDate}" /></td>
+                                        <td><c:out value="${item.address}" /></td>
+                                        <td><c:out value="${item.discountRate}" /></td>
+                                    </tr>
+                                </c:forEach>
+                                <c:if test="${empty viewModel.items}">
+                                    <tr>
+                                        <td colspan="8">No items found</td>
+                                    </tr>
+                                </c:if>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
- </body>
-<jsp:include page="/resources/layout/_script.jsp"/>
-<script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
-<script>
-  <jsp:include page="/resources/layout/_script.jsp"/>
-  <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js">
-</script>
+    </body>
+    <jsp:include page="/resources/layout/_script.jsp"/>
+    <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
+    <script>
+        <jsp:include page="/resources/layout/_script.jsp"/>
+    < script src = "${ctx}/resources/js/datapicker/bootstrap-datepicker.js" >
+    </script>
 
 </html>
