@@ -1,6 +1,7 @@
 
 package controller;
 
+import businesslayer.ItemListingService;
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
 import dataaccesslayer.ItemListingDaoImpl;
@@ -20,7 +21,7 @@ import model.ItemListingDTO;
 @WebServlet(name = "SaleControllerServlet", urlPatterns = {"/sale/*"})
 public class SaleControllerServlet extends HttpServlet {
 
-        private DAO<ItemListingDTO> itemDao = new ItemListingDaoImpl();
+    private final ItemListingService dataService = new ItemListingService();
     
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,8 +46,9 @@ public class SaleControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request,response,"/views/sale/orders.jsp");
                 break;
             default:
-                List<ItemListingDTO> items = itemDao.RetrieveAll();
-                request.setAttribute("items", items);
+                String itemType = request.getParameter("itemType");
+                String expireDays = request.getParameter("expireDays");
+                request.setAttribute("viewModel", dataService.buidSaleViewModel(itemType, expireDays));
                 NavigationHelper.goTo(request,response,"/views/sale/list.jsp");
             break;
             

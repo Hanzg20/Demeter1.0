@@ -20,7 +20,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     final static String SQL_DELETE = "DELETE FROM item WHERE item_id = ?";
     final static String SQL_UPDATE = "UPDATE item SET Item_name=?, Unit=?, Location_id=?, Create_date=?, User_id=?, Item_type=?, Quantity=?, Expir_date=?, Price=?, Status=?, Status_date=? WHERE item_id = ?";
     final static String SQL_RETRIEVE = "SELECT item_id, Item_name, Unit, Location_id, Create_date, User_id, Item_type, Quantity, Expir_date, Price, Status, Status_date FROM item WHERE item_id = ?";
-    final static String SQL_RETRIEVE_ALL = "SELECT * FROM item Where 1=1";
+    final static String SQL_RETRIEVE_ALL = "SELECT item_id, Item_name, Unit, Location_id, Create_date, User_id, Item_type, Quantity, Expir_date, Price, Status, Status_date FROM item Where 1=1";
 
     @Override
     public int insert(ItemDTO item) {
