@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import businesslayer.UserBusinessLogic;
+import businesslayer.AuthService;
 import model.UserDTO;
 
 @WebServlet("/UserServlet")
-public class UserServlet extends HttpServlet {
+public class UserServletController extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
+        AuthService dataServices = new AuthService();
         List<UserDTO> users = null;
 
         try {
-            users = userBusinessLogic.getAllUsers();
+            users = dataServices.getAllUsers();
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -41,7 +41,7 @@ public class UserServlet extends HttpServlet {
     }
 
     private void addUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
+        AuthService userBusinessLogic = new AuthService();
         String username = request.getParameter("username");
         int roleId = Integer.parseInt(request.getParameter("roleId"));
         String email = request.getParameter("email");

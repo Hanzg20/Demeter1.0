@@ -5,7 +5,7 @@
 package controller;
 
 import businesslayer.NavigationHelper;
-import businesslayer.UserBusinessLogic;
+import businesslayer.AuthService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +22,7 @@ import model.UserDTO;
  */
 @WebServlet(name = "AuthControllerServlet", urlPatterns = {"/auth/*"})
 public class AuthControllerServlet extends HttpServlet {
+    AuthService dataService = new AuthService();
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -37,8 +38,8 @@ public class AuthControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         String action = request.getPathInfo();
         switch (action) {
-            case "/login":
-                NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+            case "/logout":
+                //to-do
                 break;
             case "/register":
                 NavigationHelper.goTo(request, response, "/views/auth/register.jsp");
@@ -47,11 +48,11 @@ public class AuthControllerServlet extends HttpServlet {
                 NavigationHelper.goTo(request, response, "/views/auth/profile.jsp");
                 break;
             case "/users":
-                UserBusinessLogic userBusinessLogic = new UserBusinessLogic();
+                dataService = new AuthService();
                 List<UserDTO> users = null;
 
                 try {
-                    users = userBusinessLogic.getAllUsers();
+                    users = dataService.getAllUsers();
                     request.setAttribute("users", users);
                     NavigationHelper.goTo(request, response, "/views/auth/users.jsp");
                     break;
@@ -60,6 +61,12 @@ public class AuthControllerServlet extends HttpServlet {
                 }
 
                 break;
+
+            case "/login":
+            default:
+                NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                break;
+             
         }
     }
 
@@ -77,6 +84,8 @@ public class AuthControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch (action) {
             case "/login":
+                //todo
+                
                 NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
                 break;
             case "/register":

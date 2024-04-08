@@ -59,7 +59,9 @@
                             <li><a class="J_menuItem" href="${ctx}/inventory/">Inventory</a></li>
                             <li><a class="J_menuItem" href="${ctx}/surplus/">Listing </a></li>
                             <li><a class="J_menuItem" href="${ctx}/sale/">On Sale</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/order/">My Orders</a></li>
                             <li><a class="J_menuItem" href="${ctx}/donation/">On Donation</a></li>
+                            <li><a class="J_menuItem" href="${ctx}/claim/">My Claims</a></li>
                             <li><a class="J_menuItem" href="${ctx}/subs/">Subscription</a></li> 
  
                             <!-- Add target="_blank" to open links in new tab -->

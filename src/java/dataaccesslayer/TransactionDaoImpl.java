@@ -1,11 +1,14 @@
 
 package dataaccesslayer;
 
+import static dataaccesslayer.ItemListingDaoImpl.SQL_INSERT;
 import java.io.Serializable;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import model.ItemListingDTO;
 import model.TransactionDTO;
 
 /**
@@ -69,7 +72,7 @@ public class TransactionDaoImpl extends DAOImpl<TransactionDTO> {
                 transaction.setListingId(resultSet.getInt("Listing_id"));
                 transaction.setUserId(resultSet.getInt("User_id"));
                 transaction.setQuantity(resultSet.getInt("Quantity")); 
-                transaction.setTranDate(resultSet.getLong("Tran_date")); 
+                transaction.setTranDate(resultSet.getTimestamp("Tran_date")); 
                 return transaction;
             }
         } catch (Exception ex) {
@@ -89,13 +92,17 @@ public class TransactionDaoImpl extends DAOImpl<TransactionDTO> {
                 transaction.setListingId(resultSet.getInt("Listing_id"));
                 transaction.setUserId(resultSet.getInt("User_id"));
                 transaction.setQuantity(resultSet.getInt("Quantity")); 
-                transaction.setTranDate(resultSet.getLong("Tran_date")); 
+                transaction.setTranDate(resultSet.getTimestamp("Tran_date")); 
                 transactions.add(transaction);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return transactions;
+    }
+    
+    public PreparedStatement prepareInsertStatement(TransactionDTO transaction) throws SQLException {
+        return dataSource.prepareStatement(SQL_INSERT, transaction.getTranTypeId(), transaction.getListingId(), transaction.getUserId(), transaction.getQuantity(), transaction.getTranDate());
     }
 }
 

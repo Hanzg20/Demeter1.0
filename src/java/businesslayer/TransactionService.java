@@ -28,18 +28,14 @@ import model.ItemTypeDTO;
 import model.LocationDTO;
 import model.TransactionDTO;
 import model.UserDTO;
-import viewmodel.DonationViewModel;
-import viewmodel.DonationViewModelItem;
-import static viewmodel.DonationViewModelItem.convertFrom;
-import viewmodel.InventoryViewModelItem;
-import viewmodel.SaleViewModel;
-import viewmodel.SaleViewModelItem;
+import viewmodel.OrderViewModel;
+import viewmodel.OrderViewModelItem;
 
 /**
  *
  * @author Glily
  */
-public class ItemListingService {
+public class TransactionService {
 
     final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
@@ -50,61 +46,55 @@ public class ItemListingService {
 
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
     private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
+
     protected DataSource dataSource = DataSource.getInstance();
 
-    public DonationViewModel buidDonationViewModel(String itemType, String expireDays) {
-        DonationViewModel viewModel = new DonationViewModel();
-        viewModel.setItems(retrieveItemList(itemType, expireDays));
-        viewModel.setTypeOptions(typeDao.RetrieveAll());
-        return viewModel;
-    }
 
-    private List<DonationViewModelItem> retrieveItemList(String itemType, String daysExpireDays) {
-        List<DonationViewModelItem> result = new ArrayList<>();
-        List<ItemListingDTO> items = itemListingDao.RetrieveList(true,itemType, daysExpireDays);
-        items.forEach(listingItem -> {
-            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
-            if (item != null) {
-                DonationViewModelItem viewItem = convertFrom(listingItem, item,
-                        typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
-                result.add(viewItem);
-            }
-        });
-        return result;
-    }
-
-    public SaleViewModel buidSaleViewModel(String itemType, String expireDays) {
-        SaleViewModel viewModel = new SaleViewModel();
+    public OrderViewModel buidOrderViewModel(String itemType, String expireDays) {
+        OrderViewModel viewModel = new OrderViewModel();
         viewModel.setItems(retrieveSaleItemList(itemType, expireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
         return viewModel;
     }
     
-    private List<SaleViewModelItem> retrieveSaleItemList(String itemType, String daysExpireDays) {
-        List<SaleViewModelItem> result = new ArrayList<>();
+    private List<OrderViewModelItem> retrieveSaleItemList(String itemType, String daysExpireDays) {
+        List<OrderViewModelItem> result = new ArrayList<>();
         List<ItemListingDTO> items = itemListingDao.RetrieveList(false,itemType, daysExpireDays);
         items.forEach(listingItem -> {
             ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
             if (item != null) {
-                SaleViewModelItem viewItem = SaleViewModelItem.convertFrom(listingItem, item,
+                OrderViewModelItem viewItem = OrderViewModelItem.convertFrom(listingItem, item,
                         typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
                 result.add(viewItem);
             }
         });
         return result;
     }
-
-    public SaleViewModelItem buidSaleViewModelItem(int id) {
-        ItemListingDTO listingItem = itemListingDao.Retrieve(id);
+    
+    public boolean buy(int userId, int listingId, int quantity) {
+        ItemListingDTO listingItem = itemListingDao.Retrieve(listingId);
         if (listingItem != null) {
             ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
-            if (item != null) {
-                SaleViewModelItem viewItem = SaleViewModelItem.convertFrom(listingItem, item,
-                        typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
-                return viewItem;
+            if (item != null && item.getQuantity() >= quantity) {
+                item.setQuantity(item.getQuantity() - quantity);
+                if (item.getQuantity() == 0) {
+                    item.setStatus(EnumStatusType.SOLD.getSymbol());
+                    item.setStatusDate(Timestamp.from(Instant.now()));
+                }
+                TransactionDTO transactionDTO = new TransactionDTO(0, EnumTransactionType.PURCHASE.getValue(), listingId, userId, quantity, Timestamp.from(Instant.now()));
+                try (Connection connection = dataSource.createConnection(); PreparedStatement statement1 = itemDao.prepareUpdateStatement(item); PreparedStatement statement2 = transationDao.prepareInsertStatement(transactionDTO)) {
+                    // Executing both statements
+                    statement1.executeUpdate();
+                    statement2.executeUpdate();
+                    // Committing the transaction                    
+                    return true;
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
             }
         }
 
-        return null;
+        return false;
     }
 }
