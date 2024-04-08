@@ -10,14 +10,23 @@ import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
 import dataaccesslayer.LocationDaoImpl;
+import dataaccesslayer.TransactionDaoImpl;
 import dataaccesslayer.UserDaoImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import model.EnumStatusType;
+import model.EnumTransactionType;
 import model.ItemDTO;
 import model.ItemListingDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
+import model.TransactionDTO;
 import model.UserDTO;
 import viewmodel.OrderViewModel;
 import viewmodel.OrderViewModelItem;
@@ -28,7 +37,7 @@ import viewmodel.OrderViewModelItem;
  */
 public class TransactionService {
 
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     private final ItemDaoImpl itemDao = new ItemDaoImpl();
     private final DAO<LocationDTO> locationDao = new LocationDaoImpl();
@@ -36,6 +45,8 @@ public class TransactionService {
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
 
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
+    private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
+
     protected DataSource dataSource = DataSource.getInstance();
 
 
@@ -60,4 +71,30 @@ public class TransactionService {
         return result;
     }
     
+    public boolean buy(int userId, int listingId, int quantity) {
+        ItemListingDTO listingItem = itemListingDao.Retrieve(listingId);
+        if (listingItem != null) {
+            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+            if (item != null && item.getQuantity() >= quantity) {
+                item.setQuantity(item.getQuantity() - quantity);
+                if (item.getQuantity() == 0) {
+                    item.setStatus(EnumStatusType.SOLD.getSymbol());
+                    item.setStatusDate(Timestamp.from(Instant.now()));
+                }
+                TransactionDTO transactionDTO = new TransactionDTO(0, EnumTransactionType.PURCHASE.getValue(), listingId, userId, quantity, Timestamp.from(Instant.now()));
+                try (Connection connection = dataSource.createConnection(); PreparedStatement statement1 = itemDao.prepareUpdateStatement(item); PreparedStatement statement2 = transationDao.prepareInsertStatement(transactionDTO)) {
+                    // Executing both statements
+                    statement1.executeUpdate();
+                    statement2.executeUpdate();
+                    // Committing the transaction                    
+                    return true;
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        return false;
+    }
 }

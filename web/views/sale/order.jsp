@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,6 +52,11 @@
                 <td><c:out value="${item.discountRate}" /></td>
             </tr>
         </table>
+        <form method="post">
+            <label for="amount">Amount:</label>
+            <input type="number" id="quantity" name="quantity" required><br><br>
+            <input type="submit" name="action" value="Buy">
+        </form>
     </body>
         <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
     <script>

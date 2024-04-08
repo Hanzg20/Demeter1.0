@@ -119,7 +119,6 @@
         <label for="discountRate">Discount Rate:</label>
         <input type="text" id="discountRate" name="discountRate" placeholder="e.g., 20" required onkeypress="allowOnlyNumeric(event)">
         <span id="error-message" class="error-message"></span><br><br>
-            <input type="hidden" name="itemId" value="${item.itemId}">
             <input type="submit" name="action" value="Set to sale ">
         </form>
     </div>

@@ -1,6 +1,8 @@
 
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Glily
@@ -11,9 +13,9 @@ public class TransactionDTO {
     private int listingId;
     private int userId;
     private int quantity;
-    private long tranDate;
+    private Timestamp tranDate;
 
-    public TransactionDTO(int tranId, int tranTypeId, int listingId, int userId, int quantity, long tranDate) {
+    public TransactionDTO(int tranId, int tranTypeId, int listingId, int userId, int quantity, Timestamp tranDate) {
         this.tranId = tranId;
         this.tranTypeId = tranTypeId;
         this.listingId = listingId;
@@ -65,11 +67,11 @@ public class TransactionDTO {
         this.quantity = quantity;
     }
 
-    public long getTranDate() {
+    public Timestamp getTranDate() {
         return tranDate;
     }
 
-    public void setTranDate(long tranDate) {
+    public void setTranDate(Timestamp tranDate) {
         this.tranDate = tranDate;
     }
     

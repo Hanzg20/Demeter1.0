@@ -87,7 +87,6 @@
             </div>
         </div>
             <form method="post">
-                <input type="hidden" name="itemId" value="${item.itemId}">
                 <input type="submit" name="action" value="Set to Donate">
             </form>
       </div>

@@ -10,18 +10,28 @@ import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
 import dataaccesslayer.LocationDaoImpl;
+import dataaccesslayer.TransactionDaoImpl;
 import dataaccesslayer.UserDaoImpl;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import model.EnumStatusType;
+import model.EnumTransactionType;
 import model.ItemDTO;
 import model.ItemListingDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
+import model.TransactionDTO;
 import model.UserDTO;
 import viewmodel.DonationViewModel;
 import viewmodel.DonationViewModelItem;
 import static viewmodel.DonationViewModelItem.convertFrom;
+import viewmodel.InventoryViewModelItem;
 import viewmodel.SaleViewModel;
 import viewmodel.SaleViewModelItem;
 
@@ -39,6 +49,7 @@ public class ItemListingService {
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
 
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
+    private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
     protected DataSource dataSource = DataSource.getInstance();
 
     public DonationViewModel buidDonationViewModel(String itemType, String expireDays) {
@@ -83,4 +94,17 @@ public class ItemListingService {
         return result;
     }
 
+    public SaleViewModelItem buidSaleViewModelItem(int id) {
+        ItemListingDTO listingItem = itemListingDao.Retrieve(id);
+        if (listingItem != null) {
+            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+            if (item != null) {
+                SaleViewModelItem viewItem = SaleViewModelItem.convertFrom(listingItem, item,
+                        typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
+                return viewItem;
+            }
+        }
+
+        return null;
+    }
 }
