@@ -43,7 +43,7 @@
                         <ul class="nav nav-second-level">
                             <li><a class="J_menuItem" href="${ctx}/auth/login">Login</a></li>
                               <li><a class="J_menuItem" href="${ctx}/auth/profile" >Profile</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/auth/register">User Register</a></li> 
+                            <li><a class="J_menuItem" href="${ctx}/auth/register">Register</a></li> 
                             <li><a class="J_menuItem" href="${ctx}/auth/users">User Lists</a></li> 
                         </ul>
                     </li>
@@ -126,7 +126,7 @@
                 </iframe>
          </div>
     <div class="footer" style="text-align: center; color: gray;">
-            <div  >    © 2020-2024 <a href="" target="_blank">"www Demeter.com"</a></div>
+            <div  >    © 2024 <a href="" target="_blank">"www Demeter.com"</a></div>
     </div>
     </div>
 <!--End of the right part-->
@@ -143,12 +143,12 @@
                 </li>
                 <li class="">
                     <a data-toggle="tab" href="#tab-2">
-                       Items rankings
+                       Claimed rankings
                     </a>
                 </li>
                 <li>
                     <a data-toggle="tab" href="#tab-3">
-                        Download ranking
+                        Purchased ranking
                     </a>
                 </li>
             </ul>
@@ -190,7 +190,6 @@
                                 <span>
                  fixed width
                     </span>
-
                             <div class="switch">
                                 <div class="onoffswitch">
                                     <input type="checkbox" name="boxedlayout" class="onoffswitch-checkbox" id="boxedlayout">
@@ -225,95 +224,35 @@
                         </div>
                     </div>
                 </div>
-
                 <div id="tab-2" class="tab-pane">
-                    <div>
-                        <a href="/SongUtilServlet?state=hotSearch"Hot Items</a>
-                        <c:forEach var="songDisplayBean" items="${songDisplayBeans1 }">
-                            <div class="sidebar-message">
-                                <div class="pull-left text-center">
-                                    <div class="img-circle message-avatar">
-                                        <td align="center"><c:out value="${songDisplayBean.song_url }" /></td>
-                                    </div>
-
-                                    <div class="m-t-xs">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <div align="center">
-                                        <h5><c:out value="${songDisplayBean.song_name }" /></h5>
-                                    </div>
-                                    <div align="center">
-                                        <a href="/SongUtilServlet?state=click&song_id=<c:out value="${songDisplayBean.song_id }" />">
-                                            <i class="fa fa-heart-o"></i>
-                                        </a>
-                                        &nbsp;&nbsp;
-                                        <a href="/SongUtilServlet?state=listen&song_id=<c:out value="${songDisplayBean.song_id }" />">
-                                            <i class="fa fa-headphones"></i>
-                                        </a>
-                                        &nbsp;&nbsp;
-                                        <a href="/SongUtilServlet?state=download&song_id=<c:out value="${songDisplayBean.song_id }" />">
-                                            <i class="fa fa-download"></i>
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <small class="text-muted">
-                                        Singer:<c:out value="${songDisplayBean.song_singer }" />
-                                    </small>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-
-                <div id="tab-3" class="tab-pane">
-                    <div>
-                        <a href="/SongUtilServlet?state=hotDownload"Hot Clame</a>
-                        <c:forEach var="songDisplayBean" items="${songDisplayBeans2 }">
-                            <div class="sidebar-message">
-                                <div class="pull-left text-center">
-                                    <div class="img-circle message-avatar">
-                                        <td align="center"><c:out value="${songDisplayBean.song_url }" /></td>
-                                    </div>
-
-                                    <div class="m-t-xs">
-                                        <i class="fa fa-star text-warning"></i>
-                                        <i class="fa fa-star text-warning"></i>
-                                    </div>
-                                </div>
-                                <div class="media-body">
-                                    <div align="center">
-                                        <h5><c:out value="${songDisplayBean.song_name }" /></h5>
-                                    </div>
-                                    <div align="center">
-                                        <a href="/SongUtilServlet?state=click&song_id=<c:out value="${songDisplayBean.song_id }" />">
-                                            <i class="fa fa-heart-o"></i>
-                                        </a>
-                                        <%--<input type="hidden" name="song_id" value="<c:out value="${songDisplayBean.song_id }" />"/>--%>
-                                        <%--<div onclick="click()">--%>
-                                            <%--<i class="fa fa-heart-o"></i>--%>
-                                        <%--</div>--%>
-                                        &nbsp;&nbsp;
-                                        <a href="/SongUtilServlet?state=listen&song_id=<c:out value="${songDisplayBean.song_id }" />">
-                                            <i class="fa fa-headphones"></i>
-                                        </a>
-                                        &nbsp;&nbsp;
-                                        <a href="/SongUtilServlet?state=download&song_id=<c:out value="${songDisplayBean.song_id }" />">
-                                            <i class="fa fa-download"></i>
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <small class="text-muted">
-                                        Sign out:<c:out value="${songDisplayBean.song_singer }" />
-                                    </small>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
-                </div>
-
+                     <h5>Ranking Claimed by Charity Organizations</h5>
+                     <ol>
+                         <li>Apples - 100 units claimed</li>
+                         <li>Oranges - 80 units claimed</li>
+                         <li>Bananas - 70 units claimed</li>
+                         <li>Carrots - 60 units claimed</li>
+                         <li>Broccoli - 50 units claimed</li>
+                         <li>Cucumbers - 40 units claimed</li>
+                         <li>Potatoes - 30 units claimed</li>
+                         <li>Tomatoes - 20 units claimed</li>
+                         <!-- Add more ranking items as needed -->
+                     </ol>
+                 </div>
+                 <div id="tab-3" class="tab-pane">
+                     <%-- Adding ranking for the food items purchased by consumers --%>
+                     <h5>Ranking Purchased by Consumers</h5>
+                     <ol>
+                         <li>Strawberries - 200 units purchased</li>
+                         <li>Blueberries - 180 units purchased</li>
+                         <li>Grapes - 150 units purchased</li>
+                         <li>Lettuce - 130 units purchased</li>
+                         <li>Spinach - 120 units purchased</li>
+                         <li>Peppers - 100 units purchased</li>
+                         <li>Cabbage - 80 units purchased</li>
+                         <li>Mushrooms - 60 units purchased</li>
+                         <!-- Add more ranking items as needed -->
+                     </ol>
+                 </div>
             </div>
         </div>
     </div>

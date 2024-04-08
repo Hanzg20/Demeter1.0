@@ -37,3 +37,47 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
+
+/* Additional styles for user profile */
+  .profile-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-radius: 5px;
+      overflow: hidden; /* Ensures floated elements are contained */
+
+  }
+  
+ .profile-row {
+      display: flex;
+      overflow: hidden; /* Clear floats */
+      margin-bottom: 20px
+}
+
+  .profile-section {
+      float: left;
+      width: 50%;
+      padding:10px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+      margin-bottom: 20px;
+      vertical-align: top; /* Align sections to the top */
+  }
+  
+ 
+
+  .profile-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: block;
+      margin: 0 auto 20px;
+  }
+  .profile-section h3 {
+      margin-top: 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+  }
