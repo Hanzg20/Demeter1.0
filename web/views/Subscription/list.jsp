@@ -50,7 +50,7 @@
 
             <input type="submit" value="Apply Filter">
         </form>
-       <div class="wrapper wrapper-content">
+  <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-sm-12">
             <div class="ibox float-e-margins">

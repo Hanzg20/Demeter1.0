@@ -12,52 +12,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Inventory-Add Item</title>
           <jsp:include page="/resources/layout/_css.jsp"/>
-          <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css"
-
-                <title>Add Subscription</title>
-                <style>
-                    body {
-                        font-family: Arial, sans-serif;
-                        margin: 0;
-                        padding: 0;
-                    }
-                    .container {
-                        max-width: 600px;
-                        margin: 0 auto;
-                        padding: 20px;
-                        border: 1px solid #ccc;
-                        border-radius: 5px;
-                    }
-                    h2 {
-                        margin-top: 0;
-                    }
-                    label {
-                        display: block;
-                        margin-bottom: 5px;
-                    }
-                    input[type="text"], select {
-                        width: 100%;
-                        padding: 8px;
-                        margin-bottom: 10px;
-                        border: 1px solid #ccc;
-                        border-radius: 3px;
-                        box-sizing: border-box;
-                    }
-                    input[type="submit"] {
-                        background-color: #007bff;
-                        color: #fff;
-                        padding: 10px 20px;
-                        border: none;
-                        border-radius: 3px;
-                        cursor: pointer;
-                    }
-                    input[type="submit"]:hover {
-                        background-color: #0056b3;
-                    }
-                </style>
+          <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/demeter.css">
+          <title>Add Subscription</title>
        </head>
 <body>
     <div class="container">
+        <a href="javascript:history.back()">Back to Subscription List</a>
         <h2>Add Subscription</h2>
         <form method="post" action="SubsControllerServlet">
             <label for="userId">User ID:</label>
