@@ -91,10 +91,14 @@ public class SurplusItemControllerServlet extends HttpServlet {
                         if(action.equals("/donate"))
                         {
                             successSubmit = dataService.donate(Integer.parseInt(id));
-                        }else
+                        }else if(action.equals("/sale"))
                         {
                             
 //                            successSubmit = dataService.donate(id);
+                        }
+                        else
+                        {
+                             NavigationHelper.HandleError(response, new Exception("Failed. Invalid request"));
                         }
                         
                         if (successSubmit) {
