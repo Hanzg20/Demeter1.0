@@ -3,7 +3,7 @@ body {
     margin: 0;
     padding: 0;
 }
-.container {
+.container1 {
     max-width: 400px;
     margin: 0 auto;
     padding: 10px;
@@ -15,15 +15,14 @@ h2 {
     margin-top: 0;
 }
 label {
-    display: block;
     margin-bottom: 5px;
 }
 input[type="text"], select {
-    width: 70%;
-    padding: 8px;
-    margin-bottom: 10px;
+    width: 60%;
+    padding: 5px;
+    margin-bottom: 3px;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 1px;
     box-sizing: border-box;
 }
 input[type="submit"] {
@@ -37,9 +36,8 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
-
 /* Additional styles for user profile */
-  .profile-container {
+  .main-container {
       max-width: 600px;
       margin: 0 auto;
       padding: 20px;
@@ -49,13 +47,13 @@ input[type="submit"]:hover {
 
   }
   
- .profile-row {
+ .main-row {
       display: flex;
       overflow: hidden; /* Clear floats */
-      margin-bottom: 20px
+      margin-bottom: 10px
 }
 
-  .profile-section {
+  .main-section {
       float: left;
       width: 50%;
       padding:10px;
@@ -63,8 +61,8 @@ input[type="submit"]:hover {
       border: 1px solid #ccc;
       border-radius: 5px;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
-      margin-bottom: 20px;
       vertical-align: top; /* Align sections to the top */
+      font-size: 12px
   }
   
  
@@ -76,8 +74,64 @@ input[type="submit"]:hover {
       display: block;
       margin: 0 auto 20px;
   }
-  .profile-section h3 {
+  .main-section h3 {
       margin-top: 0;
       border-bottom: 1px solid #ccc;
       padding-bottom: 5px;
   }
+
+ /* Adjust label width */
+.main-section label {    
+    display: inline-block;
+    width: 30%; /* Adjust the width as needed */
+    margin-bottom: 5px; /* Reduce vertical spacing between labels */
+}
+
+/* Adjust input and select width */
+.main-section input,
+.main-section select {
+    width: 65%; /* Adjust the width as needed */
+    margin-bottom: 5px; /* Reduce vertical spacing between inputs */
+}
+
+/* Ensure labels and inputs are on the same line */
+.main-section label, .main-section input {
+    vertical-align: middle; /* Align elements vertically */
+}
+
+/* Reset submit button width and adjust margin */
+.main-section input[type="submit"] {
+    width: auto; /* Restore default width */
+    margin-top: 10px; /* Increase vertical spacing between submit button and other inputs */
+}
+  .item-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px; 
+}
+
+.item-table th, .item-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-size: 12px
+}
+
+.item-table th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+.item-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.item-table tr:hover {
+    background-color: #f2f2f2;
+}
+
+.item-table td:first-child {
+    font-weight: bold;
+}
