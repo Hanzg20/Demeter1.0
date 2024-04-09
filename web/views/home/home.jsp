@@ -71,11 +71,13 @@
         <p class="lead text-white mb-4" style="background-color: rgba(0, 100, 0, 0.6); padding: 10px;">Join us in our mission to create a sustainable future by connecting farmers, consumers, and charity organizations.</p>
         <a href="#about" class="btn btn-primary btn-lg mt-3" style="position: absolute; bottom: 20px; right: 20px;">Learn More</a>
     </div>
-    <div style="position: absolute; bottom: 20px; center: 20px;">
-        <a href="/auth/" class="btn btn-primary mx-2">Login</a>
-        <a href="#subscription" class="btn btn-primary mx-2">Subscription</a>
+    <div style="position: absolute; bottom: 20px; left: 20px;">
+        <a href="${ctx}/auth/login" class="btn btn-primary mx-2">Login</a>
+        <a href="${ctx}/auth/register" class="btn btn-primary mx-2">Register</a>
+        <a href="${ctx}/auth/logout" class="btn btn-primary mx-2">Logout</a>
     </div>
 </section>
+        
 <!-- About Section -->
 <section id="about" class="py-5">
   <div class="container">
