@@ -1,4 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%--
   Created by Netbean
   User: hanzg
@@ -7,6 +7,8 @@
   To change this use File | Settings | File Templates.
 --%>
 <%@page pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 
@@ -56,20 +58,22 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <!-- Add target="_blank" to open links in new tab -->
-                            <li><a class="J_menuItem" href="${ctx}/inventory/">Inventory</a></li>
+<!--                            <li><a class="J_menuItem" href="${ctx}/inventory/">Inventory</a></li>
                             <li><a class="J_menuItem" href="${ctx}/surplus/">Listing </a></li>
                             <li><a class="J_menuItem" href="${ctx}/sale/">On Sale</a></li>
                             <li><a class="J_menuItem" href="${ctx}/order/">My Orders</a></li>
                             <li><a class="J_menuItem" href="${ctx}/donation/">On Donation</a></li>
                             <li><a class="J_menuItem" href="${ctx}/claim/">My Claims</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/subs/">Subscription</a></li> 
- 
-                            <!-- Add target="_blank" to open links in new tab -->
-                            <c:forEach var="songtypeBean" items="${songtypeBeanList}">
-                                <li>
-                                    <a class="J_menuItem" href="${ctx}/SongUtilServlet?state=querySongByTypeId&typeId=<c:out value="${songtypeBean.type_id }" />" target="_blank" data-index="0"><c:out value="${songtypeBean.type_name }" /></a>
-                                </li>
-                            </c:forEach>
+                            <li><a class="J_menuItem" href="${ctx}/subs/">Subscription</a></li> -->
+                            <c:if test="${not empty sessionScope.userRoleFunction 
+                                          and not empty sessionScope.userRoleFunction.functionURLs 
+                                          and fn:length(sessionScope.userRoleFunction.functionURLs) > 0}">
+                                <c:forEach var="item" items="${sessionScope.userRoleFunction.functionURLs}">
+                                    <li>
+                                        <a class="J_menuItem" href="${ctx}/<c:out value="${item.sysFunctionUrl }" />/" target="_blank" data-index="0"><c:out value="${item.funcName }" /></a>
+                                    </li>
+                                </c:forEach>
+                            </c:if>
                         </ul>
                     </li>
                 </ul>
@@ -121,7 +125,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="${ctx}/UserUtilServlet?state=signOut" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Exit</a>
+            <a href="${ctx}/auth/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Exit</a>
         </div>
         <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${ctx}home/" frameborder="0" data-id="${ctx}inventory/" seamless>
