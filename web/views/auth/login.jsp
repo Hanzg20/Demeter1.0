@@ -25,7 +25,7 @@
             <canvas id="demo-canvas"></canvas>
             <div class="logo_box">
               <h3> Food Waste Peduce Platform </h3>
-                <form  method="post" id="form1">
+                <form  method="post">
                     <div class="input_outer">
                         <span class="u_user"></span>
                         <input type="email" name="email" class="text" style="color: #FFFFFF !important" type="text" placeholder="email">
@@ -35,7 +35,7 @@
                         <input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="password">
                     </div>
                     <div class="act-but submit" href="javascript:;" style="color: #FFFFFF">
-                        <input type="button" value="login" id="button1" style="background: #0096E6;border: 0px;color: #FFF7FB;"/>
+                        <input type="submit" value="login" id="button1" style="background: #0096E6;border: 0px;color: #FFF7FB;"/>
                     </div>
                 </form>
             </div>

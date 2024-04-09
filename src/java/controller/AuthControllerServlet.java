@@ -39,7 +39,8 @@ public class AuthControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch (action) {
             case "/logout":
-                //to-do
+                request.getSession().invalidate();
+                NavigationHelper.back(request, response);
                 break;
             case "/register":
                 NavigationHelper.goTo(request, response, "/views/auth/register.jsp");
@@ -64,7 +65,15 @@ public class AuthControllerServlet extends HttpServlet {
 
             case "/login":
             default:
-                NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                if(dataService.isLoggedIn(request))
+                {
+                    String firstPath =  dataService.getFirstPath(request);
+                    response.sendRedirect("/"+firstPath+"/");
+                }
+                else
+                {
+                    NavigationHelper.goTo(request, response, "/views/auth/login.jsp");
+                }
                 break;
              
         }
@@ -84,9 +93,10 @@ public class AuthControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch (action) {
             case "/login":
+            default:
                 if(dataService.login(request))
                 {
-                    response.sendRedirect("/inventory/");//????
+                    response.sendRedirect("/auth/");
                 }
                 else
                 {

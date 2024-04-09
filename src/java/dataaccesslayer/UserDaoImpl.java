@@ -14,6 +14,7 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
     final static String SQL_DELETE = "DELETE FROM user WHERE user_id = ?";
     final static String SQL_UPDATE = "UPDATE user SET Name = ?, Role_id = ?, Email = ? WHERE User_id = ?";
     final static String SQL_RETRIEVE = "SELECT user_id, Name, Role_id, Email, Password FROM user WHERE user_id = ?";
+    final static String SQL_RETRIEVE_BY_EMAIL = "SELECT user_id, Name, Role_id, Email, Password FROM user WHERE Email = ?";
     final static String SQL_RETRIEVE_ALL = "SELECT user_id, Name, Role_id, Email, Password FROM user";
     
     @Override
@@ -61,6 +62,7 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
                 user.setName(resultSet.getString("Name"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setRoleId(resultSet.getInt("Role_id"));
+                user.setPassword(resultSet.getString("Password"));
                 return user;
             }
         } catch (Exception ex) {
@@ -79,11 +81,29 @@ public class UserDaoImpl extends DAOImpl<UserDTO> {
                 user.setName(resultSet.getString("Name"));
                 user.setEmail(resultSet.getString("Email"));
                 user.setRoleId(resultSet.getInt("Role_id"));
+                user.setPassword(resultSet.getString("Password"));
                 users.add(user);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
         }
         return users;
+    }
+
+    public UserDTO RetrieveByEmail(String email) {
+        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_BY_EMAIL, email); ResultSet resultSet = statement.executeQuery()) {
+            if (resultSet.next()) {
+                UserDTO user = new UserDTO();
+                user.setUserId(resultSet.getInt("user_id"));
+                user.setName(resultSet.getString("Name"));
+                user.setEmail(resultSet.getString("Email"));
+                user.setRoleId(resultSet.getInt("Role_id"));
+                user.setPassword(resultSet.getString("Password"));
+                return user;
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return null;
     }
 }
