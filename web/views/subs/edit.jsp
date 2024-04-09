@@ -9,35 +9,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Inventory</title>
-      <jsp:include page="/resources/layout/_css.jsp"/>
-       <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
-        <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/demeter.css">
-   <head>
-    <meta charset="UTF-8">
-    <title>Edit Subscription</title>
+          <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+          <link rel="stylesheet" type="text/css" href="${ctx}/resources/css/demeter.css">
+          <title>Edit Subscription</title>
        </head>
 <body>
-    <div class="container">
-            <a href="javascript:history.back()">Back to Subscription List</a>
-           <h2>Edit Subscription</h2>
-           <form method="post" action="/subs/edit">
-               <input type="hidden" name="id" value="${subscription.subsId}">
-               <label for="userId">User ID:</label>
-               <input type="text" id="userId" name="userId" value="${subscription.userId}">
-               <label for="notiMethod">Notification Method:</label>
-               <input type="text" id="notiMethod" name="notiMethod" value="${subscription.notiMethod}">
-               <label for="itemLocation">Item Location:</label>
-               <input type="text" id="itemLocation" name="itemLocation" value="${subscription.itemLocation}">
-               <label for="itemPrice">Item Price:</label>
-               <input type="text" id="itemPrice" name="itemPrice" value="${subscription.itemPrice}">
-               <label for="itemTypeId">Item Type ID:</label>
-               <input type="text" id="itemTypeId" name="itemTypeId" value="${subscription.itemTypeId}">
-               <br>
+        <a href="javascript:history.back()">Back to Subscription List</a>
+        <div class="main-container">
+                <div class="main-section">
+                <h3>Edit Subscription</h3>
+                <form method="post" action="/subs/edit">
+                    <input type="hidden" name="id" value="${subscription.subsId}">
+                    <label for="userId">User ID:</label>
+                    <input type="text" id="userId" name="userId" value="${subscription.userId}">
+                    <label for="notiMethod">Notification Method:</label>
+                    <input type="text" id="notiMethod" name="notiMethod" value="${subscription.notiMethod}">
+                    <label for="itemLocation">Item Location:</label>
+                    <input type="text" id="itemLocation" name="itemLocation" value="${subscription.itemLocation}">
+                    <label for="itemPrice">Item Price:</label>
+                    <input type="text" id="itemPrice" name="itemPrice" value="${subscription.itemPrice}">
+                    <label for="itemTypeId">Item Type ID:</label>
+                    <input type="text" id="itemTypeId" name="itemTypeId" value="${subscription.itemTypeId}">
+                    <br><br>
+                    <input type="submit" value="Update">
                </form>
-               <input type="submit" value="Update">
-         
+          </div>          
+         </div> 
     </div>
 </body>
 <jsp:include page="/resources/layout/_script.jsp"/>
