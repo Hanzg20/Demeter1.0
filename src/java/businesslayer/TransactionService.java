@@ -50,23 +50,27 @@ public class TransactionService {
     protected DataSource dataSource = DataSource.getInstance();
 
 
-    public OrderViewModel buidOrderViewModel(String itemType, String expireDays) {
+    public OrderViewModel buidOrderViewModel(int userId, String itemTypeId, String expireDays) {
         OrderViewModel viewModel = new OrderViewModel();
-        viewModel.setItems(retrieveSaleItemList(itemType, expireDays));
+        viewModel.setItems(retrieveOrderItemList(userId,itemTypeId, expireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
         return viewModel;
     }
     
-    private List<OrderViewModelItem> retrieveSaleItemList(String itemType, String daysExpireDays) {
+    private List<OrderViewModelItem> retrieveOrderItemList(int userId,String itemType, String daysExpireDays) {
+        List<TransactionDTO> items = transationDao.RetrieveList(userId);
         List<OrderViewModelItem> result = new ArrayList<>();
-        List<ItemListingDTO> items = itemListingDao.RetrieveList(false,itemType, daysExpireDays);
-        items.forEach(listingItem -> {
-            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
-            if (item != null) {
-                OrderViewModelItem viewItem = OrderViewModelItem.convertFrom(listingItem, item,
-                        typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
-                result.add(viewItem);
+        items.forEach(transactionDTO -> {
+            ItemListingDTO listingItem = itemListingDao.Retrieve(transactionDTO.getListingId());
+            if (listingItem != null) {
+                ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+                if (item != null && (itemType == null || "".equals(itemType) || Integer.parseInt(itemType)==item.getItemTypeId())) {
+                    OrderViewModelItem viewItem = OrderViewModelItem.convertFrom(transactionDTO,listingItem, item,
+                            typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
+                    result.add(viewItem);
+                }
             }
+
         });
         return result;
     }

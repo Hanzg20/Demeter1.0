@@ -50,6 +50,7 @@
                             <table border="1">
                                 <tr>
                                     <th>Listing Date</th>
+                                    <th>tranDate</th>
                                     <th>Item Name</th>
                                     <th>Unit</th>
                                     <th>Item Type Name</th>
@@ -62,6 +63,7 @@
                                 <c:forEach items="${viewModel.items}" var="item">
                                     <tr>
                                         <td><c:out value="${item.listingDate}" /></td>
+                                        <td><c:out value="${item.tranDate}" /></td>
                                         <td><c:out value="${item.itemName}" /></td>
                                         <td><c:out value="${item.unit}" /></td>
                                         <td><c:out value="${item.itemTypeName}" /></td>

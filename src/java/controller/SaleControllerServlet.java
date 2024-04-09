@@ -1,5 +1,6 @@
 package controller;
 
+import businesslayer.AuthService;
 import businesslayer.ItemListingService;
 import businesslayer.NavigationHelper;
 import businesslayer.TransactionService;
@@ -23,6 +24,7 @@ import viewmodel.SaleViewModelItem;
  */
 @WebServlet(name = "SaleControllerServlet", urlPatterns = {"/sale/*"})
 public class SaleControllerServlet extends HttpServlet {
+    AuthService dataService = new AuthService();
 
     private final ItemListingService itemListingService = new ItemListingService();
     private final TransactionService transactionService = new TransactionService();
@@ -87,9 +89,9 @@ public class SaleControllerServlet extends HttpServlet {
                     case "/order":
                         String quantity = request.getParameter("quantity");
                         boolean successSubmit = false;
-                        if(quantity != null)
+                        if(dataService.isLoggedIn(request) && quantity != null)
                         {
-                           successSubmit = transactionService.buy(1,Integer.parseInt(id),Integer.parseInt(quantity));
+                           successSubmit = transactionService.buy(dataService.getUserId(request),Integer.parseInt(id),Integer.parseInt(quantity));
                         }
 
                         if (successSubmit) {

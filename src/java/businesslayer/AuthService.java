@@ -79,4 +79,20 @@ public class AuthService {
         }
         return null;
     }
+    
+    public int getUserId(HttpServletRequest request) {
+        if (request.getSession().getAttribute("userRoleFunction") != null) {
+            return ((UserRoleFunction) request.getSession().getAttribute("userRoleFunction")).getUserId();
+        }
+        
+        return 0;
+    }
+    
+    public String getUserName(HttpServletRequest request) {
+        if (request.getSession().getAttribute("userRoleFunction") != null) {
+            return ((UserRoleFunction) request.getSession().getAttribute("userRoleFunction")).getName();
+        }
+        
+        return null;
+    }
 }
