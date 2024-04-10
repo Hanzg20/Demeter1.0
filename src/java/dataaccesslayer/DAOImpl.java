@@ -7,10 +7,7 @@ import java.util.List;
  *
  * @author liyingguo
  */
-public class DAOImpl<T> implements DAO<T> {
-
-    protected DataSource dataSource = DataSource.getInstance();
-    
+public class DAOImpl<T> implements DAO<T> {    
     @Override
     public int insert(T t) {
         return 0;

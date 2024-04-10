@@ -2,6 +2,7 @@
 package dataaccesslayer;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class TransactionTypeDaoImpl extends DAOImpl<TransactionTypeDTO> {
     @Override
     public int insert(TransactionTypeDTO transactionType) {
           try {
-            return dataSource.execute(SQL_INSERT, transactionType.getTranTypeName());
+            return MyDataSource.execute(SQL_INSERT, transactionType.getTranTypeName());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -36,9 +37,9 @@ public class TransactionTypeDaoImpl extends DAOImpl<TransactionTypeDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.execute(SQL_DELETE_ALL);
+                return MyDataSource.execute(SQL_DELETE_ALL);
             } else {
-                return dataSource.execute(SQL_DELETE, id);
+                return MyDataSource.execute(SQL_DELETE, id);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -50,7 +51,7 @@ public class TransactionTypeDaoImpl extends DAOImpl<TransactionTypeDTO> {
     public int update(TransactionTypeDTO transactionType) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, transactionType.getTranTypeName());
+            return MyDataSource.execute(SQL_UPDATE, transactionType.getTranTypeName());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -59,7 +60,7 @@ public class TransactionTypeDaoImpl extends DAOImpl<TransactionTypeDTO> {
 
     @Override
     public TransactionTypeDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE, id); 
                 ResultSet resultSet = statement.executeQuery()
                 ) {
             if (resultSet.next()) {
@@ -77,7 +78,7 @@ public class TransactionTypeDaoImpl extends DAOImpl<TransactionTypeDTO> {
     @Override
     public List<TransactionTypeDTO> RetrieveAll() {
         List<TransactionTypeDTO> transactionTypes = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 TransactionTypeDTO transactionType = new TransactionTypeDTO();
                 transactionType.setTranTypeId(resultSet.getInt("Tran_type_id"));

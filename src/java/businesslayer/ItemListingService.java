@@ -5,7 +5,7 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
-import dataaccesslayer.DataSource;
+import dataaccesslayer.MyDataSource;
 import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
@@ -50,7 +50,6 @@ public class ItemListingService {
 
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
     private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
-    protected DataSource dataSource = DataSource.getInstance();
 
     public DonationViewModel buidDonationViewModel(String itemType, String expireDays) {
         DonationViewModel viewModel = new DonationViewModel();
@@ -100,6 +99,20 @@ public class ItemListingService {
             ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
             if (item != null) {
                 SaleViewModelItem viewItem = SaleViewModelItem.convertFrom(listingItem, item,
+                        typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
+                return viewItem;
+            }
+        }
+
+        return null;
+    }
+
+    public DonationViewModelItem buidDonationViewModelItem(int id) {
+        ItemListingDTO listingItem = itemListingDao.Retrieve(id);
+        if (listingItem != null) {
+            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+            if (item != null) {
+                DonationViewModelItem viewItem = DonationViewModelItem.convertFrom(listingItem, item,
                         typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
                 return viewItem;
             }

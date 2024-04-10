@@ -113,6 +113,7 @@ public class InventoryControllerServlet extends HttpServlet {
 
                         break;
                     case "/view":
+                        
                         String submitAction = request.getParameter("action");
                         boolean successSubmit = false;
                         switch (submitAction) {

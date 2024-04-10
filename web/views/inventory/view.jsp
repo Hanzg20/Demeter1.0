@@ -79,8 +79,8 @@
          </div>
          <form method="post">
         <input type="hidden" name="itemId" value="${item.itemId}">
-        <input type="submit" name="action" value="set as Near expiration">
-        <input type="submit" name="action" value="set as Excess of demand">
+        <input type="submit" name="action" value="Near expiration">
+        <input type="submit" name="action" value="Excess of demand">
     </form>
        </div>
     <!-- Delete and Flag Buttons within the same form -->
