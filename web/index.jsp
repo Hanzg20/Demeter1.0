@@ -74,7 +74,7 @@ $(document).ready(function() {
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         <div class="dropdown profile-element">
-                            <span><img alt="image" class="img-circle" src="${ctx}/resources/img/user/profile_small.jpg" /></span>
+                            <span><img alt="image" class="img-circle" src="${ctx}/resources/img/user/pemeter_logo.jpg" /></span>
                         </div>
                         <div class="logo-element">H+</div>
                     </li>

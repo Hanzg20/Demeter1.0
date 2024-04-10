@@ -117,7 +117,7 @@
 
         <form method="post" onsubmit="return validateDiscount()">
         <label for="discountRate">Discount Rate:</label>
-        <input type="text" id="discountRate" name="discountRate" placeholder="e.g., 20" required onkeypress="allowOnlyNumeric(event)">
+        <input type="text" id="discountRate" name="discountRate" placeholder="e.g., 0.9, 0.65" required onkeypress="allowOnlyNumeric(event)">
         <span id="error-message" class="error-message"></span><br><br>
             <input type="submit" name="action" value="Set to sale ">
         </form>

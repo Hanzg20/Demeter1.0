@@ -34,7 +34,7 @@
                                         <th>User Name</th>
                                         <th>Role</th>
                                         <th>Email</th> 
-                                        <th>Create Date</th> 
+                                 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -45,7 +45,7 @@
                                             <td>${user.name}</td>
                                             <td>${user.roleName}</td>
                                             <td>${user.email}</td>
-                                            <td>${user.createDate}</td>
+                              
                                             <td>
                                                 <form action="EditUserServlet" method="get">
                                                     <a href="edit?id=${user.userId}">Edit</a>
