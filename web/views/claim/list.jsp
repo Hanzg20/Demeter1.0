@@ -54,7 +54,6 @@
                                     <th>Quantity</th>
                                     <th>Expiry Date</th>
                                     <th>Address</th>
-                                    <th>Action</th>
                                 </tr>
                                 <c:forEach items="${viewModel.items}" var="item">
                                     <tr>
@@ -66,9 +65,6 @@
                                         <td><c:out value="${item.quantity}" /></td>
                                         <td><c:out value="${item.expirDate}" /></td>
                                         <td><c:out value="${item.address}" /></td>
-                                        <td>
-                                            <a href="claim?id=${item.listingId}">Claim</a>
-                                        </td>
                                     </tr>
                                 </c:forEach>
                                 <c:if test="${empty viewModel.items}">

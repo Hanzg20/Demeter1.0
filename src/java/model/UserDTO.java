@@ -12,6 +12,7 @@ public class UserDTO {
     private int roleId;
     private String email;
     private String password;
+    private Timestamp createDate;
     
     public UserDTO() {
         // Default constructor
@@ -65,4 +66,13 @@ public class UserDTO {
         this.password = password;
     }
 
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    
 }

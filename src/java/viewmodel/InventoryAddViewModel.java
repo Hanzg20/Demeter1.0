@@ -15,7 +15,7 @@ import model.UserDTO;
  *
  * @author liyingguo
  */
-public class InventoryAddViewModel {
+ public class InventoryAddViewModel {
     private List<LocationDTO>locations = new ArrayList<>();
     private List<UserDTO>users=new ArrayList<>();
     private List<ItemTypeDTO>types=new ArrayList<>();
