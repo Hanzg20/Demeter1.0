@@ -16,6 +16,7 @@ import model.TransactionDTO;
 import viewmodel.ClaimViewModelItem;
 import viewmodel.NotifictionViewModel;
 import viewmodel.NotifictionViewModelItem;
+import viewmodel.SaleViewModelItem;
 import viewmodel.SubsViewModel;
 
 /**
@@ -34,9 +35,8 @@ public class NotificationService {
     private List<NotifictionViewModelItem> retrieveNotifictionItemList(int userId,String itemType) {
         List<NotificationDTO> items = notificationDao.RetrieveList(userId,itemType);
         List<NotifictionViewModelItem> result = new ArrayList<>();
-        items.forEach(transactionDTO -> {
-            
-
+        items.forEach(dto -> {
+            result.add(NotifictionViewModelItem.convertFrom(dto));
         });
         return result;
     }

@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Glily
  */
-@WebServlet(name = "SubscriptionControllerServlet", urlPatterns = {"/notification/*"})
+@WebServlet(name = "SubscriptionControllerServlet", urlPatterns = {"/subscription/*"})
 public class SubscriptionControllerServlet extends HttpServlet {    
     AuthService authService = new AuthService();
 

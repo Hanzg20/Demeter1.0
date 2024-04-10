@@ -4,6 +4,7 @@
  */
 package viewmodel;
 
+import java.sql.Timestamp;
 import model.ItemDTO;
 import model.NotificationDTO;
 import model.SubscriptionDTO;
@@ -16,7 +17,7 @@ public class NotifictionViewModelItem {
     private int notiId;
     private int userId;
     private String message;
-    private long timestamp;
+    private Timestamp timestamp;
     private String status;
 
     public int getNotiId() {
@@ -43,11 +44,11 @@ public class NotifictionViewModelItem {
         this.message = message;
     }
 
-    public long getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -60,10 +61,13 @@ public class NotifictionViewModelItem {
     }
 
     
-    public static NotifictionViewModelItem convertFrom(NotificationDTO notifictionDTO,ItemDTO itemDTO)
+    public static NotifictionViewModelItem convertFrom(NotificationDTO dto)
     {
         NotifictionViewModelItem result = new NotifictionViewModelItem();
-        
+        result.setMessage(dto.getMessage());
+        result.setNotiId(dto.getNotiId());
+        result.setStatus(dto.getStatus());
+        result.setTimestamp(dto.getTimestamp());
         return result;
     }
     

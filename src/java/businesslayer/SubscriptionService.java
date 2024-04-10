@@ -4,10 +4,13 @@
  */
 package businesslayer;
 
+import dataaccesslayer.DAO;
+import dataaccesslayer.ItemTypeDaoImpl;
 import dataaccesslayer.NotificationDaoImpl;
 import dataaccesslayer.SubscriptionDaoImpl;
 import java.util.ArrayList;
 import java.util.List;
+import model.ItemTypeDTO;
 import model.NotificationDTO;
 import model.SubscriptionDTO;
 import viewmodel.NotifictionViewModel;
@@ -20,6 +23,8 @@ import viewmodel.SubscriptionViewModelItem;
  * @author Glily
  */
 public class SubscriptionService {
+        private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
+
     private final SubscriptionDaoImpl subscriptionDao = new SubscriptionDaoImpl();
     public SubscriptionViewModel buidSubscriptionViewModel(int userId,String itemType) {
         SubscriptionViewModel viewModel = new SubscriptionViewModel();
@@ -30,8 +35,8 @@ public class SubscriptionService {
     private List<SubscriptionViewModelItem> retrieveSubscriptionItemList(int userId,String itemType) {
         List<SubscriptionDTO> items = subscriptionDao.RetrieveList(userId,itemType);
         List<SubscriptionViewModelItem> result = new ArrayList<>();
-        items.forEach(transactionDTO -> {
-            
+        items.forEach(dto -> {
+            result.add(SubscriptionViewModelItem.convertFrom(dto,typeDao.Retrieve(dto.getItemTypeId())));
 
         });
         return result;

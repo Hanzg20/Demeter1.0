@@ -24,7 +24,7 @@ public class NotificationDaoImpl extends DAOImpl<NotificationDTO> {
     final static String SQL_DELETE = "DELETE FROM notification WHERE noti_id = ?";
     final static String SQL_UPDATE = "UPDATE notification SET user_id=?, message=?, timestamp=?, status=? WHERE noti_id = ?";
     final static String SQL_RETRIEVE = "SELECT noti_id,user_id, message, timestamp, status FROM notification WHERE noti_id = ?";
-    final static String SQL_RETRIEVE_ALL = "SELECT noti_id,user_id, message, timestamp, status FROM notification";
+    final static String SQL_RETRIEVE_ALL = "SELECT noti_id,user_id, message, timestamp, status FROM notification where 1=1";
     
     @Override
     public int insert(NotificationDTO notification) {
