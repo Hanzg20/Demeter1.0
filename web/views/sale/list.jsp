@@ -6,20 +6,16 @@
     
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri= "http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
-    <head>
-        <jsp:include page="/resources/layout/_css.jsp"/>
-        <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
-    </head>
-    <body>
-        <nav>
-            <ul>
-                <li><a href="orders">My Orders  </a></li>
-            </ul>
-        </nav>
+<head>
+    <meta charset="UTF-8">
+    <jsp:include page="/resources/layout/_css.jsp"/>
+    <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
 
         <form method="get">
             <label for="itemTypeFilter">Item Type:</label>
@@ -49,10 +45,11 @@
                         <div class="ibox-content">
                             <table border="1">
                                 <tr>
-                                    <th>Listing Date</th>
+                                     <th>Listing ID</th>
                                     <th>Item Name</th>
                                     <th>Unit</th>
                                     <th>Item Type Name</th>
+                                    <th>Listing Date</th>
                                     <th>Quantity</th>
                                     <th>Expiry Date</th>
                                     <th>Address</th>
@@ -61,17 +58,17 @@
                                 </tr>
                                 <c:forEach items="${viewModel.items}" var="item">
                                     <tr>
-                                        <td><c:out value="${item.listingDate}" /></td>
+                                        <td><c:out value="${item.listingId}" /></td>
                                         <td><c:out value="${item.itemName}" /></td>
                                         <td><c:out value="${item.unit}" /></td>
                                         <td><c:out value="${item.itemTypeName}" /></td>
-                                        <td><c:out value="${item.quantity}" /></td>
-                                        <td><c:out value="${item.expirDate}" /></td>
+                                        <td><fmt:formatDate value="${item.listingDate}" pattern="MM-dd-yyyy" /> </td>                                            
+                                        <td><c:out value="${item.quantity}" /></td>                                  
+                                        <td><fmt:formatDate value="${item.expirDate}" pattern="MM-dd-yyyy" />  </td>                             
                                         <td><c:out value="${item.address}" /></td>
-                                        <td><c:out value="${item.discountRate}" /></td>
-                                        <td>
-                                            <a href="order?id=${item.listingId}">Order</a>
-                                        </td>
+                                        <td><fmt:formatNumber value="${item.discountRate}" type="percent" /></td>                                   
+                                         <td> <a href="order?id=${item.listingId}">Order</a>  </td>
+                                     
                                     </tr>
                                 </c:forEach>
                                 <c:if test="${empty viewModel.items}">
@@ -86,11 +83,4 @@
             </div>
         </div>
     </body>
-    <jsp:include page="/resources/layout/_script.jsp"/>
-    <script src="${ctx}/resources/js/datapicker/bootstrap-datepicker.js"></script>
-    <script>
-        <jsp:include page="/resources/layout/_script.jsp"/>
-    < script src = "${ctx}/resources/js/datapicker/bootstrap-datepicker.js" >
-    </script>
-
 </html>
