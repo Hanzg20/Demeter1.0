@@ -71,7 +71,7 @@ public class NotificationDaoImpl extends DAOImpl<NotificationDTO> {
                 notification.setNotiId(resultSet.getInt("noti_id"));
                 notification.setUserId(resultSet.getInt("user_id"));
                 notification.setMessage(resultSet.getString("message"));
-                notification.setTimestamp(resultSet.getLong("timestamp"));
+                notification.setTimestamp(resultSet.getTimestamp("timestamp"));
                 notification.setStatus(resultSet.getString("status"));
                 return notification;
             }
@@ -90,7 +90,7 @@ public class NotificationDaoImpl extends DAOImpl<NotificationDTO> {
                 notification.setNotiId(resultSet.getInt("noti_id"));
                 notification.setUserId(resultSet.getInt("user_id"));
                 notification.setMessage(resultSet.getString("message"));
-                notification.setTimestamp(resultSet.getLong("timestamp"));
+                notification.setTimestamp(resultSet.getTimestamp("timestamp"));
                 notification.setStatus(resultSet.getString("status"));
                 notifications.add(notification);
             }
@@ -109,7 +109,7 @@ public class NotificationDaoImpl extends DAOImpl<NotificationDTO> {
                 notification.setNotiId(resultSet.getInt("noti_id"));
                 notification.setUserId(resultSet.getInt("user_id"));
                 notification.setMessage(resultSet.getString("message"));
-                notification.setTimestamp(resultSet.getLong("timestamp"));
+                notification.setTimestamp(resultSet.getTimestamp("timestamp"));
                 notification.setStatus(resultSet.getString("status"));
                 items.add(notification);
             }

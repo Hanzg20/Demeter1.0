@@ -13,19 +13,18 @@ import model.SubscriptionDTO;
  * @author Glily
  */
 public class NotifictionViewModelItem {
-    private int subsId;
+    private int notiId;
     private int userId;
-    private String notiMethod;
-    private String itemLocation;
-    private double itemPrice;
-    private int itemTypeName;
+    private String message;
+    private long timestamp;
+    private String status;
 
-    public int getSubsId() {
-        return subsId;
+    public int getNotiId() {
+        return notiId;
     }
 
-    public void setSubsId(int subsId) {
-        this.subsId = subsId;
+    public void setNotiId(int notiId) {
+        this.notiId = notiId;
     }
 
     public int getUserId() {
@@ -36,36 +35,28 @@ public class NotifictionViewModelItem {
         this.userId = userId;
     }
 
-    public String getNotiMethod() {
-        return notiMethod;
+    public String getMessage() {
+        return message;
     }
 
-    public void setNotiMethod(String notiMethod) {
-        this.notiMethod = notiMethod;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getItemLocation() {
-        return itemLocation;
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public void setItemLocation(String itemLocation) {
-        this.itemLocation = itemLocation;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public double getItemPrice() {
-        return itemPrice;
+    public String getStatus() {
+        return status;
     }
 
-    public void setItemPrice(double itemPrice) {
-        this.itemPrice = itemPrice;
-    }
-
-    public int getItemTypeName() {
-        return itemTypeName;
-    }
-
-    public void setItemTypeName(int itemTypeName) {
-        this.itemTypeName = itemTypeName;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     

@@ -22,7 +22,7 @@ import viewmodel.SubsViewModel;
  *
  * @author Glily
  */
-public class NotifictionService {
+public class NotificationService {
     private final NotificationDaoImpl notificationDao = new NotificationDaoImpl();
     public NotifictionViewModel buidNotificationViewModel(int userId,String itemType) {
         NotifictionViewModel viewModel = new NotifictionViewModel();

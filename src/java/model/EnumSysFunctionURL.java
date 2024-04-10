@@ -18,7 +18,8 @@ public enum EnumSysFunctionURL {
     DONATION(5, "donation"),
     ORDERS(6, "order"),
     CLAIMS(7, "claim"),
-    SUBSCRIPTION(8, "subs");
+    SUBSCRIPTION(8, "subscription"),
+    NOTIFICATION(9, "notification");
 
     // Fields to store sysFunctionId and sysFunctionUrl
     private final int sysFunctionId;

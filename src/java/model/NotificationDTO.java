@@ -1,6 +1,8 @@
 
 package model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Glily
@@ -9,10 +11,10 @@ public class NotificationDTO {
     private int notiId;
     private int userId;
     private String message;
-    private long timestamp;
+    private Timestamp timestamp;
     private String status;
     
-    public NotificationDTO(int notiId, int userId, String message, long timestamp, String status) {
+    public NotificationDTO(int notiId, int userId, String message, Timestamp timestamp, String status) {
     this.notiId = notiId;
     this.userId = userId;
     this.message = message;
@@ -47,11 +49,11 @@ public class NotificationDTO {
         this.message = message;
     }
 
-    public long getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(long timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
     }
 

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.ItemDTO;
 import model.ItemTypeDTO;
+import model.NotificationDTO;
 import model.SubscriptionDTO;
 
 /**
@@ -15,12 +16,17 @@ import model.SubscriptionDTO;
  * @author Glily
  */
 public class SubscriptionViewModelItem {
-    private List<SubscriptionViewModelItem> items = new ArrayList<>();
-    private List<ItemTypeDTO> typeOptions = new ArrayList<>(); 
+    private int subsId;
+    private int userId;
+    private String notiMethod;
+    private String itemLocation;
+    private double itemPrice;
+    private int itemTypeName;
     
-    public static SubscriptionViewModelItem convertFrom(SubscriptionDTO subscriptionDTO, ItemDTO itemDTO) {
+    public static SubscriptionViewModelItem convertFrom(NotificationDTO notificationDTO,ItemDTO itemDTO)
+    {
         SubscriptionViewModelItem result = new SubscriptionViewModelItem();
-
+        
         return result;
     }
 }
