@@ -26,7 +26,27 @@
         <div class="main-row">
             <div class="main-section">
                 <h3>Photo</h3>
-                <img src="${ctx}/resources/img/user/profile_small-1.jpg" alt="User Photo" class="profile-photo">
+              
+                 <c:choose>
+                    <c:when test="${sessionScope.userRoleFunction.roleName == 'Retailer'}">
+                        <img src="${ctx}/resources/img/user/Retailer.jpg" alt="demeter_logo.jpg" class="profile-photo">
+                    </c:when>
+                    <c:when test="${sessionScope.userRoleFunction.roleName == 'Farmer'}">
+                        <img src="${ctx}/resources/img/user/Farmer.jpg" alt="demeter_logo.jpg" class="profile-photo">
+                    </c:when>
+                    <c:when test="${sessionScope.userRoleFunction.roleName == 'Administration'}">
+                        <img src="${ctx}/resources/img/user/Administration.jpg" alt="demeter_log.jpg" class="profile-photo">
+                    </c:when>
+                    <c:when test="${sessionScope.userRoleFunction.roleName == 'Charitable Organization'}">
+                        <img src="${ctx}/resources/img/user/Charitable Organization.jpg" alt="demeter_log.jpg" class="profile-photo">
+                    </c:when>
+                    <c:when test="${sessionScope.userRoleFunction.roleName == 'Food Manufacturer'}">
+                        <img src="${ctx}/resources/img/user/Manufacturer.jpg" alt="demeter_logo.jpg" class="profile-photo">
+                    </c:when>
+                     <c:when test="${sessionScope.userRoleFunction.roleName == 'Consumer'}">
+                        <img src="${ctx}/resources/img/user/Consumer.jpg" alt="demeter_logo.jpg" class="profile-photo">
+                    </c:when>
+                </c:choose>
             </div>
             <div class="main-section">
                 <h3>Role</h3>
