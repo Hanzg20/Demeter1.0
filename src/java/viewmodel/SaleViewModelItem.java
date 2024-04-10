@@ -17,7 +17,8 @@ import model.LocationDTO;
 public class SaleViewModelItem {
 
     private int listingId;
-    private Timestamp listingDate;   
+    private Timestamp listingDate;
+    private int itemId;
     private String itemName;
     private String unit;
     private String itemTypeName;
@@ -42,6 +43,15 @@ public class SaleViewModelItem {
     public void setListingDate(Timestamp listingDate) {
         this.listingDate = listingDate;
     }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+    
 
     public String getItemName() {
         return itemName;
@@ -107,6 +117,7 @@ public class SaleViewModelItem {
         SaleViewModelItem result = new SaleViewModelItem();
         result.setListingId(itemListingDTO.getListingId());
         result.setListingDate(itemListingDTO.getListingDate());
+        result.setItemId(itemDTO.getItemId());
         result.setItemName(itemDTO.getItemName());
         result.setUnit(itemDTO.getUnit());
         result.setItemTypeName(itemTypeDTO.getItemTypeName());

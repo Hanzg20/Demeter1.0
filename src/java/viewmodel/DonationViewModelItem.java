@@ -17,7 +17,8 @@ import model.LocationDTO;
 public class DonationViewModelItem {
 
     private int listingId;
-    private Timestamp listingDate;   
+    private Timestamp listingDate;  
+    private int itemId;
     private String itemName;
     private String unit;
     private String itemTypeName;
@@ -40,6 +41,14 @@ public class DonationViewModelItem {
 
     public void setListingDate(Timestamp listingDate) {
         this.listingDate = listingDate;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public String getItemName() {
@@ -98,6 +107,7 @@ public class DonationViewModelItem {
         DonationViewModelItem result = new DonationViewModelItem();
         result.setListingId(itemListingDTO.getListingId());
         result.setListingDate(itemListingDTO.getListingDate());
+        result.setItemId(itemDTO.getItemId());
         result.setItemName(itemDTO.getItemName());
         result.setUnit(itemDTO.getUnit());
         result.setItemTypeName(itemTypeDTO.getItemTypeName());

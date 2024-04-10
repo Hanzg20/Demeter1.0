@@ -25,6 +25,10 @@
                 <td><c:out value="${item.listingDate}" /></td>
             </tr>
             <tr>
+                <td>Item ID:</td>
+                <td><c:out value="${item.itemId}" /></td>
+            </tr>
+            <tr>
                 <td>Item Name:</td>
                 <td><c:out value="${item.itemName}" /></td>
             </tr>

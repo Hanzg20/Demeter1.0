@@ -16,9 +16,10 @@ import model.TransactionDTO;
  * @author liyingguo
  */
 public class ClaimViewModelItem {
-
+    
     private int listingId;
-    private Timestamp listingDate;   
+    private Timestamp listingDate; 
+    private int itemId;
     private String itemName;
     private String unit;
     private String itemTypeName;
@@ -36,6 +37,14 @@ public class ClaimViewModelItem {
         this.listingId = listingId;
     }
 
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+    
     public Timestamp getListingDate() {
         return listingDate;
     }
@@ -108,6 +117,7 @@ public class ClaimViewModelItem {
         ClaimViewModelItem result = new ClaimViewModelItem();
         result.setListingId(itemListingDTO.getListingId());
         result.setListingDate(itemListingDTO.getListingDate());
+        result.setItemId(itemDTO.getItemId());
         result.setItemName(itemDTO.getItemName());
         result.setUnit(itemDTO.getUnit());
         result.setItemTypeName(itemTypeDTO.getItemTypeName());

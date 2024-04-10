@@ -30,6 +30,7 @@
                         <table border="2">
                             <tr>
                                 <th>Listing ID</th>
+                                <th>Item ID</th>
                                 <th>Item Name</th>
                                 <th>Unit</th>
                                 <th>Type</th>
@@ -44,6 +45,7 @@
                                 <tr>
                                     <!-- Displaying item details -->
                                     <td><c:out value="${item.listingId}" /></td>
+                                    <td><c:out value="${item.itemId}" /></td>
                                     <td><c:out value="${item.itemName}" /></td>
                                     <td><c:out value="${item.unit}" /></td>
                                     <td><c:out value="${item.itemTypeName}" /></td>
