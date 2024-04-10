@@ -38,7 +38,7 @@
             <input type="submit" value="Apply Filter">
         </form>
 
-        <H2> Available to claim</H2>
+        <H2> Your claimed Item List</H2>
         <div class="wrapper wrapper-content">
             <div class="row">
                 <div class="col-sm-12">
