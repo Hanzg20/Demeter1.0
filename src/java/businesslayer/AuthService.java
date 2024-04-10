@@ -34,29 +34,28 @@ public class AuthService {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserDTO userDTO = userDao.RetrieveByEmail(email);
-        boolean isValidPassword = userDTO.getPassword().equals(password);
-        
-        if(isValidPassword)
-        {
-            List<UserFunctionDTO> userFunctionDTOs = userFunctionDao.RetrieveAllByRoleId(userDTO.getRoleId());
-            if(!userFunctionDTOs.isEmpty())
-            {
-                SysFunctionDTO[] sysFunctionDTOs = new SysFunctionDTO[userFunctionDTOs.size()];
-                for(int i=0;i< userFunctionDTOs.size();i++){
-                    SysFunctionDTO sysFunctionDTO =functionDao.Retrieve(userFunctionDTOs.get(i).getFuncId());
-                    if(sysFunctionDTO != null)
-                    {
-                        sysFunctionDTOs[i]=sysFunctionDTO;
+        if (userDTO != null) {
+            boolean isValidPassword = userDTO.getPassword().equals(password);
+
+            if (isValidPassword) {
+                List<UserFunctionDTO> userFunctionDTOs = userFunctionDao.RetrieveAllByRoleId(userDTO.getRoleId());
+                if (!userFunctionDTOs.isEmpty()) {
+                    SysFunctionDTO[] sysFunctionDTOs = new SysFunctionDTO[userFunctionDTOs.size()];
+                    for (int i = 0; i < userFunctionDTOs.size(); i++) {
+                        SysFunctionDTO sysFunctionDTO = functionDao.Retrieve(userFunctionDTOs.get(i).getFuncId());
+                        if (sysFunctionDTO != null) {
+                            sysFunctionDTOs[i] = sysFunctionDTO;
+                        } else {
+                            return false;
+                        }
                     }
-                    else{
-                        return false;
-                    }
+                    UserRoleFunction userRoleFunction = UserRoleFunction.convertFrom(userDTO, roleDao.Retrieve(userDTO.getRoleId()), sysFunctionDTOs);
+                    request.getSession().setAttribute("userRoleFunction", userRoleFunction);
+                    return true;
                 }
-                UserRoleFunction userRoleFunction = UserRoleFunction.convertFrom(userDTO,roleDao.Retrieve(userDTO.getRoleId()),sysFunctionDTOs);
-                request.getSession().setAttribute("userRoleFunction", userRoleFunction);
-                return true;
             }
         }
+       
         
         return false;
     }

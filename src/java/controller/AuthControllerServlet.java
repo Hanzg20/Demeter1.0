@@ -96,7 +96,7 @@ public class AuthControllerServlet extends HttpServlet {
             default:
                 if(dataService.login(request))
                 {
-                    response.sendRedirect("/auth/");
+                    response.sendRedirect("/");
                 }
                 else
                 {

@@ -43,10 +43,10 @@
                             <span class="fa arrow"></span>
                         </a>
                         <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="${ctx}/auth/login">Login</a></li>
+                            <!--  <li><a class="J_menuItem" href="${ctx}/auth/login">Login</a></li> -->
                               <li><a class="J_menuItem" href="${ctx}/auth/profile" >Profile</a></li>
-                            <li><a class="J_menuItem" href="${ctx}/auth/register">Register</a></li> 
-                            <li><a class="J_menuItem" href="${ctx}/auth/users">User Lists</a></li> 
+                              <li><a class="J_menuItem" href="${ctx}/auth/register">Register</a></li> 
+                             <li><a class="J_menuItem" href="${ctx}/auth/users">User Lists</a></li>
                         </ul>
                     </li>
 
@@ -58,7 +58,7 @@
                         </a>
                         <ul class="nav nav-second-level">
                             <!-- Add target="_blank" to open links in new tab -->
-<!--                            <li><a class="J_menuItem" href="${ctx}/inventory/">Inventory</a></li>
+                    <!---  <li><a class="J_menuItem" href="${ctx}/inventory/">Inventory</a></li>
                             <li><a class="J_menuItem" href="${ctx}/surplus/">Listing </a></li>
                             <li><a class="J_menuItem" href="${ctx}/sale/">On Sale</a></li>
                             <li><a class="J_menuItem" href="${ctx}/order/">My Orders</a></li>
@@ -125,7 +125,14 @@
                     </li>
                 </ul>
             </div>
-            <a href="${ctx}/auth/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Exit</a>
+                 <c:choose>
+                        <c:when test="${not empty sessionScope.userRoleFunction}">
+                            <a href="${ctx}/auth/logout" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Exit</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="${ctx}/auth/login" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> Login</a>
+                        </c:otherwise>
+                </c:choose>
         </div>
         <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="${ctx}home/" frameborder="0" data-id="${ctx}inventory/" seamless>
