@@ -2,6 +2,7 @@
 package dataaccesslayer;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class RoleDaoImpl extends DAOImpl<RoleDTO> {
     @Override
     public int insert(RoleDTO role) {
           try {
-            return dataSource.execute(SQL_INSERT, role.getRoleName(), role.getRoleTypeId());
+            return MyDataSource.execute(SQL_INSERT, role.getRoleName(), role.getRoleTypeId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -36,9 +37,9 @@ public class RoleDaoImpl extends DAOImpl<RoleDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.execute(SQL_DELETE_ALL);
+                return MyDataSource.execute(SQL_DELETE_ALL);
             } else {
-                return dataSource.execute(SQL_DELETE, id);
+                return MyDataSource.execute(SQL_DELETE, id);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -50,7 +51,7 @@ public class RoleDaoImpl extends DAOImpl<RoleDTO> {
     public int update(RoleDTO role) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, role.getRoleName(), role.getRoleTypeId());
+            return MyDataSource.execute(SQL_UPDATE, role.getRoleName(), role.getRoleTypeId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -59,7 +60,7 @@ public class RoleDaoImpl extends DAOImpl<RoleDTO> {
 
     @Override
     public RoleDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE, id); 
                 ResultSet resultSet = statement.executeQuery()
                 ) {
             if (resultSet.next()) {
@@ -78,7 +79,7 @@ public class RoleDaoImpl extends DAOImpl<RoleDTO> {
     @Override
     public List<RoleDTO> RetrieveAll() {
         List<RoleDTO> roles = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                RoleDTO role = new RoleDTO();
                role.setRoleId(resultSet.getInt("Role_id"));

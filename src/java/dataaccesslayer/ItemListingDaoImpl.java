@@ -3,6 +3,7 @@ package dataaccesslayer;
 import static dataaccesslayer.ItemDaoImpl.SQL_RETRIEVE_ALL;
 import static dataaccesslayer.ItemDaoImpl.SQL_UPDATE;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     public int insert(ItemListingDTO item_listing) {
 
         try {
-            return dataSource.execute(SQL_INSERT, item_listing.getItemId(), item_listing.getIsDonation(), item_listing.getDiscountRate(), item_listing.getListingDate());
+            return MyDataSource.execute(SQL_INSERT, item_listing.getItemId(), item_listing.getIsDonation(), item_listing.getDiscountRate(), item_listing.getListingDate());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -41,9 +42,9 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.execute(SQL_DELETE_ALL);
+                return MyDataSource.execute(SQL_DELETE_ALL);
             } else {
-                return dataSource.execute(SQL_DELETE, id);
+                return MyDataSource.execute(SQL_DELETE, id);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -55,7 +56,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     public int update(ItemListingDTO itemListing) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, itemListing.getItemId(), itemListing.getIsDonation(), itemListing.getDiscountRate(), itemListing.getListingDate());
+            return MyDataSource.execute(SQL_UPDATE, itemListing.getItemId(), itemListing.getIsDonation(), itemListing.getDiscountRate(), itemListing.getListingDate());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -64,7 +65,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
 
     @Override
     public ItemListingDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 ItemListingDTO itemListing = new ItemListingDTO();
                 itemListing.setListingId(resultSet.getInt("Listing_id"));
@@ -83,7 +84,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     @Override
     public List<ItemListingDTO> RetrieveAll() {
         List<ItemListingDTO> itemListings = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO item = new ItemListingDTO();
                 item.setListingId(resultSet.getInt("Listing_id"));
@@ -103,7 +104,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
 
     public List<ItemListingDTO> RetrieveList(boolean isDonation, String itemType, String daysExpireDaysLessThan) {
         List<ItemListingDTO> items = new ArrayList<>();
-        try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL,isDonation, itemType, daysExpireDaysLessThan); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL,isDonation, itemType, daysExpireDaysLessThan); 
                 ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO item = new ItemListingDTO();
@@ -123,7 +124,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
     }
 
     //todo the following need a join table sql
-    private PreparedStatement prepareStatement(String sql,boolean isDonation, String itemTypeFilte, String expireDayFilter) throws SQLException {
+    private PreparedStatement prepareStatement(Connection connection,String sql,boolean isDonation, String itemTypeFilte, String expireDayFilter) throws SQLException {
         StringBuilder queryBuilder = new StringBuilder(sql);
         queryBuilder.append(" AND Is_donation = "+((isDonation)?"true":"false"));
         boolean validItemTypeFilter = itemTypeFilte != null && !itemTypeFilte.isEmpty();        
@@ -136,7 +137,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
             queryBuilder.append(" AND Expir_date < ?");
         }
 
-        PreparedStatement statement = dataSource.prepareStatement(queryBuilder.toString());
+        PreparedStatement statement = MyDataSource.prepareStatement(connection,queryBuilder.toString());
         int parameterIndex = 1;
         if (validItemTypeFilter) {
             statement.setInt(parameterIndex++, Integer.parseInt(itemTypeFilte));
@@ -158,7 +159,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
         return statement;
     }
 
-    public PreparedStatement prepareInsertStatement(ItemListingDTO item_listing) throws SQLException {
-        return dataSource.prepareStatement(SQL_INSERT, item_listing.getItemId(), item_listing.getIsDonation(), item_listing.getDiscountRate(), item_listing.getListingDate());
+    public PreparedStatement prepareInsertStatement(Connection connection,ItemListingDTO item_listing) throws SQLException {
+        return MyDataSource.prepareStatement(connection,SQL_INSERT, item_listing.getItemId(), item_listing.getIsDonation(), item_listing.getDiscountRate(), item_listing.getListingDate());
     }
 }

@@ -5,7 +5,7 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
-import dataaccesslayer.DataSource;
+import dataaccesslayer.MyDataSource;
 import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
@@ -47,19 +47,16 @@ public class TransactionService {
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
     private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
 
-    protected DataSource dataSource = DataSource.getInstance();
-
-
-    public OrderViewModel buidOrderViewModel(String itemType, String expireDays) {
+    public OrderViewModel buidOrderViewModel(String itemTypeId, String expireDays) {
         OrderViewModel viewModel = new OrderViewModel();
-        viewModel.setItems(retrieveSaleItemList(itemType, expireDays));
+        viewModel.setItems(retrieveSaleItemList(itemTypeId, expireDays));
         viewModel.setTypeOptions(typeDao.RetrieveAll());
         return viewModel;
     }
     
-    private List<OrderViewModelItem> retrieveSaleItemList(String itemType, String daysExpireDays) {
+    private List<OrderViewModelItem> retrieveSaleItemList(String itemTypeId, String daysExpireDays) {
         List<OrderViewModelItem> result = new ArrayList<>();
-        List<ItemListingDTO> items = itemListingDao.RetrieveList(false,itemType, daysExpireDays);
+        List<ItemListingDTO> items = itemListingDao.RetrieveList(false,itemTypeId, daysExpireDays);
         items.forEach(listingItem -> {
             ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
             if (item != null) {
@@ -82,7 +79,9 @@ public class TransactionService {
                     item.setStatusDate(Timestamp.from(Instant.now()));
                 }
                 TransactionDTO transactionDTO = new TransactionDTO(0, EnumTransactionType.PURCHASE.getValue(), listingId, userId, quantity, Timestamp.from(Instant.now()));
-                try (Connection connection = dataSource.createConnection(); PreparedStatement statement1 = itemDao.prepareUpdateStatement(item); PreparedStatement statement2 = transationDao.prepareInsertStatement(transactionDTO)) {
+                try (
+                        Connection connection = MyDataSource.getConnection(); 
+                        PreparedStatement statement1 = itemDao.prepareUpdateStatement(connection,item); PreparedStatement statement2 = transationDao.prepareInsertStatement(connection,transactionDTO)) {
                     // Executing both statements
                     statement1.executeUpdate();
                     statement2.executeUpdate();

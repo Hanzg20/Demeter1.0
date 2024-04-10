@@ -5,8 +5,7 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
-import dataaccesslayer.DataSource;
-import static dataaccesslayer.DataSource.getInstance;
+import dataaccesslayer.MyDataSource;
 import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
@@ -51,7 +50,6 @@ public class ItemsService {
     private final DAO<ItemTypeDTO> typeDao = new ItemTypeDaoImpl();
 
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
-    protected DataSource dataSource = DataSource.getInstance();
 
     private List<InventoryViewModelItem> retrieveItemList(String itemType, String status, String daysExpireDays) {
         List<InventoryViewModelItem> result = new ArrayList<>();
@@ -258,9 +256,9 @@ public class ItemsService {
             item.setStatus(EnumStatusType.LISTED.getSymbol());
             item.setStatusDate(Timestamp.from(Instant.now()));
             ItemListingDTO itemListingDTO=new ItemListingDTO(0,id, isDonate, discountRate, Timestamp.from(Instant.now()));
-            try (Connection connection = dataSource.createConnection();
-                  PreparedStatement statement1=  itemDao.prepareUpdateStatement(item);
-                  PreparedStatement statement2=  itemListingDao.prepareInsertStatement(itemListingDTO)) {
+            try (Connection connection = MyDataSource.getConnection();
+                  PreparedStatement statement1=  itemDao.prepareUpdateStatement(connection,item);
+                  PreparedStatement statement2=  itemListingDao.prepareInsertStatement(connection,itemListingDTO)) {
                     // Executing both statements
                     statement1.executeUpdate();
                     statement2.executeUpdate();

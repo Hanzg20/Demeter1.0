@@ -1,6 +1,7 @@
 package dataaccesslayer;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class UserFunctionDaoImpl extends DAOImpl<UserFunctionDTO> {
     public int insert(UserFunctionDTO userFunction) {
 
         try {
-            return dataSource.execute(SQL_INSERT, userFunction.getRoleId(),userFunction.getFuncId());
+            return MyDataSource.execute(SQL_INSERT, userFunction.getRoleId(),userFunction.getFuncId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -31,7 +32,7 @@ public class UserFunctionDaoImpl extends DAOImpl<UserFunctionDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.execute(SQL_DELETE_ALL);
+                return MyDataSource.execute(SQL_DELETE_ALL);
             } else {
                 return 0;
             }
@@ -43,7 +44,7 @@ public class UserFunctionDaoImpl extends DAOImpl<UserFunctionDTO> {
 
     @Override
     public UserFunctionDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE, id); 
                 ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 UserFunctionDTO userFunction = new UserFunctionDTO();
@@ -60,7 +61,7 @@ public class UserFunctionDaoImpl extends DAOImpl<UserFunctionDTO> {
     @Override
     public List<UserFunctionDTO> RetrieveAll() {
         List<UserFunctionDTO> userFunctions = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 UserFunctionDTO userFunction = new UserFunctionDTO();
                 userFunction.setFuncId(resultSet.getInt("function_id"));
@@ -75,7 +76,7 @@ public class UserFunctionDaoImpl extends DAOImpl<UserFunctionDTO> {
 
     public List<UserFunctionDTO> RetrieveAllByRoleId(int roleId) {
         List<UserFunctionDTO> userFunctions = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL_BY_ROLE,roleId); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL_BY_ROLE,roleId); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 UserFunctionDTO userFunction = new UserFunctionDTO();
                 userFunction.setFuncId(resultSet.getInt("function_id"));
