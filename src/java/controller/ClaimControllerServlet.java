@@ -36,17 +36,12 @@ public class ClaimControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch(action)
         {
-            case "/claim":
-                NavigationHelper.goTo(request,response,"/views/donation/claim.jsp");
-                break;
             case "/claims":
-                NavigationHelper.goTo(request,response,"/views/donation/claims.jsp");
-                break;
             default:
                 String itemType = request.getParameter("itemType");
                 String expireDays = request.getParameter("expireDays");
                 request.setAttribute("viewModel", dataService.buidDonationViewModel(itemType, expireDays));
-                NavigationHelper.goTo(request,response,"/views/donation/list.jsp");
+                NavigationHelper.goTo(request,response,"/views/claims/list.jsp");
             break;
             
           }
@@ -64,6 +59,7 @@ public class ClaimControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
     }
 
     /**

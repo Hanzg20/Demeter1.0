@@ -57,9 +57,6 @@ public class SaleControllerServlet extends HttpServlet {
 
                 }
                 break;
-//            case "/orders":
-//                NavigationHelper.goTo(request, response, "/views/sale/orders.jsp");
-//                break;
             default:
                 String itemType = request.getParameter("itemType");
                 String expireDays = request.getParameter("expireDays");
