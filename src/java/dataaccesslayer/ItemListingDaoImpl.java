@@ -104,7 +104,7 @@ public class ItemListingDaoImpl extends DAOImpl<ItemListingDTO> {
 
     public List<ItemListingDTO> RetrieveList(boolean isDonation, String itemType, String daysExpireDaysLessThan) {
         List<ItemListingDTO> items = new ArrayList<>();
-        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL,isDonation, itemType, daysExpireDaysLessThan); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = prepareStatement(connection,SQL_RETRIEVE_ALL,isDonation, itemType, daysExpireDaysLessThan); 
                 ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemListingDTO item = new ItemListingDTO();

@@ -110,7 +110,7 @@ public class TransactionDaoImpl extends DAOImpl<TransactionDTO> {
 
     public List<TransactionDTO> RetrieveList(int userId) {
         List<TransactionDTO> transactions = new ArrayList<>();
-        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL,userId); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = prepareStatement(connection,SQL_RETRIEVE_ALL,userId); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 TransactionDTO transaction = new TransactionDTO();
                 transaction.setTranId(resultSet.getInt("Tran_id"));
