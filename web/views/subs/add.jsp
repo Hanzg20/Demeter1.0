@@ -18,28 +18,36 @@
         <div class="main-container">
                 <div class="main-section">
                     <h3>Add Subscription</h3>
-                        <label for="userId">User ID:</label>
-                        <input type="text" id="userId" name="userId" required>
+                    <label for="userId">Subscriber</label>
+                    <input type="text" id="userId" name="userId" required>
 
-                        <label for="notiMethod">Notification Method:</label>
-                        <input type="text" id="notiMethod" name="notiMethod" required>
+                    <label for="notiMethod">Notification Method:</label>
+                    <input type="text" id="notiMethod" name="notiMethod" required>
 
-                        <label for="itemLocation">Location:</label>
-                        <select id="itemLocation" name="itemLocation" required>
-                            <option value="Location1">Location1</option>
-                            <option value="Location2">Location2</option>
-                            <!-- Add more options as needed -->
-                        </select>
+                    <label for="itemLocation">Location:</label>
+                    <select id="itemLocation" name="itemLocation" required>
+                        <option value="1">Ottawa Central Market</option>
+                        <option value="2">Ottawa Community Kitchen</option>
+                        <option value="3">Ottawa Food Bank</option>
+                        <!-- Add more options as needed -->
+                    </select>
 
-                        <label for="itemPrice">Item Price:</label>
-                        <input type="text" id="itemPrice" name="itemPrice" required>
+                    <label for="itemPrice">Item Price:</label>
+                    <input type="text" id="itemPrice" name="itemPrice" required>
 
-                        <label for="itemTypeId">Item Type ID:</label>
-                        <select id="itemTypeId" name="itemTypeId" required>
-                            <option value="1">Type 1</option>
-                            <option value="2">Type 2</option>
-                            <!-- Add more options as needed -->
-                        </select>
+                    <label for="itemTypeId">Item Type ID:</label>
+                    <select id="itemTypeId" name="itemTypeId" required>
+                        <option value="1">Vegetable1</option>
+                        <option value="2">Bakery</option>
+                        <option value="3">Canned</option>
+                        <option value="4">Dairy</option>
+                        <option value="5">Meat</option>
+                        <option value="6">Pasta and Rice</option>
+                        <option value="7">Vegetable2</option>
+                        <option value="8">Snacks</option>
+                        <!-- Add more options as needed -->
+                    </select>
+
 
                         <input type="submit" value="Add">
                 </form>

@@ -13,26 +13,36 @@
           <title>User Registration</title>
        </head>
 <body>
-        <div class="main-container">
-          <div class="main-section">
+       <div class="main-container">
+             <div class="main-section">
                 <h3>User Registration</h3>
                 <form action="UserServlet" method="POST">
 
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required><br>
+                <label for="username">User name:</label>
+                <input type="text" id="username" name="username" required><br>
 
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" required><br>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
 
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
 
-                    <label for="role">Role Name:</label>
-                    <input type="number" id="role" name="roleId" required><br>
+                <label for="repassword">Re-enter Password:</label>
+                <input type="password" id="repassword" name="repassword" required><br>
 
-                    <input type="submit" value="Register">    
+                <label for="role">Role:</label>
+                <select id="role" name="roleId" required>
+                    <option value="0">Administration</option>
+                    <option value="1">Retailer</option>
+                    <option value="2">Food Manufacturer</option>
+                    <option value="3">Farmer</option>
+                    <option value="4">Consumer</option>
+                    <option value="5">Charitable Organization</option>
+                </select><br>
+
+                <input type="submit" value="Register">    
             </form>
-         </div>
-       </div> 
+        </div>
+    </div>
  </body>
 </html>
