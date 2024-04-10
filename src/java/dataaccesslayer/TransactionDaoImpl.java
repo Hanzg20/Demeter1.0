@@ -138,37 +138,6 @@ public class TransactionDaoImpl extends DAOImpl<TransactionDTO> {
 
         return statement;
     }
-
-    public List<TransactionDTO> RetrieveList(int userId) {
-        List<TransactionDTO> transactions = new ArrayList<>();
-        try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL,userId); ResultSet resultSet = statement.executeQuery()) {
-            while (resultSet.next()) {
-                TransactionDTO transaction = new TransactionDTO();
-                transaction.setTranId(resultSet.getInt("Tran_id"));
-                transaction.setTranTypeId(resultSet.getInt("Tran_type_id"));
-                transaction.setListingId(resultSet.getInt("Listing_id"));
-                transaction.setUserId(resultSet.getInt("User_id"));
-                transaction.setQuantity(resultSet.getInt("Quantity")); 
-                transaction.setTranDate(resultSet.getTimestamp("Tran_date")); 
-                transactions.add(transaction);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return transactions;
-    }
-    
-    private PreparedStatement prepareStatement(String sql,int userId) throws SQLException {
-        StringBuilder queryBuilder = new StringBuilder(sql);
-        queryBuilder.append(" AND User_id= ?");
-        
-        PreparedStatement statement = dataSource.prepareStatement(queryBuilder.toString());
-        int parameterIndex = 1;
-        statement.setInt(parameterIndex++, userId);
-        
-
-        return statement;
-    }
 }
 
 
