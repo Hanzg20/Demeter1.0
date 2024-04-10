@@ -1,18 +1,15 @@
 
 package controller;
 
-import businesslayer.ItemListingService;
+import businesslayer.AuthService;
 import businesslayer.NavigationHelper;
-import dataaccesslayer.DAO;
-import dataaccesslayer.ItemListingDaoImpl;
+import businesslayer.TransactionService;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.ItemListingDTO;
 
 /**
  *
@@ -20,7 +17,9 @@ import model.ItemListingDTO;
  */
 @WebServlet(name = "ClaimControllerServlet", urlPatterns = {"/claim/*"})
 public class ClaimControllerServlet extends HttpServlet {    
-    private final ItemListingService dataService = new ItemListingService();
+    AuthService authService = new AuthService();
+
+    private final TransactionService dataService = new TransactionService();
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -34,17 +33,20 @@ public class ClaimControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getPathInfo();
-        switch(action)
-        {
-            case "/claims":
+        switch (action) {
             default:
-                String itemType = request.getParameter("itemType");
-                String expireDays = request.getParameter("expireDays");
-                request.setAttribute("viewModel", dataService.buidDonationViewModel(itemType, expireDays));
-                NavigationHelper.goTo(request,response,"/views/claims/list.jsp");
-            break;
-            
-          }
+                if (authService.isLoggedIn(request)) {
+                    String itemType = request.getParameter("itemType");
+                    String expireDays = request.getParameter("expireDays");
+                    request.setAttribute("viewModel", dataService.buidClaimViewModel(authService.getUserId(request), itemType, expireDays));
+                    NavigationHelper.goTo(request, response, "/views/claim/list.jsp");
+                } else {
+                    NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not login user."));
+                }
+
+                break;
+
+        }
 
     }
 

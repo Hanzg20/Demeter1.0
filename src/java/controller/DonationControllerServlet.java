@@ -90,11 +90,11 @@ public class DonationControllerServlet extends HttpServlet {
                         boolean successSubmit = false;
                         if(dataService.isLoggedIn(request) && quantity != null)
                         {
-                           successSubmit = transactionService.donate(dataService.getUserId(request),Integer.parseInt(id),Integer.parseInt(quantity));
+                           successSubmit = transactionService.claim(dataService.getUserId(request),Integer.parseInt(id),Integer.parseInt(quantity));
                         }
 
                         if (successSubmit) {
-                            response.sendRedirect("/sale/");
+                            response.sendRedirect("/donation/");
                         } else {
                             NavigationHelper.HandleError(response, new Exception("Failed. Please retry"));
                         }

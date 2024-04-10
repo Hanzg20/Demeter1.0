@@ -9,6 +9,7 @@ import model.ItemDTO;
 import model.ItemListingDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
+import model.TransactionDTO;
 
 /**
  *
@@ -24,6 +25,7 @@ public class ClaimViewModelItem {
     private int quantity;
     private Timestamp expirDate;   
     private String address;
+    private Timestamp tranDate;
 
    
     public int getListingId() {
@@ -89,10 +91,18 @@ public class ClaimViewModelItem {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public Timestamp getTranDate() {
+        return tranDate;
+    }
+
+    public void setTranDate(Timestamp tranDate) {
+        this.tranDate = tranDate;
+    }
     
     
 
-    public static ClaimViewModelItem convertFrom(ItemListingDTO itemListingDTO,
+    public static ClaimViewModelItem convertFrom(TransactionDTO transactionDTO,ItemListingDTO itemListingDTO,
             ItemDTO itemDTO, ItemTypeDTO itemTypeDTO, LocationDTO locationDTO) 
     {
         ClaimViewModelItem result = new ClaimViewModelItem();
@@ -101,9 +111,10 @@ public class ClaimViewModelItem {
         result.setItemName(itemDTO.getItemName());
         result.setUnit(itemDTO.getUnit());
         result.setItemTypeName(itemTypeDTO.getItemTypeName());
-        result.setQuantity(itemDTO.getQuantity());
+        result.setQuantity(transactionDTO.getQuantity());
         result.setExpirDate(itemDTO.getExpirDate());
         result.setAddress(locationDTO.getAddress());
+        result.setTranDate(transactionDTO.getTranDate());
               
         return result;
     }
