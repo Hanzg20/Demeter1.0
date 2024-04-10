@@ -16,11 +16,7 @@
        <link rel="stylesheet" href="${ctx}/resources/css/datapicker/bootstrap-datepicker.css">
     </head>    
         <body>
-          <nav>
-            <ul>
-                <li><a href="claims">my claims</a></li>
-            </ul>
-          </nav>
+         
         <form method="get">
             <label for="itemTypeFilter">Item Type:</label>
             <select id="itemTypeFilter" name="itemType">
