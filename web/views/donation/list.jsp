@@ -52,6 +52,7 @@
                                 <tr>
                                     <th>Listing ID</th>
                                     <th>Listing Date</th>
+                                    <th>Item ID</th>
                                     <th>Item Name</th>
                                     <th>Unit</th>
                                     <th>Item Type Name</th>
@@ -64,6 +65,7 @@
                                     <tr>
                                         <td><c:out value="${item.listingId}" /></td>
                                         <td><c:out value="${item.listingDate}" /></td>
+                                        <td><c:out value="${item.itemId}" /></td>
                                         <td><c:out value="${item.itemName}" /></td>
                                         <td><c:out value="${item.unit}" /></td>
                                         <td><c:out value="${item.itemTypeName}" /></td>

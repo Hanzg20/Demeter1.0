@@ -18,7 +18,8 @@ import model.TransactionDTO;
 public class OrderViewModelItem {
 
     private int listingId;
-    private Timestamp listingDate;   
+    private Timestamp listingDate; 
+    private int itemId;
     private String itemName;
     private String unit;
     private String itemTypeName;
@@ -42,6 +43,14 @@ public class OrderViewModelItem {
 
     public void setListingDate(Timestamp listingDate) {
         this.listingDate = listingDate;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
     }
 
     public String getItemName() {
@@ -117,6 +126,7 @@ public class OrderViewModelItem {
         result.setListingId(itemListingDTO.getListingId());
         result.setTranDate(transactionDTO.getTranDate());
         result.setListingDate(itemListingDTO.getListingDate());
+        result.setItemId(itemDTO.getItemId());
         result.setItemName(itemDTO.getItemName());
         result.setUnit(itemDTO.getUnit());
         result.setItemTypeName(itemTypeDTO.getItemTypeName());

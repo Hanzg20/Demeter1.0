@@ -45,7 +45,7 @@
             <input type="submit" value="Apply Filter">
         </form>
             
-        <H2> My Cliams Lists </H2>
+        <H2> My Claim List </H2>
        <div class="wrapper wrapper-content">
         <div class="row">
         <div class="col-sm-12">

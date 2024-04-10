@@ -37,7 +37,7 @@
 
             <input type="submit" value="Apply Filter">
         </form>
-        <H2> Available to purchase</H2>
+        <H2> Sale List</H2>
         <div class="wrapper wrapper-content">
             <div class="row">
                 <div class="col-sm-12">
@@ -45,7 +45,8 @@
                         <div class="ibox-content">
                             <table border="1">
                                 <tr>
-                                     <th>Listing ID</th>
+                                    <th>Listing ID</th>
+                                    <th>Item ID</th>
                                     <th>Item Name</th>
                                     <th>Unit</th>
                                     <th>Item Type Name</th>
@@ -59,6 +60,7 @@
                                 <c:forEach items="${viewModel.items}" var="item">
                                     <tr>
                                         <td><c:out value="${item.listingId}" /></td>
+                                        <td><c:out value="${item.itemId}" /></td>
                                         <td><c:out value="${item.itemName}" /></td>
                                         <td><c:out value="${item.unit}" /></td>
                                         <td><c:out value="${item.itemTypeName}" /></td>
