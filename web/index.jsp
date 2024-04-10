@@ -19,6 +19,49 @@
     <title>Demeter FWRP</title>
      <!-- Include Bootstrap CSS -->
     <jsp:include page="${ctx}/resources/layout/_css.jsp"/>
+    <jsp:include page="/resources/layout/_script.jsp"/>
+
+<script>
+$(document).ready(function() {
+    // Function to handle tab clicks
+    function handleTabClick(tab) {
+        var url = tab.attr("data-id"); // Get the URL from data-id attribute
+        var title = tab.text(); // Get the title from link text
+        
+        // Load the content of the clicked link into the iframe
+        $("iframe.J_iframe").attr("src", url);
+        
+        // Update the title of the page
+        $(".navbar-brand").text(title);
+        
+        // Highlight the active tab
+        $(".J_menuTab").removeClass("active"); // Remove active class from all tabs
+        tab.addClass("active"); // Add active class to the clicked tab
+    }
+
+    // Add click event listener to all J_menuTab links except for Home tab
+    $(".J_menuTab:not([data-id='${ctx}/home/'])").on("click", function(e) {
+        e.preventDefault(); // Prevent default behavior
+        handleTabClick($(this)); // Handle the tab click
+    });
+
+    // Handle click for Home tab separately
+    $(".J_menuTab[data-id='${ctx}/home/']").on("click", function(e) {
+        // Prevent default behavior
+        e.preventDefault();
+        // Highlight the active tab
+        $(".J_menuTab").removeClass("active");
+        $(this).addClass("active");
+        // Update the title of the page
+        $(".navbar-brand").text($(this).text());
+    });
+
+    // Restore the active tab when the page loads
+    var activeTab = $(".J_menuTab.active");
+    handleTabClick(activeTab);
+});
+</script>
+
 </head>
 
 <body class="fixed-sidebar full-height-layout gray-bg" style="overflow:hidden">
@@ -45,8 +88,9 @@
                         <ul class="nav nav-second-level">
                             <!--  <li><a class="J_menuItem" href="${ctx}/auth/login">Login</a></li> -->
                               <li><a class="J_menuItem" href="${ctx}/auth/profile" >Profile</a></li>
-                              <li><a class="J_menuItem" href="${ctx}/auth/register">Register</a></li> 
-                             <li><a class="J_menuItem" href="${ctx}/auth/users">User Lists</a></li>
+
+                            <li><a class="J_menuItem" href="${ctx}/auth/register">Register</a></li> 
+                            <li><a class="J_menuItem" href="${ctx}/user/">User Lists</a></li> 
                         </ul>
                     </li>
 
@@ -104,7 +148,8 @@
 
           <nav class="page-tabs J_menuTabs">
                 <div class="page-tabs-content">
-                    <a href="javascript:;" class="active J_menuTab" data-id="${ctx}/home/">Home</a>
+                   <a href="javascript:;" class="active J_menuTab" data-id="${ctx}/home/">Home</a>
+
                 </div>
             </nav>
 
@@ -271,23 +316,7 @@
     </div>
 <!--End of right sidebar-->
 </div>
-<jsp:include page="/resources/layout/_script.jsp"/>
 
-<script>
-        // Function to open links in iframes on new tabs
-        $(document).ready(function() {
-            // Add click event listener to J_menuItem links
-            $(".J_menuItem").on("click", function(e) {
-                e.preventDefault(); // Prevent default behavior
-                var url = $(this).attr("href"); // Get the URL from href attribute
-                var title = $(this).text(); // Get the title from link text
-                // Append a new tab with iframe containing the clicked link
-                $("#iframeTabs").append('<div class="tab-pane"><iframe src="' + url + '" frameborder="0" width="100%" height="100%"></iframe></div>');
-                // Activate the new tab
-                $('#iframeTabs a:last').tab('show');
-            });
-        });
-    </script>
 
 </body>
 
