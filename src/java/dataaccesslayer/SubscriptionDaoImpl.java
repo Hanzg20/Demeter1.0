@@ -1,6 +1,7 @@
 package dataaccesslayer;
 
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     @Override
     public int insert(SubscriptionDTO subscription) {
         try {
-            return dataSource.execute(SQL_INSERT, subscription.getUserId(), subscription.getNotiMethod(), subscription.getItemLocation(), subscription.getItemPrice(), subscription.getItemTypeId());
+            return MyDataSource.execute(SQL_INSERT, subscription.getUserId(), subscription.getNotiMethod(), subscription.getItemLocation(), subscription.getItemPrice(), subscription.getItemTypeId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -30,9 +31,9 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.execute(SQL_DELETE_ALL);
+                return MyDataSource.execute(SQL_DELETE_ALL);
             } else {
-                return dataSource.execute(SQL_DELETE, id);
+                return MyDataSource.execute(SQL_DELETE, id);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -43,7 +44,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     @Override
     public int update(SubscriptionDTO subscription) {
         try {
-            return dataSource.execute(SQL_UPDATE, subscription.getUserId(), subscription.getNotiMethod(), subscription.getItemLocation(), subscription.getItemPrice(), subscription.getItemTypeId());
+            return MyDataSource.execute(SQL_UPDATE, subscription.getUserId(), subscription.getNotiMethod(), subscription.getItemLocation(), subscription.getItemPrice(), subscription.getItemTypeId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -52,7 +53,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
 
     @Override
     public SubscriptionDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE, id); 
              ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 SubscriptionDTO subscription = new SubscriptionDTO();
@@ -73,7 +74,7 @@ public class SubscriptionDaoImpl extends DAOImpl<SubscriptionDTO> {
     @Override
     public List<SubscriptionDTO> RetrieveAll() {
         List<SubscriptionDTO> subscriptions = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); 
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL); 
              ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 SubscriptionDTO subscription = new SubscriptionDTO();

@@ -2,6 +2,7 @@ package dataaccesslayer;
 
 import static dataaccesslayer.ItemListingDaoImpl.SQL_INSERT;
 import java.io.Serializable;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     public int insert(ItemDTO item) {
 
         try {
-            return dataSource.execute(SQL_INSERT, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate());
+            return MyDataSource.execute(SQL_INSERT, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -37,9 +38,9 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     public int delete(Serializable id) {
         try {
             if (id == null) {
-                return dataSource.execute(SQL_DELETE_ALL);
+                return MyDataSource.execute(SQL_DELETE_ALL);
             } else {
-                return dataSource.execute(SQL_DELETE, id);
+                return MyDataSource.execute(SQL_DELETE, id);
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -51,7 +52,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     public int update(ItemDTO item) {
 
         try {
-            return dataSource.execute(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(), item.getItemId());
+            return MyDataSource.execute(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(), item.getItemId());
         } catch (Exception ex) {
             ex.printStackTrace();
             return 0;
@@ -60,7 +61,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
 
     @Override
     public ItemDTO Retrieve(Serializable id) {
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE, id); ResultSet resultSet = statement.executeQuery()) {
             if (resultSet.next()) {
                 ItemDTO item = new ItemDTO();
                 item.setItemId(resultSet.getInt("item_id"));
@@ -86,7 +87,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
     @Override
     public List<ItemDTO> RetrieveAll() {
         List<ItemDTO> items = new ArrayList<>();
-        try (PreparedStatement statement = dataSource.prepareStatement(SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = MyDataSource.prepareStatement(connection,SQL_RETRIEVE_ALL); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemDTO item = new ItemDTO();
                 item.setItemId(resultSet.getInt("item_id"));
@@ -111,7 +112,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
 
     public List<ItemDTO> RetrieveList(String itemType, String status, String daysExpireDaysLessThan) {
         List<ItemDTO> items = new ArrayList<>();
-        try (PreparedStatement statement = prepareStatement(SQL_RETRIEVE_ALL, itemType, status, daysExpireDaysLessThan); ResultSet resultSet = statement.executeQuery()) {
+        try (Connection connection = MyDataSource.getConnection(); PreparedStatement statement = prepareStatement(connection,SQL_RETRIEVE_ALL, itemType, status, daysExpireDaysLessThan); ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
                 ItemDTO item = new ItemDTO();
                 item.setItemId(resultSet.getInt("item_id"));
@@ -134,7 +135,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
         return items;
     }
 
-    private PreparedStatement prepareStatement(String sql, String itemTypeFilte, String statusFilter, String expireDayFilter) throws SQLException {
+    private PreparedStatement prepareStatement(Connection connection,String sql, String itemTypeFilte, String statusFilter, String expireDayFilter) throws SQLException {
         StringBuilder queryBuilder = new StringBuilder(sql);
         boolean validItemTypeFilter = itemTypeFilte != null && !itemTypeFilte.isEmpty();
         if (validItemTypeFilter) {
@@ -151,7 +152,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
             queryBuilder.append(" AND Expir_date < ?");
         }
 
-        PreparedStatement statement = dataSource.prepareStatement(queryBuilder.toString());
+        PreparedStatement statement = MyDataSource.prepareStatement(connection,queryBuilder.toString());
         int parameterIndex = 1;
         if (validItemTypeFilter) {
             statement.setInt(parameterIndex++, Integer.parseInt(itemTypeFilte));
@@ -175,7 +176,7 @@ public class ItemDaoImpl extends DAOImpl<ItemDTO> {
         return statement;
     }
 
-    public PreparedStatement prepareUpdateStatement(ItemDTO item) throws SQLException {
-        return dataSource.prepareStatement(SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(), item.getItemId()) ;
+    public PreparedStatement prepareUpdateStatement(Connection connection,ItemDTO item) throws SQLException {
+        return MyDataSource.prepareStatement(connection,SQL_UPDATE, item.getItemName(), item.getUnit(), item.getLocationId(), item.getCreateDate(), item.getUserId(), item.getItemTypeId(), item.getQuantity(), item.getExpirDate(), item.getPrice(), item.getStatus(), item.getStatusDate(), item.getItemId()) ;
     }
 }

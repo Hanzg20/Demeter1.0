@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path=""/>
+<Context antiJARLocking="true" path="">
+    <!-- Define a MySQL DataSource -->
+    <Resource name="jdbc/your_datasource_name" auth="Container"
+              type="javax.sql.DataSource"
+              maxTotal="6" maxIdle="3" maxWaitMillis="100000"
+              username="a88623_fwrp" password="FWRP1234"
+              driverClassName="com.mysql.cj.jdbc.Driver"
+              url="jdbc:mysql://MYSQL8003.site4now.net:3306/db_a88623_fwrp?autoReconnect=true&amp;connectTimeout=5000&amp;socketTimeout=3000"/>
+</Context>

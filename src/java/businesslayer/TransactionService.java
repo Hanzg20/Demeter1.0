@@ -5,7 +5,7 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
-import dataaccesslayer.DataSource;
+import dataaccesslayer.MyDataSource;
 import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
@@ -47,7 +47,6 @@ public class TransactionService {
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
     private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
 
-    protected DataSource dataSource = DataSource.getInstance();
 
 
     public OrderViewModel buidOrderViewModel(int userId, String itemTypeId, String expireDays) {
@@ -86,7 +85,9 @@ public class TransactionService {
                     item.setStatusDate(Timestamp.from(Instant.now()));
                 }
                 TransactionDTO transactionDTO = new TransactionDTO(0, EnumTransactionType.PURCHASE.getValue(), listingId, userId, quantity, Timestamp.from(Instant.now()));
-                try (Connection connection = dataSource.createConnection(); PreparedStatement statement1 = itemDao.prepareUpdateStatement(item); PreparedStatement statement2 = transationDao.prepareInsertStatement(transactionDTO)) {
+                try (
+                        Connection connection = MyDataSource.getConnection(); 
+                        PreparedStatement statement1 = itemDao.prepareUpdateStatement(connection,item); PreparedStatement statement2 = transationDao.prepareInsertStatement(connection,transactionDTO)) {
                     // Executing both statements
                     statement1.executeUpdate();
                     statement2.executeUpdate();
