@@ -106,4 +106,18 @@ public class ItemListingService {
 
         return null;
     }
+
+    public DonationViewModelItem buidDonationViewModelItem(int id) {
+        ItemListingDTO listingItem = itemListingDao.Retrieve(id);
+        if (listingItem != null) {
+            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+            if (item != null) {
+                DonationViewModelItem viewItem = DonationViewModelItem.convertFrom(listingItem, item,
+                        typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
+                return viewItem;
+            }
+        }
+
+        return null;
+    }
 }

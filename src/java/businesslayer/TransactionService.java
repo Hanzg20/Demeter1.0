@@ -102,4 +102,32 @@ public class TransactionService {
 
         return false;
     }
+
+    public boolean donate(int userId, int quantity, int listingId) {
+        ItemListingDTO listingItem = itemListingDao.Retrieve(listingId);
+        if (listingItem != null) {
+            ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+            if (item != null && item.getQuantity() >= quantity) {
+                item.setQuantity(item.getQuantity() - quantity);
+                if (item.getQuantity() == 0) {
+                    item.setStatus(EnumStatusType.SOLD.getSymbol());
+                    item.setStatusDate(Timestamp.from(Instant.now()));
+                }
+                TransactionDTO transactionDTO = new TransactionDTO(0, EnumTransactionType.CLAIM.getValue(), listingId, userId, quantity, Timestamp.from(Instant.now()));
+                try (
+                        Connection connection = MyDataSource.getConnection(); PreparedStatement statement1 = itemDao.prepareUpdateStatement(connection, item); PreparedStatement statement2 = transationDao.prepareInsertStatement(connection, transactionDTO)) {
+                    // Executing both statements
+                    statement1.executeUpdate();
+                    statement2.executeUpdate();
+                    // Committing the transaction                    
+                    return true;
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+        return false;
+    }
 }
