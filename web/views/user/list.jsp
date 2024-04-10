@@ -31,10 +31,10 @@
                                 <thead>
                                     <tr>
                                         <th>User ID</th>
-                                        <th>Name</th>
-                                        <th>Role Name</th>
-                                        <th>Email</th>
-                                        <th>Password</th>
+                                        <th>User Name</th>
+                                        <th>Role</th>
+                                        <th>Email</th> 
+                                        <th>Create Date</th> 
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -45,10 +45,10 @@
                                             <td>${user.name}</td>
                                             <td>${user.roleName}</td>
                                             <td>${user.email}</td>
-                                            <td>${user.password}</td>
+                                            <td>${user.createDate}</td>
                                             <td>
                                                 <form action="EditUserServlet" method="get">
-                                                    <input type="hidden" name="userId" value="${user.userId}">
+                                                    <a href="edit?id=${user.userId}">Edit</a>
                                                     <input type="submit" value="Edit">
                                                 </form>
                                             </td>

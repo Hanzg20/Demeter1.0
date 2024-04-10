@@ -41,4 +41,8 @@ public class UserService {
         viewModel.setRoleOptions(roleDao.RetrieveAll());
         return viewModel;
     }
+
+    public Object buidUserEditViewModel(int parseInt) {
+        return null;
+    }
 }

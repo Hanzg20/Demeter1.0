@@ -19,6 +19,16 @@ public class UserControllerServlet extends HttpServlet {
        String action = request.getPathInfo();
 
         switch (action) {
+            case "/edit":
+                String idForEdit = request.getParameter("id");
+                if (idForEdit == null) {
+                    NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not id."));
+                } else {
+                    request.setAttribute("viewModel", dataServices.buidUserEditViewModel(Integer.parseInt(idForEdit)));
+                    NavigationHelper.goTo(request, response, "/views/inventory/edit.jsp");
+                }
+
+                break;
             default:
                 String role = request.getParameter("role");
                 request.setAttribute("viewModel", dataServices.buidUserViewModel());
