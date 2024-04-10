@@ -28,6 +28,8 @@ import model.ItemTypeDTO;
 import model.LocationDTO;
 import model.TransactionDTO;
 import model.UserDTO;
+import viewmodel.ClaimViewModel;
+import viewmodel.ClaimViewModelItem;
 import viewmodel.OrderViewModel;
 import viewmodel.OrderViewModelItem;
 
@@ -56,6 +58,13 @@ public class TransactionService {
         return viewModel;
     }
     
+    public ClaimViewModel buidClaimViewModel(int userId, String itemTypeId, String expireDays) {
+        ClaimViewModel viewModel = new ClaimViewModel();
+        viewModel.setItems(retrieveClaimItemList(userId,itemTypeId, expireDays));
+        viewModel.setTypeOptions(typeDao.RetrieveAll());
+        return viewModel;
+    }
+    
     private List<OrderViewModelItem> retrieveOrderItemList(int userId,String itemType, String daysExpireDays) {
         List<TransactionDTO> items = transationDao.RetrieveList(userId);
         List<OrderViewModelItem> result = new ArrayList<>();
@@ -65,6 +74,23 @@ public class TransactionService {
                 ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
                 if (item != null && (itemType == null || "".equals(itemType) || Integer.parseInt(itemType)==item.getItemTypeId())) {
                     OrderViewModelItem viewItem = OrderViewModelItem.convertFrom(transactionDTO,listingItem, item,
+                            typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
+                    result.add(viewItem);
+                }
+            }
+
+        });
+        return result;
+    }
+    private List<ClaimViewModelItem> retrieveClaimItemList(int userId,String itemType, String daysExpireDays) {
+        List<TransactionDTO> items = transationDao.RetrieveList(userId);
+        List<ClaimViewModelItem> result = new ArrayList<>();
+        items.forEach(transactionDTO -> {
+            ItemListingDTO listingItem = itemListingDao.Retrieve(transactionDTO.getListingId());
+            if (listingItem != null) {
+                ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
+                if (item != null && (itemType == null || "".equals(itemType) || Integer.parseInt(itemType)==item.getItemTypeId())) {
+                    ClaimViewModelItem viewItem = ClaimViewModelItem.convertFrom(transactionDTO,listingItem, item,
                             typeDao.Retrieve(item.getItemTypeId()), locationDao.Retrieve(item.getLocationId()));
                     result.add(viewItem);
                 }
@@ -103,7 +129,7 @@ public class TransactionService {
         return false;
     }
 
-    public boolean donate(int userId, int quantity, int listingId) {
+    public boolean claim(int userId,  int listingId, int quantity)  {
         ItemListingDTO listingItem = itemListingDao.Retrieve(listingId);
         if (listingItem != null) {
             ItemDTO item = itemDao.Retrieve(listingItem.getItemId());
@@ -130,4 +156,6 @@ public class TransactionService {
 
         return false;
     }
+
+    
 }
