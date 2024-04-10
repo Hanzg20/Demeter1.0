@@ -1,6 +1,7 @@
 
 package controller;
 
+import businesslayer.AuthService;
 import businesslayer.TransactionService;
 import businesslayer.NavigationHelper;
 import dataaccesslayer.DAO;
@@ -20,6 +21,7 @@ import model.ItemListingDTO;
  */
 @WebServlet(name = "OrderControllerServlet", urlPatterns = {"/order/*"})
 public class OrderControllerServlet extends HttpServlet {
+    AuthService authService = new AuthService();
 
     private final TransactionService dataService = new TransactionService();
     
@@ -39,17 +41,19 @@ public class OrderControllerServlet extends HttpServlet {
         String action = request.getPathInfo();
         switch(action)
         {
-            case "/order":
-                NavigationHelper.goTo(request,response,"/views/sale/order.jsp");
-                break;
-            case "/orders":
-                NavigationHelper.goTo(request,response,"/views/sale/orders.jsp");
-                break;
             default:
-                String itemType = request.getParameter("itemType");
-                String expireDays = request.getParameter("expireDays");
-                request.setAttribute("viewModel", dataService.buidOrderViewModel(itemType, expireDays));
-                NavigationHelper.goTo(request,response,"/views/sale/list.jsp");
+                if(authService.isLoggedIn(request))
+                {
+                    String itemType = request.getParameter("itemType");
+                    String expireDays = request.getParameter("expireDays");
+                    request.setAttribute("viewModel", dataService.buidOrderViewModel(authService.getUserId(request),itemType, expireDays));
+                    NavigationHelper.goTo(request, response, "/views/order/list.jsp");
+                }
+                else
+                {
+                    NavigationHelper.HandleError(response, new Exception("Bad Reqeust with not login user."));
+                }
+
             break;
             
           }

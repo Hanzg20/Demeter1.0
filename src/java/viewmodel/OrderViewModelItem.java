@@ -9,6 +9,7 @@ import model.ItemDTO;
 import model.ItemListingDTO;
 import model.ItemTypeDTO;
 import model.LocationDTO;
+import model.TransactionDTO;
 
 /**
  *
@@ -25,7 +26,7 @@ public class OrderViewModelItem {
     private Timestamp expirDate;   
     private String address;
     private double discountRate;
-    
+    private Timestamp tranDate;
 
     public int getListingId() {
         return listingId;
@@ -98,19 +99,28 @@ public class OrderViewModelItem {
     public void setDiscountRate(double discountRate) {
         this.discountRate = discountRate;
     }
+
+    public Timestamp getTranDate() {
+        return tranDate;
+    }
+
+    public void setTranDate(Timestamp tranDate) {
+        this.tranDate = tranDate;
+    }
     
     
 
-    public static OrderViewModelItem convertFrom(ItemListingDTO itemListingDTO,
+    public static OrderViewModelItem convertFrom(TransactionDTO transactionDTO, ItemListingDTO itemListingDTO,
             ItemDTO itemDTO, ItemTypeDTO itemTypeDTO, LocationDTO locationDTO) 
     {
         OrderViewModelItem result = new OrderViewModelItem();
         result.setListingId(itemListingDTO.getListingId());
+        result.setTranDate(transactionDTO.getTranDate());
         result.setListingDate(itemListingDTO.getListingDate());
         result.setItemName(itemDTO.getItemName());
         result.setUnit(itemDTO.getUnit());
         result.setItemTypeName(itemTypeDTO.getItemTypeName());
-        result.setQuantity(itemDTO.getQuantity());
+        result.setQuantity(transactionDTO.getQuantity());
         result.setExpirDate(itemDTO.getExpirDate());
         result.setAddress(locationDTO.getAddress());
         result.setDiscountRate(itemListingDTO.getDiscountRate());
