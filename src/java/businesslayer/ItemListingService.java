@@ -5,7 +5,7 @@
 package businesslayer;
 
 import dataaccesslayer.DAO;
-import dataaccesslayer.DataSource;
+import dataaccesslayer.MyDataSource;
 import dataaccesslayer.ItemDaoImpl;
 import dataaccesslayer.ItemListingDaoImpl;
 import dataaccesslayer.ItemTypeDaoImpl;
@@ -50,7 +50,6 @@ public class ItemListingService {
 
     private final ItemListingDaoImpl itemListingDao = new ItemListingDaoImpl();
     private final TransactionDaoImpl transationDao = new TransactionDaoImpl();
-    protected DataSource dataSource = DataSource.getInstance();
 
     public DonationViewModel buidDonationViewModel(String itemType, String expireDays) {
         DonationViewModel viewModel = new DonationViewModel();
