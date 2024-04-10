@@ -46,7 +46,7 @@
                             <li><a class="J_menuItem" href="${ctx}/auth/login">Login</a></li>
                               <li><a class="J_menuItem" href="${ctx}/auth/profile" >Profile</a></li>
                             <li><a class="J_menuItem" href="${ctx}/auth/register">Register</a></li> 
-                            <li><a class="J_menuItem" href="${ctx}/auth/users">User Lists</a></li> 
+                            <li><a class="J_menuItem" href="${ctx}/user/">User Lists</a></li> 
                         </ul>
                     </li>
 

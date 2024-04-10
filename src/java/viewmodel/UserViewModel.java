@@ -31,7 +31,7 @@ public class UserViewModel {
         return roleOptions;
     }
 
-    public void setTypeOptions(List<RoleDTO> roleOptions) {
+    public void setRoleOptions(List<RoleDTO> roleOptions) {
         this.roleOptions = roleOptions;
     }
 
